@@ -485,7 +485,7 @@ maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, over
     layout(matrix(c(1,2),1,2),width=c(8,2))
     par(mar=c(4,4,5,3))
     do.call("maImage.func",args)
-    par(mar=c(3,0,3,1))
+    par(mar=c(3,0,3,3))
     maColorBar(x.bar,horizontal=FALSE,col=col,main="")
     layout(1)
     par(mar=c(5,4,4,2) + 0.1)
