@@ -358,6 +358,33 @@ if(!isGeneric("maW"))
    setGeneric("maW", function(object) standardGeneric("maW"))
 setMethod("maW", "marrayNorm", function(object) slot(object, "maW"))
 
+##############
+# Methods for quantities that are not slots of marrayRaw
+
+if(!isGeneric("maLR"))
+   setGeneric("maLR", function(object) standardGeneric("maLR"))
+setMethod("maLR", "marrayNorm",
+          function(object)
+          {
+            M <- maM(object)
+            A <- maA(object)
+            r <- M/2 + A
+            r
+          }
+          )
+
+if(!isGeneric("maLG"))
+  setGeneric("maLG", function(object) standardGeneric("maLG"))
+setMethod("maLG", "marrayNorm",
+          function(object)
+          {
+            M <- maM(object)
+            A <- maA(object)
+            g <- A - M/2
+            g
+          }
+          )
+
 #########################
 # maLayout slots
 

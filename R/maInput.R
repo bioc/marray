@@ -342,7 +342,7 @@ read.GenePix <-  function(fnames = NULL,
       {
         if(DEBUG) print("Reading Galfile ... ")
         opt <- list(...)
-        defs <- list(galfile = fullnames[1], path=path, info.id = c("Name", "ID"),
+        defs <- list(galfile = fullnames[1], path=path, info.id = c("ID", "Name"),
                      labels = "ID", sep = sep, quote=quote, fill=TRUE, check.names=FALSE,
                      as.is=TRUE, ncolumns = 4)
         gal.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.Galfile")))        
@@ -350,6 +350,7 @@ read.GenePix <-  function(fnames = NULL,
         if(is.null(gnames)) gnames <- gal$gnames
         if(is.null(layout)) layout <- gal$layout
         if(DEBUG) print("done \n ")
+        setgal <- TRUE
       }
 
     print(layout@maControls)
@@ -359,12 +360,12 @@ read.GenePix <-  function(fnames = NULL,
         if(DEBUG) cat("Generate controls \n")
         GenControls.args <- maDotsMatch(maDotsMatch(opt, list(Gnames=gnames)), formals(args("maGenControls"))) 
         layout@maControls <- as.factor(do.call("maGenControls", GenControls.args))
-        print(table(layout@maControls))
+        if(DEBUG) print(table(layout@maControls))
       }
     if(DEBUG) cat("done \n ")
     
     if(is.null(notes)) notes <- "GenePix Data"
-
+    
     if(DEBUG) cat("Calling read.marrayRaw ... \n")
     defs <- list(fnames = fullnames, path=path,
                  name.Gf = name.Gf, name.Gb=name.Gb, name.Rf=name.Rf, name.Rb=name.Rb,
@@ -374,10 +375,13 @@ read.GenePix <-  function(fnames = NULL,
     maRaw.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.marrayRaw")))        
     mraw <- do.call("read.marrayRaw", maRaw.args)
 
-    ## Checking orders
-    mraw <- mraw[gal$neworder,]
-    ## make sure the reordering doesn't affect the subset fucntion.  
-    mraw@maLayout@maSub <- layout@maSub
+    if(setgal)
+      {
+        ## Checking orders
+        mraw <- mraw[gal$neworder,]
+        ## make sure the reordering doesn't affect the subset fucntion.  
+        mraw@maLayout@maSub <- layout@maSub
+      }
     
     return(mraw)
   }
