@@ -6,7 +6,7 @@
   Reading a standard Gal file containing gene information.
 }
 \usage{
-read.Galfile(galfile, path = ".", info.id = c("Name", "ID"),
+read.Galfile(galfile, path = ".", info.id = c("ID", "Name"),
 layout.id =c(Block="Block", Row="Row", Column="Column"),
 labels = "ID", notes = "", sep = "\t", skip = NULL,   ncolumns=4, ...)
 }

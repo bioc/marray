@@ -147,7 +147,7 @@ read.marrayRaw<-
     
   if(is.null(layout))
     {
-      nspots <- length(readLines("5912.xls")) - skip - 1
+      nspots <- length(readLines(fullfnames[1])) - skip - 1
       if(DEBUG) cat(nspots, "of rows \n")
     }
   else
@@ -159,24 +159,24 @@ read.marrayRaw<-
   if(!is.null(name.Gf)) Gf <- Y
   if(!is.null(name.Gb)) Gb <- Y
   if(!is.null(name.Rb)) Rb <- Y
-  if(!is.null(name.W)) {W <- Y; print("hi")}
+  if(!is.null(name.W)) W <- Y
   
   for(f in fullfnames)
   {
+    cat("Reading ... ", f)
+
+    ## Calculate Skip
     if(is.null(skip))
       {
-        y <- readLines(fullfnames[1], n=100)
+        if(DEBUG) cat("Calculating skip  ... ")
+        y <- readLines(f, n=100)
         skip <- grep(name.Gf, y)[1] - 1
-      if(DEBUG) cat(skip, "done \n")
+        if(DEBUG) cat(skip, "done \n")
       }
-    
-    ## Calculate Skip
-    if(DEBUG) cat("Calculating skip  ... ")
-   
-    cat("Reading ... ", f)
     dat <- read.table(f, skip = skip, header = TRUE, 
                       sep = sep, as.is = TRUE, quote = quote, check.names = FALSE, 
                       comment.char = "", nrows = nspots, ...)
+
     if(!is.null(name.Gf)) Gf[,f]<- dat[, name.Gf]
     if(!is.null(name.Gb)) Gb[,f]<- dat[, name.Gb]
     if(!is.null(name.Rf)) Rf[,f]<-dat[, name.Rf]
@@ -329,7 +329,7 @@ read.GenePix <-  function(fnames = NULL,
 
 read.Galfile <- function (galfile,
                           path=".",
-                          info.id = c("Name", "ID"),
+                          info.id = c("ID", "Name"),
                           layout.id =c(Block="Block", Row="Row", Column="Column"),
                           labels = "ID",
                           notes = "",
@@ -354,11 +354,11 @@ read.Galfile <- function (galfile,
   dat <- do.call("read.table", read.args)
   
   ## Gnames
-
   descript <- new("marrayInfo", maNotes = notes)
   if (is.null(info.id))
     info.id <- 1:ncol(dat)
   maInfo(descript) <- data.frame(dat[,info.id])
+  rownames(descript@maInfo) <- as.vector(dat[,info.id[1]])
   
   if (length(labels) == nrow(dat))
     maLabels(descript) <- as.vector(labels)

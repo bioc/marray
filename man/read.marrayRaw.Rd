@@ -21,8 +21,8 @@ name.Gb ="B532 Median", name.Rf = "F635 Median", name.Rb = "B635 Median",
 name.W ="Flags", layout = NULL, gnames = NULL, targets = NULL,
 notes = NULL, skip=NULL, sep = "	", quote = "\"", DEBUG=FALSE, ...)
 
-read.SMD(fnames = NULL, path = ".", name.Gf = "CH1I_MEAN",
-                 name.Gb = "CH1B_MEDIAN", name.Rf = "CH2I_MEAN",
+read.SMD(fnames = NULL, path = NULL, name.Gf = "CH1I_MEDIAN",
+                 name.Gb = "CH1B_MEDIAN", name.Rf = "CH2I_MEDIAN",
                  name.Rb = "CH2B_MEDIAN", name.W = NULL, layout =
                  NULL, gnames = NULL, targets = NULL, notes = NULL,
                  skip = NULL, sep = "\t", quote = "\"", DEBUG=FALSE, ...)
@@ -31,8 +31,7 @@ read.Spot(fnames = NULL, path = ".", name.Gf = "Gmean", name.Gb =
 "morphG", name.Rf = "Rmean", name.Rb = "morphR",name.W = NULL, layout =
 NULL, gnames = NULL, targets = NULL, notes = NULL, skip = NULL, sep = "	", quote = "\"", ...)
 
-widget.marrayRaw(ext = c("spot", "xls", "gpr"), skip = 0, sep = "\t",
-                 quote = "\"", ...)
+widget.marrayRaw(ext = c("spot", "xls", "gpr"), skip = 0, sep = "\t",  quote = "\"", ...)
 }
 
 \arguments{
@@ -56,7 +55,10 @@ widget.marrayRaw(ext = c("spot", "xls", "gpr"), skip = 0, sep = "\t",
   \item{sep}{the field separator character.  Values on each line of the
     file are separated by this character. The
     default is to read a tab delimited file.}
-  \item{quote}{the set of quoting characters. By default, this is disabled by setting \code{quote="\""}.}
+  \item{quote}{the set of quoting characters. By default, this is
+    disabled by setting \code{quote="\""}.}
+  \item{ext}{a characters string representing suffix of different image
+    analysis output files.}
   \item{DEBUG}{a logical value, if TRUE, a series of echo statements will be printed.}
   \item{\dots}{further arguments to \code{\link{scan}}.}
 }

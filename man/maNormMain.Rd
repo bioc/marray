@@ -57,27 +57,9 @@ data(swirl)
 # - Default normalization
 swirl.norm<-maNormMain(swirl)
 
-## Only do the plotting if we have marrayPlots.  Record if
-## we have it or not in 'haveMP' boolean variable
-haveMP <- FALSE
-if (require("marrayPlots", quietly=TRUE)) {
-   haveMP <- TRUE
-   maBoxplot(swirl.norm)
-   maBoxplot(swirl.norm[,3])
-   maPlot(swirl.norm[,3])
-   maImage(swirl.norm, x="maMloc")
-   maImage(swirl.norm, x="maM")
-} 
-
-# 2D spatial location normalization of array 93
-swirl.norm <- maNormMain(swirl[,3], f.loc = list(maNorm2D()))
-
-if (haveMP) {
-  maImage(swirl, x="maM")
-  maImage(swirl.norm, x="maMloc")
-  maImage(swirl.norm, x="maM")
-}
-
+boxplot(swirl.norm)
+boxplot(swirl.norm[,3])
+plot(swirl.norm[,3])
 
 # Global median normalization for arrays 81 and 82
 swirl.norm <- maNormMain(swirl[,1:2], f.loc = list(maNormMed(x=NULL,y="maM")))
@@ -89,8 +71,6 @@ swirl.norm <- maNormMain(swirl[,1], f.loc = list(maNormLoess(x="maA",y="maM",z=N
 # No MSP controls are available here, so all spots are used for illustration
 # purposes
 swirl.norm <- maNormMain(swirl[,1], f.loc = list(maNormLoess(x="maA",y="maM",z=NULL),maNormLoess(x="maA",y="maM",z="maPrintTip")), a.loc=maCompNormA())
-
-
 }
 \keyword{smooth}% at least one, from doc/KEYWORDS
 \keyword{methods}% __ONLY ONE__ keyword per line
