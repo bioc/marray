@@ -9,4 +9,5 @@ Description: Class definitions for two-color spotted  microarray data. Fuctions 
 License: LGPL
 URL: http://www.biostat.ucsf.edu/jean
 Collate: maClasses.R maGet.R maSet.R maPrint.R maSubset.R maBind.R maComp.R maDots.R  gpWrap.R spotWrap.R maInput.R maNorm.R maOutput.R maWidget.R maBasicPlots.R maPlots.R  maPlots2.R maPlots3.R maAnnotate.R maQuality.R maRankGenes.R maSMA.R maSearch.R maStat.R maWrap.R
+ReleaseLevel: devel
 
