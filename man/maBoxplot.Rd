@@ -37,32 +37,7 @@ S. Dudoit and Y. H. Yang. (2002). Bioconductor R packages for exploratory analys
 \seealso{\code{\link{boxplot}}, \code{\link{maDefaultPar}}.}
 
 \examples{
-
-# To see the demo type demo(marrayPlots)
-
-# Examples use swirl dataset, for description type ? swirl
-data(swirl)
-
-# Boxplots of pre-normalization log-ratios M for each of the 16 
-# print-tip-groups for the Swirl 93 array. 
-# - Default arguments
-maBoxplot(swirl[,3])  
-
-# All spots 
-maBoxplot(swirl[,3], x=NULL, col="green")  
-
-# Boxplots of pre-normalization red foreground intensities for each grid row
-# for the Swirl 81 array. 
-maBoxplot(swirl[,1], x="maGridRow", y = "maRf", main = "Swirl array 81: pre-normalization red foreground intensity")
-
-# Boxplots of pre-normalization log-ratios for each array in swirl
-maBoxplot(swirl, main="Swirl arrays: pre-normalization log-ratios")
-
-# Boxplots for marrayTwo class
-two<-new("marrayTwo", maX=maA(swirl), maY=maM(swirl), maLayout=maLayout(swirl), maTargets=maTargets(swirl))
-maBoxplot(two, y="maX", col="purple")
-
-
+## see example in boxplot
 }
 \keyword{hplot}% at least one, from doc/KEYWORDS
 

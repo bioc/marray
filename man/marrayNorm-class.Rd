@@ -165,33 +165,28 @@ Objects can be created by calls of the form
 \examples{
 # Examples use swirl dataset, for description type ? swirl
 
-# data(swirl)
+data(swirl)
 
-# Normalization is done using functions from the marrayNorm package
-# library(marrayNorm)
-
-# Within-print-tip-group loess location normalization
-# mnorm<-maNorm(swirl[,2:3],norm="p")
+# Median normalization
+mnorm<-maNorm(swirl[,2:3],norm="m")
 
 # Object of class marrayNorm for the second and third swirl arrays
-# mnorm
+mnorm
 
 # Function call
-# maNormCall(mnorm)
+maNormCall(mnorm)
 
 #  Object of class marrayInfo -- Probe sequences
-# maGnames(mnorm)
+maGnames(mnorm)
 
 #  Object of class marrayInfo -- Target samples
-# maTargets(mnorm)
+ maTargets(mnorm)
 
 # Density plot of log-ratios M for third array
-# plot(density(maM(mnorm[,2])), lwd=2, col=2, main="Density plots of log-ratios M")
-# lines(density(maM(swirl[,3])), lwd=2)
-# abline(v=0)
-# legend(2,1,c("Pre-normalization","Post-normalization"))
-
-
+plot(density(maM(mnorm[,2])), lwd=2, col=2, main="Density plots of log-ratios M")
+lines(density(maM(swirl[,3])), lwd=2)
+abline(v=0)
+legend(2,1,c("Pre-normalization","Post-normalization"))
 }
 
 \keyword{classes}

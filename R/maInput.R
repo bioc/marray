@@ -400,13 +400,15 @@ read.Galfile <- function (galfile,
     maLabels(descript) <- as.character(dat[,labels])
   }
   ## Layout
-  
+##  headerinfo <- readGPRHeaders(f)
   idB <- grep("Block", colnames(dat));  ##Lblock <- dat[,id]
   idR<- grep("Row", colnames(dat));  ##Lrow <- dat[,id]
   idC <- grep("Column", colnames(dat)); ## Lcolumn <- dat[,id]
-  mlayout <- maCompLayout(dat[,c(idB, idR, idC)])
-  
-##  ngr <- max(Lblock) / ncolumns
+##  if(is.null(headerinfo))
+##    ncolumns <- 
+  mlayout <- maCompLayout(dat[,c(idB, idR, idC)], ncolumns)
+
+  ##  ngr <- max(Lblock) / ncolumns
 ##   ngc <- ncolumns
 ##   nsr <- max(Lrow)
 ##   nsc <- max(Lcolumn)
@@ -423,3 +425,153 @@ read.Galfile <- function (galfile,
   return(list(gnames = descript, layout=mlayout))
 }
 
+read.SMD2 <- function(fnames = NULL, path = ".", name.Gf = "CH1I_MEAN", 
+    name.Gb = "CH1B_MEDIAN", name.Rf = "CH2I_MEAN", name.Rb = "CH2B_MEDIAN", 
+    name.W = NULL, layout = NULL, gnames = NULL, targets = NULL, notes = NULL, 
+    skip = 0, sep = "\t", quote = "", ...) {
+
+    if (is.null(fnames)) 
+        fnames <- dir(path = path, pattern = paste("*", "xls", sep = "."))
+    if (is.null(path)) 
+        fullfnames <- fnames
+    else
+        fullfnames <- file.path(path, fnames)
+    y <- readLines(fullfnames[1], n = 100)
+    skip <- grep(name.Gf, y)[1] - 1
+    smdTable <- NULL
+    
+    if (is.null(layout)) {
+    
+        cat("Generating layout from ", fnames[1], "\n", sep="")
+        smdTable <- read.table(fullfnames[1], header=TRUE, sep="\t", 
+                               quote = "", skip = skip, comment.char = "")
+    
+        numSectors <- max(smdTable$SECTOR)
+        xsize <- max(smdTable$X.COORD) - min(smdTable$X.COORD)
+        ysize <- max(smdTable$Y.COORD) - min(smdTable$Y.COORD)
+        
+        maNgr <- round(sqrt(numSectors*ysize/xsize))
+        maNgc <- round(sqrt(numSectors*xsize/ysize))
+        if (is.na(maNgr)) {
+            row <- grep("Exptid", y)[1]
+            exptid <- strsplit(y[row], "=")[[1]][2]
+            cat("Image: http://genome-www5.stanford.edu/cgi-bin/SMD/clickable.pl?exptid=",
+                exptid, "\n", sep = "")
+            options(warn = getOption("warn")-1)
+            repeat {
+                cat("Enter number of vertical sectors (", numSectors, 
+                    " total sectors): ", sep = "")
+                maNgr <- as.integer(readLines(n = 1))
+                if (!is.na(maNgr) && maNgr > 0 && maNgr < numSectors &&
+                    numSectors/maNgr == as.integer(numSectors/maNgr))
+                    break
+            }
+            options(warn = getOption("warn")+1)
+            maNgc <- numSectors / maNgr
+        }
+        
+        row <- grep("Rows per Sector", y)[1]
+        maNsr <- as.integer(strsplit(y[row], "=")[[1]][2])
+        row <- grep("Columns per Sector", y)[1]
+        maNsc <- as.integer(strsplit(y[row], "=")[[1]][2])
+        
+        maNspots <- maNgr * maNgc * maNsr * maNsc
+        
+        maSub <- rep(FALSE, maNspots)
+        maSub[smdTable$SPOT] <- TRUE
+        
+        row <- grep("Printname", y)[1]
+        printname <- strsplit(y[row], "=")[[1]][2]
+        row <- grep("Tip Configuration", y)[1]
+        tipconfig <- strsplit(y[row], "=")[[1]][2]
+        maNotes <- paste("Print Name: ", printname, 
+                         "\nTip Configuration: ", tipconfig, sep = "")
+        
+        layout <- new("marrayLayout", maNgr = maNgr, maNgc = maNgc, 
+                      maNsr = maNsr, maNsc = maNsc, maNspots = maNspots, 
+                      maSub = maSub, maNotes = maNotes)
+    }
+    
+    if (is.null(gnames)) {
+    
+        cat("Generating probe sequence info from ", fnames[1], "\n", sep="")
+        if (is.null(smdTable))
+            smdTable <- read.table(fullfnames[1], header=TRUE, sep="\t", 
+                                   quote = "", skip = skip, comment.char = "")
+        maLabels <- as.character(smdTable$SUID)
+        cols <- 2:(match("SUID", colnames(smdTable))-1)
+        maInfo <- smdTable[,cols]
+        
+        gnames <- new("marrayInfo", maLabels = maLabels, maInfo = maInfo)
+    }
+    
+    if (is.null(targets)) {
+    
+        cat("Generating target sample info from all files\n")
+        maLabels <- character(0)
+        maInfo <- data.frame()
+        for (i in 1:length(fnames)) {
+             z <- readLines(fullfnames[i], n = skip)
+             row <- grep("Exptid", z)[1]
+             maLabels <- c(maLabels, strsplit(z[row], "=")[[1]][2])
+             row <- grep("Experiment Name", z)[1]
+             Experiment <- strsplit(z[row], "=")[[1]][2]
+             row <- grep("Channel 1 Description", z)[1]
+             Cy3 <- strsplit(z[row], "=")[[1]][2]
+             row <- grep("Channel 2 Description", z)[1]
+             Cy5 <- strsplit(z[row], "=")[[1]][2]
+             row <- grep("SlideName", z)[1]
+             SlideName <- strsplit(z[row], "=")[[1]][2]
+             maInfo <- rbind(maInfo, data.frame(Experiment = Experiment,
+                                                Cy3 = Cy3, Cy5 = Cy5, 
+                                                SlideName = SlideName))
+        }
+        rownames(maInfo) <- 1:dim(maInfo)[1]
+        
+        targets <- new("marrayInfo", maLabels = maLabels, maInfo = maInfo)
+    }
+    
+    if (is.null(notes)) {
+        
+        cat("Generating notes from ", fnames[1], "\n", sep="")
+        row <- grep("Organism", y)[1]
+        organism <- strsplit(y[row], "=")[[1]][2]
+        row <- grep("Category", y)[1]
+        category <- strsplit(y[row], "=")[[1]][2]
+        row <- grep("Subcategory", y)[1]
+        subcategory <- strsplit(y[row], "=")[[1]][2]
+        row <- grep("Description", y)[1]
+        description <- strsplit(y[row], "=")[[1]][2]
+        row <- grep("Experimenter", y)[1]
+        experimenter <- strsplit(y[row], "=")[[1]][2]
+        row <- grep("Contact email", y)[1]
+        email <- strsplit(y[row], "=")[[1]][2]
+        row <- grep("Scanning Software", y)[1]
+        software <- strsplit(y[row], "=")[[1]][2]
+        row <- grep("Software version", y)[1]
+        version <- strsplit(y[row], "=")[[1]][2]
+        row <- grep("Scanning parameters", y)[1]
+        parameters <- strsplit(y[row], "=")[[1]]
+        if (length(parameters) > 1)
+            parameters <- paste(parameters[2:length(parameters)], collapse = ", ")
+        else
+            parameters <- NA
+        
+        notes <- paste("Organism: ", organism, 
+                       "\nCategory: ", category, 
+                       "\nSubcategory: ", subcategory, 
+                       "\nDescription: ", description, 
+                       "\nExperimenter: ", experimenter, 
+                       "\nE-Mail: ", email,
+                       "\nScanning Software: ", software, " ", version,
+                       "\nScanning Parameters: ", parameters, sep = "")
+    }
+    
+    mraw <- read.marrayRaw(fnames = fnames, path = path, name.Gf = name.Gf, 
+        name.Gb = name.Gb, name.Rf = name.Rf, name.Rb = name.Rb, 
+        name.W = name.W, layout = layout, gnames = gnames, targets = targets, 
+        notes = notes, skip = skip, sep = sep, quote = quote, 
+        ...)
+    
+    return(mraw)
+}

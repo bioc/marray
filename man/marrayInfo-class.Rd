@@ -26,7 +26,7 @@
 \alias{maTargets<-,marrayNorm,marrayInfo-method}
 \alias{print,marrayInfo-method}
 \alias{rbind,marrayInfo-method}
-\alias{show,marrayInfo-method}
+\alias{summary,marrayInfo-method}
 
 \title{Class "marrayInfo", description of target samples or spotted probe sequences}
 

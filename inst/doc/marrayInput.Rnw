@@ -14,22 +14,20 @@
 
 \begin{document}
 
-\title{\bf Introduction to the Bioconductor marrayInput package}
+\title{\bf Introduction to the Bioconductor marray package : Input component}
 
 \author{Yee Hwa Yang$^1$ and Sandrine Dudoit$^2$}
 
 \maketitle
-
-
 \begin{center}
-1. Department of Statistics, University of California, Berkeley,
-   {\tt yeehwa@stat.berkeley.edu}\\
+1. Department of Medicine, University of California, San Francisco,
+   {\tt jean@biostat.berkeley.edu}\\
 2. Division of Biostatistics, University of California, Berkeley,
    \url{http://www.stat.berkeley.edu/~sandrine}
 \end{center}
 
 
-%Rnwfile<- file.path("/home/sandrine/CVS_stuff/madman/Rpacks/marrayInput/inst/doc/marrayInput.Rnw")
+%Rnwfile<- file.path("/home/sandrine/CVS_stuff/madman/Rpacks/marray/inst/doc/marrayInput.Rnw")
 %Sweave(Rnwfile,pdf=TRUE,eps=TRUE,stylepath=TRUE,driver=RweaveLatex())
 
 \tableofcontents
@@ -37,72 +35,42 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview}
 
-This document provides a tutorial for the {\tt marrayInput} package,
-which is part of a suite of four packages for diagnostic plots and
-normalization of cDNA microarray data. Like most Bioconductor packages,
-these four packages rely on the object--oriented class/method mechanism,
+This document provides a tutorial for the {\bf data input} component of
+the {\tt marray} package.  This is similar to the previous {\tt
+marrayInput} package which has now been combined with the suite of other
+four packages for diagnostic plots and normalization of cDNA microarray
+data.  This package relies on object--oriented class/method mechanism,
 provided by the R {\tt methods} package, to allow efficient and
-systematic representation and manipulation of microarray data. {\tt
-marrayInput} provides functionality for reading microarray data into R,
-such as intensity data from image processing output files (e.g. {\tt
+systematic representation and manipulation of microarray data. 
+
+This vignette describeds functionality for reading microarray data into
+R, such as intensity data from image processing output files (e.g. {\tt
 .spot} and {\tt .gpr} files for the {\tt Spot} and {\tt GenePix}
 packages, respectively) and textual information on probes and targets
 (e.g. from gal files and god lists). A {\tt tcltk} widget is supplied to
 facilitate and automate data input and the creation of microarray
-specific R objects for storing these data. The other three packages are
-
-\begin{description}
-\item {\tt marrayClasses}.  This package contains basic class
-  definitions and associated methods for pre-- and post--normalization
-  intensity data for batches of arrays.
-\item {\tt marrayPlot}. This package provides functions for diagnostic plots
-  of microarray spot statistics, such as boxplots, scatter--plots, and
-  spatial color images. Examination of diagnostic plots of intensity
-  data is important in order to identify printing, hybridization, and
-  scanning artifacts which can lead to biased inference concerning
-  gene expression.
-\item {\tt marrayNorm}. This package implements robust adaptive location and
-  scale normalization procedures, which correct for different types of
-  dye biases (e.g. intensity, spatial, plate biases) and allow the use
-  of control sequences spotted onto the array and possibly spiked into
-  the mRNA samples. Normalization is needed to ensure that observed
-  differences in intensities are indeed due to differential expression
-  and not experimental artifacts; fluorescence intensities should
-  therefore be normalized before any analysis which involves
-  comparisons among genes within or between arrays.
-\end{description}
+specific R objects for storing these data. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Getting started}
 
-{\bf Installing the package.} To install the {\tt marrayInput} package
-for Windows operating systems, first download the file {\tt
-marrayInput-snapshot.zip} from the Bioconductor website
-\url{http://www.bioconductor.org/packages/html/marrayInput.html}.
-Next, after starting R, from the menu select {\tt Packages}, then {\tt
-Install package from local zip file...}.  Find and highlight the
-location of the zip file and click on {\tt open}.\\
-
-{\bf Loading the package.} To load the {\tt marrayInput} package in
-your R session, type {\tt library(marrayInput)}.\\
-
+{\bf Installing the package.} To install the \Rpackage{marray} package
+for Windows operating systems, first start R and make sure you are
+connected to the internet. Next, select ``\textbf{Packages}'' from the
+menu and click on ``\textbf{ Install package(s) from Bioconductor...}''.
+Lastly, select \Rpackage{marray} from the pop--up windows and click
+click on ``\textbf{OK}''.  You will find more detailed installation
+instructions on the Bioconductor web site.\\
+{\bf Loading the package.} To load the {\tt marray} package in your R
+session, type {\tt library(marray)}.\\
 {\bf Help files.}  As with any R package, detailed information on
 functions, classes and methods can be obtained in the help files. For
 instance, to view the help file for the function {\tt
-read.marrayLayout} in a browser, use {\tt help.start()} followed by
-{\tt ?  read.marrayLayout}.\\
+read.GenePix} in a browser, use {\tt help.start()} followed by
+{\tt ?  read.GenePix}.\\
 
-{\bf Microarray classes.} The {\tt marrayInput} packages relies on
-microarray class definitions in {\tt marrayClasses}. You should also
-install this package and consult its vignette for more information.\\
-
-{\bf Next.} After reading your data into R, you can use the {\tt
-marrayPlots} and {\tt marrayNorm} packages for diagnostic plots and
-normalization, respectively.\\
-
-{\bf Sweave.} This document was generated using the {\tt Sweave}
-function from the R {\tt tools} package. The source file is in the
-{\tt /inst/doc} directory of the package {\tt marrayInput}.
+A quick start guide on this package are given in the {\tt marray}
+document of the {\tt inst/doc} directory.  \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Case study: Swirl zebrafish microarray experiment}\label{sData}
@@ -302,18 +270,20 @@ swirl <- read.Spot(fnames, path=datadir,
 \begin{verbatim}
  swirl <- read.Spot()
  test.raw <- read.GenePix()
- slot(swirl, "layout") <- swirl.layout
- slot(swirl, "gnames") <- swirl.gnames
-\end{verbatim}
 %@
-
 
 \begin{figure}[htbp]
 \centering
 \includegraphics{widget1}
-\caption{Screenshot of the widget for creating objects of class {\tt marrayRaw} from image processing output files.}
-\protect\label{fig:WidgetRaw}
+\caption{Screenshot of the widget for creating objects of class {\tt
+    marray} from image processing output files.}
+    \protect\label{fig:WidgetRaw}
 \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\bf Note: Sweave.} This document was generated using the \Rfunction{Sweave}
+function from the R \Rpackage{tools} package. The source file is in the
+\Rfunction{/inst/doc} directory of the package \Rpackage{marray}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

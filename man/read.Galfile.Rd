@@ -38,8 +38,8 @@ labels = "ID", notes = "", sep = "\t", skip = NULL,   ncolumns=4, ...)
 \seealso{\code{\link{read.marrayInfo}}, \code{\link{read.marrayLayout}}}
 
 \examples{
-library(marrayInput)
-datadir <- system.file("data", package="marrayInput")
+library(marray)
+datadir <- system.file("data", package="marray")
 try <- read.Galfile(galfile="fish.gal", path=datadir)
 names(try)
 try$layout

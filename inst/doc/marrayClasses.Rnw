@@ -18,7 +18,7 @@
 
 \begin{document}
 
-\title{\bf Bioconductor's marrayClasses package}
+\title{\bf Tutorial for marray - Classes}
 
 \author{Sandrine Dudoit$^1$ and Yee Hwa Yang$^2$}
 
@@ -27,7 +27,7 @@
 
 \begin{center}
 1. Division of Biostatistics, University of California, Berkeley, \url{http://www.stat.berkeley.edu/~sandrine}\\
-2. Department of Statistics, University of California, Berkeley, {\tt yeehwa@stat.berkeley.edu}
+2. Department of Me, University of California, Berkeley, {\tt yeehwa@stat.berkeley.edu}
 \end{center}
 
 % library(tools)

@@ -34,10 +34,10 @@ maQuality(mraw, path=".")
 \seealso{\code{\link{summary}}, \code{\link{maGenControls}}}
 
 \examples{
-   data(swirl)
-   datadir <- system.file("data", package="marrayInput")
-   maControls(swirl) <- maGenControls(maGnames(swirl), id="Name")
-   maQualityMain(swirl[,1], path=datadir)
+##   data(swirl)
+##   datadir <- system.file("data", package="marray")
+##   maControls(swirl) <- maGenControls(maGnames(swirl), id="Name")
+##   maQualityMain(swirl[,1], path=datadir)
 }
 
 \keyword{manip}% at least one, from doc/KEYWORDS

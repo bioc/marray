@@ -74,7 +74,7 @@ widget.marrayRawext = c("spot", "xls", "gpr"), skip = 0, sep = "\t",
   \code{\link{read.marrayInfo}} }
 
 \examples{
-datadir <- system.file("data", package="marrayInput")
+datadir <- system.file("data", package="marray")
 
 skip <-  grep("Row", readLines(file.path(datadir,"fish.gal"), n=100)) - 1
 

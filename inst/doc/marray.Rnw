@@ -1,0 +1,191 @@
+% NOTE -- ONLY EDIT THE .Rnw FILE!!!  The .tex file is
+% likely to be overwritten.
+%
+% \VignetteIndexEntry{marrayTools Overview}
+% \VignetteDepends{marrayNorm}
+% \VignetteKeywords{Expression Analysis, Preprocessing}
+% \VignettePackage{marrayTools}
+
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,epsfig,fullpage,hyperref}%psfig,pstricks,
+\parindent 0in
+
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+
+
+\begin{document}
+
+\title{\bf Quick start guide for marray}
+
+\author{Yee Hwa Yang}
+
+\maketitle
+
+\begin{center} 
+1. Department of Medicine, University of California, San Francisco, \url{http://www.biostat.ucsf.edu/jean}\\ 
+\end{center}
+
+% library(tools) 
+% setwd("C:/MyDoc/Projects/madman/Rpacks/marray/inst/doc")
+% Rnwfile<-file.path("C:/MyDoc/Projects/madman/Rpacks/marray/inst/doc","marray.Rnw")
+% options(width=65)
+% Sweave(Rnwfile,pdf=TRUE,eps=TRUE,stylepath=TRUE,driver=RweaveLatex())
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Overview}
+
+This document provides a brief guide to the \Rpackage{marray} package,
+which is packages for diagnostic plots and normalization of cDNA
+microarray data.  Information on the other packages can be found in the
+other vignettes.
+
+There are three main components to this package.  These are:
+\begin{itemize}
+\item Reading in data.
+\item Perform simple diagnositc plots to access quality.
+\item Normalization.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Getting started}
+
+{\bf Installing the package.} To install the \Rpackage{marray} package
+for Windows operating systems, first start R and make sure you are
+connected to the internet. Next, select ``\textbf{Packages}'' from the menu
+and click on ``\textbf{ Install package(s) from Bioconductor...}''.  Lastly,
+select \Rpackage{marray} from the pop--up windows and click click on
+``\textbf{OK}''.  \\  
+
+{\bf Getting started} Below is an outline to get you started:
+
+\begin{enumerate}
+\item  Create a  directory and  move all  the relevant image processing
+  output files (e.g.  \texttt{.gpr} files) and a  file containing gene (or
+  spot) descriptions (e.g. \texttt{.gal} file) to that directory.
+
+\item Start R in that directory.  Under the windows system, click on the
+  menu \textbf{File} and select \textbf{Change dir...}.  This will result in a
+  pop--up window for you to enter the location of the desired directory
+  containing all the relevant image processing files.  Alternatively,
+  click on \textbf{browse} to nevigate and select the location of the
+  directory. You can double check that you are in the correct directory
+  by selecting \textbf{Display File(s)...} under the \textbf{File} menu.
+
+\item To load the package in your R session, type:
+%% Code 1
+<<eval=TRUE, echo=TRUE>>=
+library(marray) ##load all the packages.
+@
+
+\item If your working directory contains \Rpackage{GenePix} files
+  (\Rfunction{ .gpr}), run the following command. 
+%% Code 2
+%%<<eval=FALSE, echo=TRUE>>=
+\begin{verbatim}
+> data <- read.GenePix()
+\end{verbatim}
+%%@
+\item If your working directory contains \Rpackage{Spot} files
+  (\Rfunction{.spot}), run the following command. 
+%% Code 3
+%%<<eval=FALSE, echo=TRUE>>=
+\begin{verbatim}
+> data <- read.Spot()
+\end{verbatim}
+%%@
+
+\item Perform diagnostic plots with package {\tt arrayQuality}.
+
+\item Perform print-tip normalization.
+\begin{verbatim}
+> normdata <- maNorm(data)
+\end{verbatim}
+
+\item Perform simple diagnostic plots
+\begin{verbatim}
+> image(data)
+> boxplot(data)
+> plot(data)
+\end{verbatim}
+\end{enumerate}
+
+With the default arguments, these two functions will read in all the
+files residing in the directory, create a sub--directory containing the
+corresponding diagnostic plots (in JPEG format), create a sub--directory
+with basic quality information and four excel files. The four excel
+files are normA.xls, normM.xls, normMA.xls and quality.xls which has the
+normalized log--intensity ($A$) , log-ratios($M$), both $M$ and $A$
+values and quality information respectively for all image processing files.\\
+
+This wrapper function automatically produces nine plots of 
+\begin{itemize}
+\item pre-- and post--normalization cDNA microarray data;
+\item $MA$--plots of pre-- and post--normalization log--ratios $M$; 
+\item color images of pre-- and post--normalization log--ratios $M$; 
+\item color images of average log--intensities $A$; 
+\item histogram and overlay density of the signal to noise log--ratio
+  for Cy5 and Cy3 channels; where the signal to noise ratios is defined
+  as the foreground intensity (without background adjustment) over the
+  background intensity; and 
+\item dot--plots of $M$ and $A$ values for replicate controls probes.
+\end{itemize}
+
+In addition, this function automatically saves the figures to a file, in
+jpeg format.  More detailed descriptions of all the arguments and
+options can be found in the help files. For instance, to view the help
+file for the function \Rfunction{gpTools} in a browser, use \Rfunction{help.start()}
+followed by \Rfunction{?gpTools}.\\
+
+Please contact us if you have other image processing output formats and
+would like a similar wrapper functions.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Other vignettes and packages}
+
+Greater details can be found in other vignettes.  These are: 
+
+\begin{description}
+\item {\tt marrayClasses}.  This vignette describes basic class
+definitions and associated methods for pre-- and post--normalization
+intensity data for batches of arrays.
+
+\item {\tt marrayInput}. This vignette describes functionality for
+reading microarray data into R, such as intensity data from image
+processing output files (e.g. {\tt .spot} and {\tt .gpr} files for the
+{\tt Spot} and {\tt GenePix} packages, respectively) and textual
+information on probes and targets (e.g. from gal files and god
+lists). {\tt tcltk} widgets are supplied to facilitate and automate data
+input and the creation of microarray specific R objects for storing
+these data.
+
+\item {\tt marrayPlot}. This vignette provides descriptions to
+  functions for diagnostic plots of microarray spot statistics, such as
+  boxplots, scatter--plots, and spatial color images. Examination of
+  diagnostic plots of intensity data is important in order to identify
+  printing, hybridization, and scanning artifacts which can lead to
+  biased inference concerning gene expression.
+
+\item {\tt marrayNorm}. This vignette describes various location and
+scale normalization procedures, which correct for different types of dye
+biases (e.g. intensity, spatial, plate biases) and allow the use of
+control sequences spotted onto the array and possibly spiked into the
+mRNA samples. Normalization is needed to ensure that observed
+differences in intensities are indeed due to differential expression and
+not experimental artifacts; fluorescence intensities should therefore be
+normalized before any analysis which involves comparisons among genes
+within or between arrays. 
+
+\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\bf Note: Sweave.} This document was generated using the \Rfunction{Sweave}
+function from the R \Rpackage{tools} package. The source file is in the
+\Rfunction{/inst/doc} directory of the package \Rpackage{marray}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+ 

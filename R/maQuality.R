@@ -1,5 +1,6 @@
 maQuality <- function(mraw, path=".")
   {
+    .Deprecated("Use functions in package arrayQuality")
     res <- NULL
     for(i in 1:ncol(maM(mraw)))
       res <- cbind(res, unlist(maQualityMain(mraw[,i], path=path)))
@@ -8,6 +9,7 @@ maQuality <- function(mraw, path=".")
 
 maQualityMain <- function(mraw, path=".", fname, output=FALSE)
   {
+    .Deprecated("Use functions in package arrayQuality")
     data <- mraw[,1]
 
     if(missing(fname))

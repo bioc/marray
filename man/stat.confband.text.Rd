@@ -42,7 +42,7 @@ stat.confband.text(M, A, crit1=0.025, crit2=crit1, nclass=5)
 }
 
 \examples{
-library(marrayInput)
+library(marray)
 data(swirl)
 aveA <- apply(maA(swirl), 1, mean.na)
 aveM <- apply(maM(swirl), 1, mean.na)

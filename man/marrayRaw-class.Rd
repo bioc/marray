@@ -228,8 +228,10 @@ maNotes(swirl)<-"This is a zebrafish microarray"
 maNotes(swirl)
 
 # Coerce methods -- Convert marrayRaw object into exprSet
-e<-as(swirl, "exprSet")
-e
+## Load package convert
+## library(convert)
+## e<-as(swirl, "exprSet")
+## e
 
 }
 \keyword{classes}

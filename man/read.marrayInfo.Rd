@@ -37,7 +37,7 @@ read.marrayInfo(fname, info.id=NULL, labels=NULL, notes=fname, sep="\t",skip=0, 
 \author{Jean Yang, \email{yeehwa@stat.berkeley.edu}}
 
 \examples{
-datadir <- system.file("data", package="marrayInput")
+datadir <- system.file("data", package="marray")
 
 ## Reading target sample information
 swirl.samples <- read.marrayInfo(file.path(datadir, "SwirlSample.txt"))

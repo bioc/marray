@@ -50,7 +50,7 @@ gpTools(fnames, path = ".", galfile, bg = TRUE, plot = TRUE, quality = TRUE, fil
 
 \examples{
  data(swirl)
- datadir <- system.file("data", package="marrayInput")
+ datadir <- system.file("data", package="marray")
 
 ## normdata <- spotTools(path=datadir, quality=FALSE)
 }

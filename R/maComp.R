@@ -134,13 +134,10 @@ maCompInd<-function(grows, gcols, srows, scols, L)
 maCompLayout <- function(mat, ncolumns=4)
   {
     if (dim(mat)[2]==3)
-      {
-        Blocks <- mat[,1]
-        gr <- mat[,1] / ncolumns
-        newmat <- cbind(gr=((mat[,1] - 1) %/% ncolumns) + 1, gc=((mat[,1] -1) %% 4) + 1,
-                        sr=mat[,2], sc=mat[,3])
-      }  else
-    newmat <- mat
+      newmat <- cbind(gr=((mat[,1] - 1) %/% ncolumns) + 1, gc=((mat[,1] -1) %% ncolumns) + 1,
+                      sr=mat[,2], sc=mat[,3])
+    else
+      newmat <- mat
     
     ngr <- max(newmat[,1]);  ngc <- max(newmat[,2])
     nsr <- max(newmat[,3]);  nsc <- max(newmat[,4])

@@ -49,7 +49,7 @@
 \alias{maSub<-,marrayLayout,numeric-method}
 \alias{maSub,marrayLayout-method}
 \alias{print,marrayLayout-method}
-\alias{show,marrayLayout-method}
+\alias{summary,marrayLayout-method}
 
 %\alias{maNotes}
 

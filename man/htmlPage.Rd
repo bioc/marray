@@ -52,7 +52,7 @@ table2html(restable, filename = "GeneList.html", mapURL = SFGL,
 \seealso{\code{ll.htmlpage}, \code{\link{URLstring}}, \code{\link{widget.mapGeneInfo}}}
 
 \examples{
-library(annotate)
+##library(annotate)
 data(swirl)
 Gnames <- maGeneTable(swirl)
 swirlmap <- mapGeneInfo(Name = "none", ID="genbank")
@@ -60,6 +60,6 @@ swirlmap <- mapGeneInfo(Name = "none", ID="genbank")
 
 moreinfo <- round(maM(swirl), 2)
 swirlmap <- mapGeneInfo(Name = "pubmed", ID="genbank")
-htmlPage(100:110, geneNames = Gnames, mapURL = swirlmap, othernames=moreinfo, title="Swirl", disp="file")
+##htmlPage(100:110, geneNames = Gnames, mapURL = swirlmap, othernames=moreinfo, title="Swirl", disp="file")
 }
 \keyword{file}% at least one, from doc/KEYWORDS

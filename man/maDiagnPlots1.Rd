@@ -51,15 +51,13 @@ S. Dudoit and Y. H. Yang. (2002). Bioconductor R packages for exploratory analys
 \seealso{\code{\link{maPlot}}, \code{\link{maBoxplot}}, \code{\link{maImage}}.}
 
 \examples{
-library(marrayNorm)
-
 # Examples use swirl dataset, for description type ? swirl
 data(swirl)
 
 maPlate(swirl)<-maCompPlate(swirl,384)
 
 # Pre-normalization
-maRawPlots(swirl[,3])
+maRawPlots(swirl)
 
 # Post-normalization
 mnorm<-maNorm(swirl[,3], norm="twoD")
