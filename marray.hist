@@ -2,6 +2,7 @@ Remove class marraySpot and marrayTwo
 Move coerce related functions to package convert
 Change slot maNormCall to character
 Take out maBayesian
+Remove maBasicDiagnosticPlots maNormPlots maRawPlots maDiagnPlots1.
 
 
 maClsses OK

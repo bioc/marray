@@ -1,6 +1,6 @@
 ############################################################################
 # maBasicPlots.R
-#
+# TO BE REMOVE IN THE NEXT RELEASE [MARCH 15, 2004]
 # Wrapper for diagnostic plots for two-color cDNA microarrays
 #
 ###########################################################################
@@ -10,6 +10,8 @@ maDiagnPlots1<-function(mraw, title=NULL, save=TRUE,
 	fname=paste(as.character(maLabels(maTargets(mraw))[1]),".ps",sep=""),
 	dev=c("postscript","jpeg"))
 {
+
+  .Deprecated("maQualityPlots in package arrayQuality")
 
    mraw<-mraw[,1]
    # Default loess normalization within print-tip-group
@@ -67,7 +69,8 @@ maRawPlots<-function(mraw, title=NULL, save=TRUE,
 	fname=paste(as.character(maLabels(maTargets(mraw))[1]),".ps",sep=""), 
 	dev=c("postscript","jpeg"))
 {
- 
+
+  .Deprecated("maQualityPlots in package arrayQuality")
   mraw<-mraw[,1]
   if(save==TRUE)
     do.call(dev,list(fname))
@@ -121,7 +124,8 @@ maNormPlots<-function(mnorm, title=NULL, save=TRUE,
 	fname=paste(as.character(maLabels(maTargets(mnorm))[1]),".ps",sep=""),
 	dev=c("postscript","jpeg"))
 {
-  
+
+  .Deprecated("maQualityPlots in package arrayQuality")
   mnorm<-mnorm[,1]
   if(save==TRUE)
     do.call(dev,list(fname))

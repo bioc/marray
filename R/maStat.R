@@ -1,5 +1,5 @@
 ###########################################################################
-## TO BE REMOVE
+## TO BE REMOVE IN THE NEXT RELEASE [Mar, 2004]
 ## Date : October 11, 2002
 ##
 ## Modified from Sandrine's Code
@@ -20,6 +20,8 @@
 
 widget.Stat <- function(expr, outputName="statres", funNames,... )
   {
+    .Deprecated("lmFit in package limma")
+      
     LABELFONT <- "Helvetica 12"
     BUTWIDTH <- 10
     BUTTONLAST <- NULL
@@ -85,6 +87,7 @@ widget.Stat <- function(expr, outputName="statres", funNames,... )
 maStat <- function(expr, funNames, ...)
   {
 
+    .Deprecated("lmFit in package limma")
     switch(data.class(expr),
            exprSet = M <- exprs(expr),
            marrayRaw = M <- maM(expr),
@@ -149,6 +152,7 @@ maStat <- function(expr, funNames, ...)
 ##
 bayesFun <- function(...)
 {
+  .Deprecated("ebayes in package limma")
   ## take only matrix
   function(M) {
     res <- maBayesian(M, ...)
@@ -159,6 +163,7 @@ bayesFun <- function(...)
 meanFun <- function(y=NULL,
                     na.rm = TRUE)
 {
+  .Deprecated("lmFit in package limma")
   function(M) {
     meansub <- function(x, y=NULL, na.rm=TRUE)
       {
@@ -187,6 +192,7 @@ ttestFun <- function(y=NULL,
                       na.rm = TRUE
                       )
 {
+  .Deprecated("lmFit in package limma")
   function(M) {
     ttestsub <- function(x, y=NULL,
                       var.equal = FALSE,
@@ -229,6 +235,7 @@ ttestFun <- function(y=NULL,
          
 numNAFun <- function()
   {
+    .Deprecated("lmFit in package limma")
     function(M)
       {
         switch(data.class(M),
@@ -237,4 +244,28 @@ numNAFun <- function()
                sum(is.na(M))
                )
       }
+  }
+
+
+
+maBayesian <- function(mraw, ...)
+  {
+    .Deprecated("lmFit in package limma")
+    if(require(limma))
+      {
+        switch(data.class(mraw),
+               exprSet = M <- exprs(mraw),
+               marrayRaw = M <- maM(mraw),
+               marrayNorm = M <- maM(mraw),
+               M <- mraw
+               )
+        opt <- list(...)
+        args <- maDotsMatch(c(list(M=M), opt), formals(args("lm.series")))
+        fit <- do.call("lm.series", args)
+        args <- maDotsMatch(c(list(fit=fit), opt), formals(args("ebayes")))
+        eb <- do.call("ebayes", args)
+        return(eb)
+      }
+    else
+      stop("Need to install package limma")
   }

@@ -107,19 +107,7 @@ htmlPage <- function(genelist,
   do.call("table2html", c(list(restable), args))
   return()
 }
-
-##ll.htmlpage <- function(genelist, filename, title, othernames, table.head, 
-##                        table.center = TRUE) 
-##  {
-##    restable <- cbind(LocusLink = genelist, othernames)
-##    args <- list(table.center=table.center)
-##    if(!missing(filename)) args <- c(args, list(filename="GeneList.html"))
-##    if(!missing(title)) args <- c(args, list(title=title))
-##    if(!missing(table.head)) args <- c(args, list(table.head=table.head))
-##    do.call("table2html", c(list(restable), args))
-##    return()
-##  }
-                        
+         
 
 #####################################################
 ## Base Function
@@ -196,8 +184,7 @@ table2html <- function (restable, filename = "GeneList.html",
   
   outfile <- file(filename, "w")
   cat("<html>", file = outfile)
-  cat(HTwrap(HTwrap("BioConductor Gene Listing", tag = "TITLE"), 
-             tag = "head"), file = outfile)
+  cat(HTwrap(HTwrap("Gene Lists", tag = "TITLE"), tag = "head"), file = outfile)
   cat("<body bgcolor=\"#FFFFEF\">", "<H1 ALIGN=CENTER > BioConductor Gene Listing </H1>", 
       file = outfile, sep = "\n")
   if (!missing(title)) 
@@ -253,6 +240,8 @@ table2html <- function (restable, filename = "GeneList.html",
 
 ###################################################################
 ## predefine info
+###################################################################
+
 URLstring <- list(
  pubmed = "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Search&db=PubMed&term=UNIQID",
  locuslink = "http://www.ncbi.nlm.nih.gov/LocusLink/LocRpt.cgi?l=UNIQID",

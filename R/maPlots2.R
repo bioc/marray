@@ -1,18 +1,10 @@
+############################################################################
+# maPlots2.R
+# TO BE REMOVE IN THE NEXT RELEASE [MARCH 15, 2004]                                        
+#
+###########################################################################
 ## R function for finding gene patterns
 ## Created Date: Sept. 18, 2002
-
-##########################################################3
-## Quality control plots
-## Created from maDiagnPlots.R
-## Oct, 9, 2003
-## Modified by Agnes Paquet
-## Things to do
-## 1) Spatial plots on ranked data
-## 2) Remove flagged spots from MA-plots
-## 3) Other diagnostic plots?
-## 4) More efficient error handling with gpTools
-## 5) More controls on the parameter, to handle possible errors
-## 6) Add the png format
 
 maDiagnPlots <-  function(mraw,
                           mNorm = NULL,
@@ -24,6 +16,8 @@ maDiagnPlots <-  function(mraw,
                           DEBUG=FALSE,
                           ...) 
 {
+  .Deprecated("maQualityPlots in package arrayQuality")
+    
   rm.na <- 
   function (x) 
     {
@@ -269,6 +263,7 @@ maDotPlots <- function(data,
                        nrep=3,
                        ...)
   {
+    .Deprecated("maDotPlots in arrayQuality")
     newdata <- NULL
     for(i in x)
       newdata <- cbind(newdata, eval(call(i, data)))

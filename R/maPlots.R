@@ -1,11 +1,71 @@
 ############################################################################
 # maPlot.R
+# maPlot3.R
 #
+# S4 methods
 # Diagnostic plots for two-color cDNA microarrays
 #
 ###########################################################################
-## require("marrayInput")
-## require("marrayClasses")
+
+## S4 settings
+## March 15, 2004
+setMethod("plot", signature(x="marrayRaw"), function (x, xvar = "maA", yvar = "maM", zvar="maPrintTip",...)
+          {maPlot(m=x, x=xvar, y=yvar, ...)})
+setMethod("plot", signature(x="marrayNorm"),
+          function (x, xvar = "maPrintTip", yvar = "maM", zvar="maPrintTip", ...)
+          {maBoxplot(m=x, x=xvar, y=yvar, ...)})
+setMethod("boxplot", signature(x="marrayRaw"), function (x, xvar = "maPrintTip", yvar = "maM", ...){
+            maBoxplot(m=x, x=xvar, y=yvar, ...)})
+setMethod("boxplot", signature(x="marrayNorm"), function (x, xvar = "maPrintTip", yvar = "maM", ...){
+              maBoxplot(m=x, x=xvar, y=yvar, ...)})
+setMethod("image", signature(x="marrayRaw"),
+          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, ...){
+            maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, ... )})
+setMethod("image", signature(x="marrayNorm"),
+          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, ...){
+              maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, ... )})
+
+## points, lines, text
+setMethod("points", signature(x="marrayRaw"), function (x, xvar = "maA", yvar = "maM", ...)
+          {addPoints(object=x, xvar=xvar, yvar=yvar, ...)})
+setMethod("points", signature(x="marrayNorm"), function (x, xvar = "maA", yvar = "maM", ...)
+          {addPoints(object=x, xvar=xvar, yvar=yvar, ...)})
+setMethod("text", signature(x="marrayRaw"), function (x, xvar = "maA", yvar = "maM",...)
+          {addPoints(object=x, xvar=xvar, yvar=yvar, ...)})
+setMethod("text", signature(x="marrayNorm"), function (x, xvar = "maA", yvar = "maM", ...)
+          {addPoints(object=x, xvar=xvar, yvar=yvar, ...)})
+setMethod("lines", signature(x="marrayRaw"), function (x, xvar = "maA", yvar = "maM", zvar="maPrintTip",...)
+          {addPoints(object=x, xvar=xvar, yvar=yvar, ...)})
+setMethod("lines", signature(x="marrayNorm"), function (x, xvar = "maA", yvar = "maM", zvar="maPrintTip",...)
+          {addPoints(object=x, xvar=xvar, yvar=yvar, ...)})
+
+
+addText <- function(object, xvar="maA", yvar="maM", subset=NULL, labels = as.character(1:length(subset)), ...)
+  {
+    text.func <- maText(subset=subset, labels=lables, ...)
+    text.func(as.numeric(eval(call(xvar,object))), as.numeric(eval(call(y,m))))
+  }
+
+
+addPoints <- function(object, xvar="maA", yvar="maM", subset=TRUE, ...)
+  {
+    xx <- as.numeric(eval(call(xvar,object)))
+    yy <- as.numeric(eval(call(yvar,object)))
+    points(xx[subset], yy[subset], ...)
+  }
+
+addLines <- function(object, xvar="maA", yvar="maM", zvar="maPrintTip", subset=TRUE, ...)
+  {
+    lines.func<-do.call("maLoessLines",
+                        c(list(subset=subset, loess.args=list(span=0.4, degree=1, family="symmetric",
+                                              control=loess.control(trace.hat="approximate",
+                                                iterations=5,surface="direct"))),defs$def.lines))
+    xx <- as.numeric(eval(call(xvar,object)))
+    yy <- as.numeric(eval(call(yvar,object)))
+    zz <- as.numeric(eval(call(zvar,object)))
+    lines.func(xx, yy, zz)
+  }
+ 
 
 ###########################################################################
 # Default plotting parameters for microarray objects
@@ -86,7 +146,6 @@ maDefaultPar<-function(m,x,y,z)
     def.plot<-list(xlab=xlab,ylab=ylab,pch=20,col=1,main=main)
     def.lines<-list(col=col,lty=lty,lwd=lwd)
     def.text<-list(pch=16,col="purple")
-
     return(list(def.box=def.box,def.plot=def.plot,def.lines=def.lines,
 		def.legend=def.legend,def.text=def.text))
 }
@@ -95,11 +154,6 @@ maDefaultPar<-function(m,x,y,z)
 # maBoxplot: Boxplot methods
 ###########################################################################
 # Boxplots for a single and multiple arrays
-
-#.initMarrayBoxplot <- function(where)
-#{
-
-#setGeneric("maBoxplot", function(m, x="maPrintTip", y="maM", ...) {
 
 maBoxplot<- function(m, x="maPrintTip", y="maM", ...) {
     opt<-list(...)
@@ -140,18 +194,11 @@ maBoxplot<- function(m, x="maPrintTip", y="maM", ...) {
     }
     if(y=="maM") abline(h=0,col="gray",lwd=2.5)
 }
-#  },where=where)
-
-
-#setMethod("maBoxplot",signature(m="marrayRaw",x="character",y="character"),
-#  function(m,x,y, ...) maBoxplot(m,x,y,...), where=where)
-
-#setMethod("maBoxplot",signature(m="marrayNorm",x="character",y="character"),
-#  function(m,x,y, ...) maBoxplot(m,x,y,...), where=where)
-#}
 
 ###########################################################################
+##
 # maPlot: Scatter-plot methods with fitted lines and points highlighted
+##
 ###########################################################################
 # General function for scatter-plot of y vs. x with fitted lines within
 # values of z and subset of points highlighted
@@ -201,6 +248,7 @@ maText <-function (subset = NULL, labels = as.character(1:length(subset)),
         }
     }
 }
+
 
 #########################
 # Plot fitted lines
@@ -275,12 +323,7 @@ maLegendLines<-function(legend="", col=2, lty=1, lwd=2.5, ncol=1, ...)
 
 ###########################################################################
 # Methods for microarray objects: wrapper around maPlot.func
-
-#.initMarrayPlot <- function(where)
-#{
-
-#setGeneric("maPlot", function(m, x="maA", y="maM", z="maPrintTip",lines.func,text.func,legend.func,...)
-
+##
 ## Jean April 9,2003 modified default to maLoessLines
 ##
 
@@ -317,47 +360,38 @@ maPlot <- function(m, x="maA", y="maM", z="maPrintTip",lines.func,text.func,lege
   if(y=="maM") abline(h=0,col="gray",lwd=2.5)
 }
 
-#},where=where)
-
-#setMethod("maPlot",
-#signature(m="marrayRaw",x="character",y="character",z="character",
-#          lines.func="function",text.func="function",legend.func="function"),
-#function(m,x,y,z,lines.func,text.func,legend.func,...)
-#  maPlot(m,x,y,z,lines.func,text.func,legend.func,...), where=where)
-
-#setMethod("maPlot",
-#signature(m="marrayNorm",x="character",y="character",z="character",
-#           lines.func="function",text.func="function",legend.func="function"),
-#function(m,x,y,z,lines.func,text.func,legend.func,...)
-#  maPlot(m,x,y,z,lines.func,text.func,legend.func,...), where=where)
-
-#}
-
 ###########################################################################
 # maImage: image methods for microarray objects
+# add overlay, NULL which means no overlay or a subset of information
 ###########################################################################
-# Function for 2D spatial image of spot statistics x
 
-maImage.func<-function(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, ...)
+maImage.func<-function(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, overlay=NULL...)
 {
-
+  ## x is a matrix
+  if(missing(L))
+    L <- new(marrayLayout, maNgr=1, maNgc=1, maNsr=nrow(x), maNsc=ncol(x))
+  
   # When only a subset of spots are stored in marray object, pad with NA
   subset<-maNum2Logic(maNspots(L), subset)
   z<-rep(NA,maNspots(L))
   z[maSub(L)][subset]<-x[subset]
 
-  Ig<-maNgr(L)
-  Jg<-maNgc(L)
-  Is<-maNsr(L)
-  Js<-maNsc(L)
+  # Only for overlay
+  if(!is.null(overlay))
+    {
+      zsub<-rep(NA,maNspots(L))
+      subset.over<-maNum2Logic(maNspots(L), overlay)
+      zsub[maSub(L)][subset] <- subset.over[subset]
+      ## This is subset of subset so we assume that subset.over (or overlay) is a subset of the subset data a subset on the original
+    }
+ 
   # Create a "full layout"
+  Ig<-maNgr(L);  Jg<-maNgc(L);  Is<-maNsr(L);  Js<-maNsc(L)
   L0<-read.marrayLayout(ngr=Ig, ngc=Jg, nsr=Is, nsc=Js)
-  nr<-Is*Ig
-  nc<-Js*Jg
+  nr<-Is*Ig;  nc<-Js*Jg
   row.ind<-(maGridRow(L0)-1)*Is+maSpotRow(L0)
   col.ind<-(maGridCol(L0)-1)*Js+maSpotCol(L0)
   ord<-order(row.ind,col.ind)
-
 
   z<-matrix(z[ord],nrow=nr,ncol=nc,byrow=TRUE)
   z<-t(z)[,nr:1]
@@ -377,16 +411,11 @@ maImage.func<-function(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, .
 #########################
 # Methods for microarray objects: wrapper around maImage.func
 
-#.initMarrayImage <- function(where)
-#{
-
-# setGeneric("maImage", function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, ...)
-
-
 # Methods for microarray objects: wrapper around maImage.func
 # Modified by Jean : Sept 15, 2002 to include centering of color
+# Modified March 15, 2004 to add overlay option (contribution from katie)
 
-maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, ...)
+maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, overlay=NULL...)
 {
   subset<-maNum2Logic(maNspots(m), subset)
   m<-m[,1]
@@ -398,12 +427,14 @@ maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, ...)
     if(is.element(x,c("maRb","maRf","maLR")))
       col<-maPalette(low="white", high="red", k=50)
     if(is.element(x,c("maM","maMloc","maMscale")))
-      col<-maPalette(low="blue", high="yellow", k=50)
+      col<-maPalette(low="blue", mid="gray", high="yellow", k=50)
+    if(is.element(x,c("maA")))
+      col<-maPalette(low="white", high="blue", k=50)
   }
 
   xx<-as.numeric(eval(call(x,m)))
 
-  # Set color range
+  # Set color range [ensure it's centered]
   tmp<-xx[subset]
   tmp<-tmp[!(is.na(tmp)|is.infinite(tmp))]
 
@@ -417,12 +448,12 @@ maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, ...)
     zrange <- c(zmin, zmax)
 
   # Optional graphical parameter defaults
-
-  def<-list(xlab="",ylab="",main=paste(maLabels(maTargets(m)), ": image of ", strsplit(x,"ma")[[1]][2], sep=""), zlim=zrange)
+  def<-list(xlab="",ylab="",main=paste(maLabels(maTargets(m)), ": image of ",
+                              strsplit(x,"ma")[[1]][2], sep=""), zlim=zrange)
   opt<-list(...)
   if(!is.null(opt))
     def<-maDotsDefaults(opt,def)
-  args<-c(list(x=xx, L=maLayout(m), subset=subset, col=col, contours=contours),def)
+  args<-c(list(x=xx, L=maLayout(m), subset=subset, col=col, contours=contours, overlay=overlay),def)
   x.bar <- seq(args$zlim[1], args$zlim[2], length=41)
 
   if(!bar)
@@ -430,10 +461,10 @@ maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, ...)
 
   if(bar)
   {
-    layout(matrix(c(1,2),1,2),width=c(9,1))
+    layout(matrix(c(1,2),1,2),width=c(8,2))
     par(mar=c(4,4,5,3))
     do.call("maImage.func",args)
-    par(mar=c(4,0,5,3))
+    par(mar=c(3,0,3,1))
     maColorBar(x.bar,horizontal=FALSE,col=col,main="")
     layout(1)
     par(mar=c(5,4,4,2) + 0.1)
@@ -442,28 +473,12 @@ maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, ...)
   return(list(x.col=col[1:length(x.bar)], x.bar=x.bar,
               summary=summary(xx[subset])))
 }
-#}, where=where)
 
-#setMethod("maImage",signature(m="marrayRaw", x="character", subset="logical",
-#	col="character", contours="logical", bar="logical"),
-#	function(m, x, subset, col, contours, bar, ...)
-#		maImage(m, x, subset, col, contours, bar, ...)
-#, where=where)
-
-#setMethod("maImage",signature(m="marrayNorm", x="character", subset="logical",
-#	col="character", contours="logical", bar="logical"),
-#	function(m, x, subset, col, contours, bar, ...)
-#		maImage(m, x, subset, col, contours, bar, ...)
-#, where=where)
-
-#}
 ###########################################################################
 # Color bar for calibration
+###########################################################################
 
-maPalette <- function(low = "white",
-                      high = c("green", "red"),
-                      mid=NULL,
-                      k =50)
+maPalette <- function(low = "white", high = c("green", "red"), mid=NULL, k =50)
 {
     low <- col2rgb(low)/255
     high <- col2rgb(high)/255
