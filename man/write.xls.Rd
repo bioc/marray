@@ -13,7 +13,7 @@ write.xls(res, file = "test.xls", ...)
 
 \arguments{
   \item{res}{the object to be written, typically a data frame.  If not, it
-          is attempted to coerce `x' to a data frame.}
+          is attempted to coerce \code{x} to a data frame.}
   \item{file}{a character string representing the file name.}
   \item{\dots}{further arguments to \code{\link{write.table}}.}
 }

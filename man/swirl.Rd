@@ -13,10 +13,10 @@
 
 \description{
   The \code{swirlRaw} dataset consists of an object \code{swirl}
-  of class \code{"\link{marrayRaw}"}, which represents
-  pre-normalization intensity data for a batch of cDNA microarrays.  \cr
-
-This experiment was carried out
+  of class \code{\link{marrayRaw}}, which represents
+  pre-normalization intensity data for a batch of cDNA microarrays.
+  
+  This experiment was carried out
 using zebrafish as a model organism to study early development in
 vertebrates. Swirl is a point mutant in the BMP2 gene that affects the
 dorsal/ventral body axis. Ventral fates such as blood are reduced, whereas
@@ -27,8 +27,7 @@ each of these hybridizations, target cDNA from the swirl mutant was labeled usin
 one of the Cy3 or Cy5 dyes and the target cDNA wild-type mutant was labeled using
 the other dye. Target cDNA was hybridized to microarrays containing
 8,448 cDNA probes, including 768 controls spots (e.g. negative, positive,
-and normalization controls spots). Microarrays were printed using \eqn{4 \times 4} print-tips and are thus partitioned into a \eqn{4 \times 4} grid matrix. Each grid consists of a \eqn{22
-\times 24} spot matrix that was printed with a single print-tip. Here, spot row and plate coordinates should coincide, as each row of spots corresponds to probe sequences from the same 384 well-plate.\cr
+and normalization controls spots). Microarrays were printed using \eqn{4 \times 4} print-tips and are thus partitioned into a \eqn{4 \times 4} grid matrix. Each grid consists of a \eqn{22\times 24} spot matrix that was printed with a single print-tip. Here, spot row and plate coordinates should coincide, as each row of spots corresponds to probe sequences from the same 384 well-plate.\cr
 
 
 Each of the four hybridizations produced
