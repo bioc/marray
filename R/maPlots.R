@@ -56,7 +56,7 @@ setMethod("lines", signature(x="marrayNorm"), function (x, xvar = "maA", yvar = 
 addText <- function(object, xvar="maA", yvar="maM", subset=NULL, labels = as.character(1:length(subset)), ...)
   {
     text.func <- maText(subset=subset, labels=labels, ...)
-    text.func(as.numeric(eval(call(xvar,object))), as.numeric(eval(call(y,m))))
+    text.func(as.numeric(eval(call(xvar,object))), as.numeric(eval(call(yvar,object))))
   }
 
 

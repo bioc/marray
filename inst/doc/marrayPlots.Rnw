@@ -52,45 +52,26 @@
 \section{Overview}
 
 This document provides a detailed discussion of the plotting functions
-in {\tt marray} package, which is a packages for diagnostic plots and
-normalization of cDNA microarray data.  %%%A shorter guide to the
-package is given in {\tt marrayPlotsShort} and {\tt marray}.  This
-package provides functions for diagnostic plots of microarray spot
-statistics, such as boxplots, scatter--plots, and spatial color
-images. Examination of diagnostic plots of intensity data is important
-in order to identify printing, hybridization, and scanning artifacts
-which can lead to biased inference concerning gene expression.
-
+in {\tt marray} package, which is a packages for diagnostic plots of
+two-color spotted microarray data.  This docuement provides functions
+for diagnostic plots of microarray spot statistics, such as boxplots,
+scatter--plots, and spatial color images. Examination of diagnostic
+plots of intensity data is important in order to identify printing,
+hybridization, and scanning artifacts which can lead to biased inference
+concerning gene expression.  We encourage users to read the shorter {\it
+overview} quick start guide on this package given in the {\tt inst/doc}
+directory.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Getting started}
 
-{\bf Installing the package.} To install the \Rpackage{marray} package
-for Windows operating systems, first start R and make sure you are
-connected to the internet. Next, select ``\textbf{Packages}'' from the
-menu and click on ``\textbf{ Install package(s) from Bioconductor...}''.
-Lastly, select \Rpackage{marray} from the pop--up windows and click
-click on ``\textbf{OK}''.  You will find more detailed installation
-instructions on the Bioconductor web site.\\
-
-{\bf Loading the package.} To load the {\tt marray} package in your R
-session, type {\tt library(marray)}.\\
-
-{\bf Help files.}  As with any R package, detailed information on
-functions, classes and methods can be obtained in the help files. For
-instance, to view the help file for the function {\tt
-read.GenePix} in a browser, use {\tt help.start()} followed by
-{\tt ?  boxplot}.\\
-
-{\bf Case study.} We demonstrate the functionality of this collection
-of R packages using gene expression data from the Swirl zebrafish
-experiment. These data are included as part of the {\tt marrayInput}
-package, hence you will also need to install this package. To load the
-swirl dataset, use {\tt data(swirl)}, and to view a description of the
-experiments and data, type {\tt ? swirl}. \\
-
-A quick start guide on this package are given in the {\tt marray}
-document of the {\tt inst/doc} directory.  \\
+To load the {\tt marray} package in your R session, type {\tt
+library(marray)}.  We demonstrate the functionality of this R packages
+using gene expression data from the Swirl zebrafish experiment. These
+data are included as part of the package, hence you will also need to
+install this package. To load the swirl dataset, use {\tt data(swirl)},
+and to view a description of the experiments and data, type {\tt ?
+swirl}. \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Diagnostic plots}
@@ -169,10 +150,12 @@ tmp<-image(swirl[,3], xvar="maRb", subset=TRUE, col=Rcol, contours=FALSE, bar=FA
 Note that the same images can be obtained using the default arguments
 of the function by the shorter commands 
 
-<<eval=FALSE,echo=TRUE>>=
-image(swirl[,3], xvar="maGb") 
-image(swirl[,3], xvar="maRb") 
-@
+%%<<eval=FALSE,echo=TRUE>>=
+\begin{verbatim}
+> image(swirl[,3], xvar="maGb") 
+> image(swirl[,3], xvar="maRb") 
+\end{verbatim}
+%%@
 
 If {\tt bar=TRUE}, a calibration color bar is displayed to the right
 of the images. The {\tt image} function returns the values and
@@ -204,7 +187,9 @@ tmp<-image(swirl[,3], xvar="maM", bar=FALSE, main="Swirl array 93: image of pre-
 @
 
 <<maImageMraw2,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>= 
-tmp<-image(swirl[,3], xvar="maM", subset=maTop(maM(swirl[,3]), h=0.10, l=0.10), col=RGcol, contours=FALSE, bar=FALSE,main="Swirl array 93: image of pre--normalization M for \% 10 tails") 
+tmp<-image(swirl[,3], xvar="maM", subset=maTop(maM(swirl[,3]), h=0.10,
+l=0.10), col=RGcol, contours=FALSE, bar=FALSE,main="Swirl array 93:
+image of pre--normalization M for \% 10 tails")  
 @
 
 Note that the {\tt image} function (and other functions {\tt
@@ -277,7 +262,7 @@ log--ratios are highlighted.}
 \end{center} 
 \caption{Images of layout parameters for the Swirl 93 array. Panel (a): Spot matrix column
 coordinate. Panel (b): Print--tip--group. Panel (c): Plate
-index. Panel (d): Control status.}  
+index. Panel (d): Control status.}   
 \protect\label{fig:maImageLayout}
 \end{figure}
 
@@ -292,41 +277,34 @@ also be useful to identify spot or hybridization artifacts. {\it
 Boxplots}, also called {\it box--and--whisker plots}, were first
 proposed by Tukey in 1977 as simple graphical summaries of the
 distribution of a variable. The summary consists of the median, the
-upper and lower
- quartiles, the range, and, possibly, individual extreme values. The
- central box in the plot represents the {\it inter--quartile range
-(IQR)}, which is
- defined as the difference between the 75th percentile and 25th
-percentile,
- i.e., the upper and lower quartiles. The line in the middle of the
-box
- represents the median; a measure of central location of the data.
-Extreme
- values, greater than 1.5 IQR above the 75th percentile and less than
- 1.5 IQR below the 25th percentile, are typically plotted
-individually.\\
+upper and lower quartiles, the range, and, possibly, individual extreme
+values. The central box in the plot represents the {\it inter--quartile
+range (IQR)}, which is defined as the difference between the 75th
+percentile and 25th percentile, i.e., the upper and lower quartiles. The
+line in the middle of the box represents the median; a measure of
+central location of the data.  Extreme values, greater than 1.5 IQR
+above the 75th percentile and less than 1.5 IQR below the 25th
+percentile, are typically plotted individually.
 
- The function {\tt boxplot} produces boxplots of microarray spot
-statistics for the classes {\tt marrayRaw}, {\tt marrayNorm}, and {\tt
-marrayTwo} (see details in {\tt ? boxplot}). The function {\tt
-boxplot} has three main arguments \begin{description} \item {{\tt
-m}:} Microarray object of class {\tt marrayRaw}, {\tt marrayNorm}, or
-{\tt marrayTwo}.  \item {{\tt x}:} Name of accessor method for the
-spot statistic used to stratify the data, typically a slot name for
-the microarray layout object such as
-     {\tt maPlate} or a method such as {\tt maPrintTip}. If {\tt x} is
-{\tt NULL}, the data are not stratified.  \item {{\tt y}:} Name of
-accessor method for the spot statistic of interest, typically a slot
-name for the microarray object {\tt m}, such as {\tt maM}.
+The function {\tt boxplot} produces boxplots of microarray spot
+statistics for the classes {\tt marrayRaw}, {\tt marrayNorm}.  The
+function {\tt boxplot} has three main arguments:
+\begin{description} 
+\item {{\tt x}:} Microarray object of class {\tt marrayRaw} or {\tt marrayNorm}.
+\item {{\tt xvar}:} Name of accessor method for the spot statistic used to
+stratify the data, typically a slot name for the microarray layout
+object such as {\tt maPlate} or a method such as {\tt maPrintTip}. If
+{\tt xvar} is {\tt NULL}, the data are not stratified.  
+\item {{\tt yvar}:} Name of accessor method for the spot statistic of
+interest, typically a slot name for the microarray object {\tt m}, such
+as {\tt maM}.
 \end{description}
 
 
 Figure \ref{fig:maBoxplot1} panel (a) displays boxplots of
-pre--normalization log--ratios $M$ for each of the 16
-print--tip--groups for the Swirl 93 array.
- This plot was generated by the following commands
-
-
+pre--normalization log--ratios $M$ for each of the 16 print--tip--groups
+for the Swirl 93 array.  This plot was generated by the following
+commands
 <<maBoxplot1pre,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>=
 boxplot(swirl[,3], xvar="maPrintTip", yvar="maM", main="Swirl array 93: pre--normalization") 
 @
@@ -355,15 +333,15 @@ including possibly scale normalization.
 boxplot(swirl, yvar="maM", main="Swirl arrays: pre--normalization") 
 @
 
-The function {\tt maNorm} from the {\tt marrayNorm} package can be
-used for within--print--tip--group loess location normalization using
-all $8,448$ probes on the array. The following command normalizes all
-four arrays in the Swirl experiment simultaneously. Please refer to
-the vignette or help files of the {\tt marrayNorm} package for more
-information (e.g. {\tt ? maNorm}).
+The function {\tt maNorm} from the {\tt marrayNorm} package can be used
+for different types of within-array location normalization.  The
+following command normalizes all four arrays in the Swirl experiment
+simultaneously. Please refer to the vignette on normalization for more
+information.  The following command performs within print-tip group
+loesss normalization.
 
 <<eval=TRUE>>= 
-swirl.norm <- maNorm(swirl)
+swirl.norm <- maNorm(swirl, norm="p")
 @
 
 The following commands can be used to produce post--normalization
@@ -414,32 +392,39 @@ the Swirl experiment. }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Scatter--plots of spot statistics -- {\tt maPlot} or {\tt plot}}
 
-The function {\tt plot} produces {\it scatter--plots} of microarray
-spot statistics for the classes {\tt marrayRaw}, {\tt marrayNorm}, and
-{\tt marrayTwo}. It also allows the user to highlight and annotate
-subsets of points on the plot, and display fitted curves from robust
-local regression or other smoothing procedures (see details in {\tt ?
-maPlot}). The function {\tt maPlot} has seven main arguments
-\begin{description} \item {{\tt m}:} Microarray object of class {\tt
-marrayRaw} or  {\tt marrayNorm}.  \item {{\tt x}:}
-             Name of accessor function for the abscissa spot
+The function {\tt plot} produces {\it scatter--plots} of microarray spot
+statistics for the classes {\tt marrayRaw} and {\tt marrayNorm}. It also
+allows the user to highlight and annotate subsets of points on the plot,
+and display fitted curves from robust local regression or other
+smoothing procedures (see details in {\tt ? maPlot}). The function {\tt
+maPlot} has seven main arguments:
+
+\begin{description} 
+\item {{\tt x}:} Microarray object of class {\tt marrayRaw} or  {\tt
+  marrayNorm}.  
+\item {{\tt xvar}:} Name of accessor function for the abscissa spot
 statistic, typically a slot name for the microarray object {\tt m},
-such as {\tt maA}.  \item {{\tt y}:} Name of accessor function for the
+such as {\tt maA}.
+  \item {{\tt yvar}:} Name of accessor function for the
 ordinate spot statistic, typically a slot name for the microarray
-object {\tt m}, such as {\tt maM}.  \item {{\tt z}:} Name of accessor
+object {\tt m}, such as {\tt maM}.  
+\item {{\tt zvar}:} Name of accessor
 method for the spot statistic used to stratify the data, typically a
-slot name for the microarray layout object such
-             as {\tt maPlate} or a method such as {\tt maPrintTip}. If
-{\tt z} is {\tt NULL}, the data are not stratified.  \item {{\tt
-lines.func}:} Function for computing and plotting smoothed fits of
-{\tt y} as a function of {\tt x}, separately within values of {\tt z},
-e.g. {\tt maLoessLines}. If {\tt lines.func} is {\tt NULL}, no
-             fitting is performed.  \item {\tt {\tt text.func}:}
-Function for highlighting a subset of points, e.g., {\tt maText}. If
-{\tt text.func} is {\tt NULL}, no points are highlighted.  \item {{\tt
-legend.func}:} Function for adding a legend to the plot, e.g. {\tt
-maLegendLines}. If {\tt legend.func} is {\tt NULL}, there is no
-legend.  \end{description}
+slot name for the microarray layout object such as {\tt maPlate} or a
+method such as {\tt maPrintTip}. If 
+{\tt zvar} is {\tt NULL}, the data are not stratified.  
+
+\item {{\tt lines.func}:} Function for computing and plotting smoothed
+fits of {\tt yvar} as a function of {\tt xvar}, separately within values
+of {\tt zvar}, e.g. {\tt maLoessLines}.  If {\tt lines.func} is {\tt
+NULL}, no fitting is performed.  \item {\tt {\tt text.func}:} Function
+for highlighting a subset of points, e.g., {\tt maText}. If {\tt
+text.func} is {\tt NULL}, no points are highlighted.
+
+\item {{\tt legend.func}:} Function for adding a legend to the plot,
+e.g. {\tt maLegendLines}. If {\tt legend.func} is {\tt NULL}, there is
+no legend.  
+\end{description}
 
 As usual, optional graphical parameters may be supplied and these will
 overwrite the default parameters set in the plot functions.  A number
@@ -448,7 +433,7 @@ of functions for computing and plotting the fits are provided,
 robust local regression using the R functions {\tt lowess} and {\tt
 loess}, respectively (type {\tt ? loess} or {\tt ? lowess} for a brief
 description of R functions for robust local regression). Functions are
-also provided for highlighting points (e.g. {\tt maText}) and adding a
+also provided for highlighting points (e.g. {\tt text}) and adding a
 legend to the plot (e.g. {\tt maLegendLines}).\\
 
 {\bf $MA$--plots.} Single--slide expression data are typically
@@ -500,36 +485,65 @@ plot(swirl.norm[,3], xvar="maA", yvar="maM", zvar="maPrintTip",
 
 The same plots can be obtain using the default arguments of the
 function by the commands 
-<<eval=FALSE,echo=TRUE>>= 
-plot(swirl[,3])
-plot(swirl.norm[,3]) 
-@
+
+\begin{verbatim}
+> plot(swirl[,3])
+> plot(swirl.norm[,3], legend.func=NULL) 
+\begin{verbatim}
 
 To highlight, say, the spots with the highest and lowest 5\%
-log--ratios using purple symbols {\tt "O"}, set {\tt
-text.func=maText(subset=maTop(maM(swirl[,3]),h=0.05,l=0.05),labels="O",col="purple")}. Figure
-\ref{fig:maPlot1} illustrates the non--linear dependence of the
-log--ratio $M$ on the overall spot intensity $A$ and thus suggests
-that an intensity or $A$--dependent normalization method is preferable
-to a global one (e.g. median normalization). Also, the lowess fits vary
-among print--tip--groups, again revealing the existence of spatial dye
+log--ratios using purple points, or using red symbol {\tt a} use the
+following commands 
+
+\begin{verbatim}
+> points(swirl.norm[,3], subset=maTop(maM(swirl.norm[,3]),h=0.05,l=0.05),
+pch=19, col="purple")
+> text(swirl.norm[,3], subset=maTop(maM(swirl.norm[,3]),h=0.05,l=0.05),
+labels="a", col="red")
+\begin{verbatim}
+
+Figure \ref{fig:maPlot1} illustrates the non--linear dependence of the
+log--ratio $M$ on the overall spot intensity $A$ and thus suggests that
+an intensity or $A$--dependent normalization method is preferable to a
+global one (e.g. median normalization). Also, the lowess fits vary among
+print--tip--groups, again revealing the existence of spatial dye
 biases. Figure \ref{fig:maPlot1} panel (b) displays the $MA$--plot after
-within--print--tip--group loess location normalization. 
+within--print--tip--group loess location normalization.
 
 \begin{figure}
 \begin{center}
 \begin{tabular}{cc}
-\includegraphics[width=3in,height=3in,angle=0]{maPlot1pre} & \includegraphics[width=3in,height=3in,angle=0]{maPlot1post} \\
+\includegraphics[width=3in,height=3in,angle=0]{maPlot1pre} &
+\includegraphics[width=3in,height=3in,angle=0]{maPlot1post} \\ 
 (a) & (b)
 \end{tabular}
 \end{center}
-\caption{Pre-- and post--normalization $MA$--plot for the Swirl 93 array, with the lowess fits for individual print--tip--groups. Different colors are used to represent lowess curves for print--tips from different rows, and different line types are used to represent lowess curves for print--tips from different columns. }
+\caption{Pre-- and post--normalization $MA$--plot for the Swirl 93
+  array, with the lowess fits for individual
+  print--tip--groups. Different colors are used to represent lowess
+  curves for print--tips from different rows, and different line types
+  are used to represent lowess curves for print--tips from different
+  columns. } 
 \protect\label{fig:maPlot1}
 \end{figure}
 
-\section{Wrapper functions for basic sets of diagnostic plots}
-More details of this can be found in the package {\tt arrayQuality}.
- 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Wrapper functions for basic sets of diagnostic plots -- {\tt maQualityPlots}}
+The following command in another package {\tt arrayQuality} will
+generate qualitative diagnostic plots for each arrays in the {\tt
+marrayRaw} object and by default, saved it as different png files in the
+working directory.  More details of this can be found in the package
+{\tt arrayQuality}.
+
+
+\begin{verbatim}
+library(arrayQuality)
+maQualityPlots(swirl)
+\end{verbatim}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 {\bf Note: Sweave.} This document was generated using the \Rfunction{Sweave}
 function from the R \Rpackage{tools} package. The source file is in the
