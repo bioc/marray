@@ -139,6 +139,8 @@ read.marrayRaw<-
   
   # Intensity data
   Gf<-Gb<-Rf<-Rb<-W<- NULL
+  if(is.null(name.Rf)) Rf <- matrix(0,0,0)
+  if(is.null(name.Gf)) Gf <- matrix(0,0,0)
   if(is.null(name.Gb)) Gb <- matrix(0,0,0)
   if(is.null(name.Rb)) Rb <- matrix(0,0,0)
 
@@ -156,9 +158,9 @@ read.marrayRaw<-
     names(h)<-gsub("\"", "", unlist(h))
     
     dat<-scan(f,quiet=TRUE,what=h, sep=sep, skip=skip+1, quote=quote, ...)
-    Gf<-cbind(Gf,as.numeric(dat[[name.Gf]]))
+    if(!is.null(name.Gf)) Gf<-cbind(Gf,as.numeric(dat[[name.Gf]]))
     if(!is.null(name.Gb)) Gb<-cbind(Gb,as.numeric(dat[[name.Gb]]))
-    Rf<-cbind(Rf,as.numeric(dat[[name.Rf]]))
+    if(!is.null(name.Rf)) Rf<-cbind(Rf,as.numeric(dat[[name.Rf]]))
     if(!is.null(name.Rb)) Rb<-cbind(Rb,as.numeric(dat[[name.Rb]]))
     if(!is.null(name.W)) W <-cbind(W,as.numeric(dat[[name.W]]))
   }
@@ -166,9 +168,9 @@ read.marrayRaw<-
   if(!is.null(name.W)) colnames(W) <- fnames
   if(!is.null(name.Gb)) colnames(Gb) <- fnames
   if(!is.null(name.Rb)) colnames(Rb) <- fnames
+  if(!is.null(name.Rf)) colnames(Rf) <- fnames
+  if(!is.null(name.Gf)) colnames(Gf) <- fnames
 
-  colnames(Gf)<-colnames(Rf) <- fnames
-  
   ## Add Notes
   if(is.null(notes)) notes <- ""
 

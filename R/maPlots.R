@@ -375,7 +375,7 @@ maImage.func<-function(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, o
   
   ## x is a matrix
   if(missing(L))
-    L <- new(marrayLayout, maNgr=1, maNgc=1, maNsr=nrow(x), maNsc=ncol(x))
+    L <- new("marrayLayout", maNgr=1, maNgc=1, maNsr=nrow(x), maNsc=ncol(x))
 
   ## When only a subset of spots are stored in marray object, pad with NA
   subset<-maNum2Logic(maNspots(L), subset)

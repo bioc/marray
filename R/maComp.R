@@ -122,6 +122,38 @@ maCompInd<-function(grows, gcols, srows, scols, L)
   maCoord2Ind(coord, L)
 }
 
+
+###########################################################################
+##
+## Added on April 5, 2004
+##
+###########################################################################
+
+maCompLayout <- function(mat, ncolumns=4)
+  {
+    if (dim(mat)[2]==3)
+      {
+        Blocks <- mat[,1]
+        gr <- mat[,1] / ncolumns
+        newmat <- cbind(gr=(mat[,1] - 1) %/% ncolumns, gc=((mat[,1] -1) %% 4) + 1,
+                        sr=mat[,2], sc=mat[,3])
+      }  else
+    newmat <- mat
+    
+    ngr <- max(newmat[,1]);  ngc <- max(newmat[,2])
+    nsr <- max(newmat[,3]);  nsc <- max(newmat[,4])
+    nspots <- as.integer(ngr) * as.integer(ngc) * as.integer(nsr) *   as.integer(nsc)
+    
+    mlayout <- new("marrayLayout", maNgr = as.integer(ngr),
+                   maNgc = as.integer(ngc),
+                   maNsr = as.integer(nsr),
+                   maNsc = as.integer(nsc),
+                   maNspots = nspots)
+    maSub(mlayout) <- maCoord2Ind(newmat, mlayout)
+    return(mlayout)
+  }
+
+
 ###########################################################################
 ##
 ##  Move controlCode and maGenControls from marrayTools to marrayClasses
