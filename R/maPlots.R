@@ -27,8 +27,9 @@ setMethod("boxplot", signature(x="marrayNorm"), function (x, xvar = "maPrintTip"
 
 if( is.null(getGeneric("image")))  setGeneric("image")
 setMethod("image", signature(x="marrayRaw"),
-          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ol.col=1,...){
-            maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ol.col=ol.col,... )})
+          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ol.col=1, colorinfo = FALSE, ...){
+            maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ol.col=ol.col, colorinfo = colorinfo, ... )})
+
 setMethod("image", signature(x="marrayNorm"),
           function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ol.col=1,colorinfo = FALSE, ...){
               maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ol.col=ol.col, colorinfo = colorinfo, ... )}) 
@@ -497,6 +498,8 @@ maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, over
     layout(1)
     par(mar=c(5,4,4,2) + 0.1)
   }
+
+  print(colorinfo)
   if(colorinfo)
     return(list(x.col=col[1:length(x.bar)], x.bar=x.bar, summary=summary(xx[subset])))
   else
