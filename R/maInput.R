@@ -336,7 +336,8 @@ read.GenePix <-  function(fnames = NULL,
       }
     else
       fullnames <- fnames
-    
+
+    setgal <- FALSE
     if(DEBUG) print(fullnames)
     if(is.null(gnames) | is.null(layout))
       {
@@ -353,7 +354,7 @@ read.GenePix <-  function(fnames = NULL,
         setgal <- TRUE
       }
 
-    print(layout@maControls)
+    if(DEBUG) print(table(layout@maControls))
     if(DEBUG) cat("Setting up controls status ... ")
     if(length(layout@maControls) == 0)
       {
