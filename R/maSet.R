@@ -66,20 +66,7 @@ setReplaceMethod("maNgr", signature("marrayNorm","numeric"),
 	  maNgr(slot(object,"maLayout"))<- value
 	  object
 	})
-
-setReplaceMethod("maNgr", signature("marraySpots","numeric"),
-  	function(object, value) {
-	  maNgr(slot(object,"maLayout"))<- value
-	  object
-	})
-
-setReplaceMethod("maNgr", signature("marrayTwo","numeric"),
-  	function(object, value) {
-	  maNgr(slot(object,"maLayout"))<- value
-	  object
-	})
-
-###########################################################################
+#########################################################################
 # Assignment methods for maNgc slot of marrayLayout class
 
 if( !isGeneric("maNgc<-") )
@@ -99,18 +86,6 @@ setReplaceMethod("maNgc", signature("marrayRaw","numeric"),
 	})
 
 setReplaceMethod("maNgc", signature("marrayNorm","numeric"),
-  	function(object, value) {
-	  maNgc(slot(object,"maLayout"))<- value
-	  object
-	})
-
-setReplaceMethod("maNgc", signature("marraySpots","numeric"),
-  	function(object, value) {
-	  maNgc(slot(object,"maLayout"))<- value
-	  object
-	})
-
-setReplaceMethod("maNgc", signature("marrayTwo","numeric"),
   	function(object, value) {
 	  maNgc(slot(object,"maLayout"))<- value
 	  object
@@ -141,18 +116,6 @@ setReplaceMethod("maNsr", signature("marrayNorm","numeric"),
 	  object
 	})
 
-setReplaceMethod("maNsr", signature("marraySpots","numeric"),
-  	function(object, value) {
-	  maNsr(slot(object,"maLayout"))<- value
-	  object
-	})
-
-setReplaceMethod("maNsr", signature("marrayTwo","numeric"),
-  	function(object, value) {
-	  maNsr(slot(object,"maLayout"))<- value
-	  object
-	})
-
 ###########################################################################
 # Assignment methods for maNsc slot of marrayLayout class
 
@@ -178,18 +141,6 @@ setReplaceMethod("maNsc", signature("marrayNorm","numeric"),
 	  object
 	})
 
-setReplaceMethod("maNsc", signature("marraySpots","numeric"),
-  	function(object, value) {
-	  maNsc(slot(object,"maLayout"))<- value
-	  object
-	})
-
-setReplaceMethod("maNsc", signature("marrayTwo","numeric"),
-  	function(object, value) {
-	  maNsc(slot(object,"maLayout"))<- value
-	  object
-	})
-
 ###########################################################################
 # Assignment methods for maNspots slot of marrayLayout class
 
@@ -210,18 +161,6 @@ setReplaceMethod("maNspots", signature("marrayRaw","numeric"),
 	})
 
 setReplaceMethod("maNspots", signature("marrayNorm","numeric"),
-  	function(object, value) {
-	  maNspots(slot(object,"maLayout"))<- value
-	  object
-	})
-
-setReplaceMethod("maNspots", signature("marraySpots","numeric"),
-  	function(object, value) {
-	  maNspots(slot(object,"maLayout"))<- value
-	  object
-	})
-
-setReplaceMethod("maNspots", signature("marrayTwo","numeric"),
   	function(object, value) {
 	  maNspots(slot(object,"maLayout"))<- value
 	  object
@@ -258,20 +197,6 @@ setReplaceMethod("maSub", signature("marrayNorm"),
                 object
              })
 
-
-setReplaceMethod("maSub", signature("marraySpots"),
-             function(object,value){
-                maSub(slot(object, "maLayout")) <- value
-                object
-             })
-
-
-setReplaceMethod("maSub", signature("marrayTwo"),
-             function(object,value){
-                maSub(slot(object, "maLayout")) <- value
-                object
-             })
-
 ###########################################################################
 # Assignment methods for maPlate slot of marrayLayout class
 
@@ -297,18 +222,6 @@ setReplaceMethod("maPlate", "marrayNorm",
 	  object
 	})
 
-setReplaceMethod("maPlate", "marraySpots",
-  	function(object, value) {
-	  maPlate(slot(object,"maLayout"))<- factor(value)
-	  object
-	})
-
-
-setReplaceMethod("maPlate", "marrayTwo",
-  	function(object, value) {
-	  maPlate(slot(object,"maLayout"))<- factor(value)
-	  object
-	})
 
 ###########################################################################
 # Assignment methods for maControls slot of marrayLayout class
@@ -336,18 +249,6 @@ setReplaceMethod("maControls", "marrayNorm",
   })
 
 
-setReplaceMethod("maControls", "marraySpots",
-  function(object, value) {
-     maControls(slot(object,"maLayout")) <- factor(value)
-     object
-  })
-
-setReplaceMethod("maControls", "marrayTwo",
-  function(object, value) {
-     maControls(slot(object,"maLayout")) <- factor(value)
-     object
-  })
-
 ###########################################################################
 # Assignment methods for maLayout slot of marrayRaw, marrayNorm etc. classes
 
@@ -367,21 +268,8 @@ setReplaceMethod("maLayout", signature("marrayNorm", "marrayLayout"),
      object
   })
 
-setReplaceMethod("maLayout", signature("marraySpots", "marrayLayout"),
-  function(object, value) {
-     slot(object,"maLayout")<- value
-     object
-  })
-
-setReplaceMethod("maLayout", signature("marrayTwo", "marrayLayout"),
-  function(object, value) {
-     slot(object,"maLayout")<- value
-     object
-  })
-
 ###########################################################################
-# Assignment methods for maGnames slot of marrayRaw, marrayNorm, and
-# marraySpots classes
+# Assignment methods for maGnames slot of marrayRaw, marrayNorm
 
 if( !isGeneric("maGnames<-") )
       setGeneric("maGnames<-", function(object, value)
@@ -399,15 +287,8 @@ setReplaceMethod("maGnames", signature("marrayNorm", "marrayInfo"),
      object
   })
 
-setReplaceMethod("maGnames", signature("marraySpots", "marrayInfo"),
-  function(object, value) {
-     slot(object,"maGnames")<- value
-     object
-  })
-
 ###########################################################################
-# Assignment methods for maTargets slot of marrayRaw, marrayNorm, and
-# marrayTwo classes
+# Assignment methods for maTargets slot of marrayRaw, marrayNorm
 
 if( !isGeneric("maTargets<-") )
       setGeneric("maTargets<-", function(object, value)
@@ -425,11 +306,6 @@ setReplaceMethod("maTargets", signature("marrayNorm", "marrayInfo"),
      object
   })
 
-setReplaceMethod("maTargets", signature("marrayTwo", "marrayInfo"),
-  function(object, value) {
-     slot(object,"maTargets")<- value
-     object
-  })
 
 ###########################################################################
 # Assignment methods for maW slot of marrayRaw and marrayNorm classes
@@ -595,27 +471,3 @@ setReplaceMethod("maNotes", signature("marrayInfo", "character"),
      slot(object,"maNotes")<- value
      object
   })
-
-###########################################################################
-# Assignment methods for slots of marrayTwo class
-
-if( !isGeneric("maX<-") )
-      setGeneric("maX<-", function(object, value)
-               standardGeneric("maX<-"))
-
-setReplaceMethod("maX", signature("marrayTwo", "matrix"),
-  function(object, value) {
-     slot(object,"maX")<- value
-     object
-  })
-
-if( !isGeneric("maY<-") )
-      setGeneric("maY<-", function(object, value)
-               standardGeneric("maY<-"))
-
-setReplaceMethod("maY", signature("marrayTwo", "matrix"),
-  function(object, value) {
-     slot(object,"maY")<- value
-     object
-  })
-

@@ -4,8 +4,8 @@
 # Diagnostic plots for two-color cDNA microarrays
 #
 ###########################################################################
-require("marrayInput")
-require("marrayClasses")
+## require("marrayInput")
+## require("marrayClasses")
 
 ###########################################################################
 # Default plotting parameters for microarray objects
