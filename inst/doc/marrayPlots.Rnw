@@ -5,7 +5,7 @@
 % \VignetteIndexEntry{marrayPlots Overview}
 % \VignetteDepends{tools, marrayPlots}
 % \VignetteKeywords{Expression Analysis, Preprocessing}
-% \VignettePackage{marrayPlots}
+% \VignettePackage{marray}
 \documentclass[11pt]{article}
 
 \usepackage{amsmath,epsfig,fullpage} %psfig,pstricks,
@@ -23,7 +23,7 @@
 
 \begin{document}
 
-\title{\bf Bioconductor's marrayPlots package}
+\title{\bf Bioconductor's marray package: Plotting component}
 
 
 \author{Yee Hwa Yang$^1$ and Sandrine Dudoit$^2$}
@@ -443,8 +443,8 @@ legend.  \end{description}
 
 As usual, optional graphical parameters may be supplied and these will
 overwrite the default parameters set in the plot functions.  A number
-of functions for computing and plotting the fits are provided in {\tt
-marrayPlot}, such as {\tt maLowessLines} and {\tt maLoessLines} for
+of functions for computing and plotting the fits are provided,
+ such as {\tt maLowessLines} and {\tt maLoessLines} for
 robust local regression using the R functions {\tt lowess} and {\tt
 loess}, respectively (type {\tt ? loess} or {\tt ? lowess} for a brief
 description of R functions for robust local regression). Functions are
