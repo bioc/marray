@@ -262,7 +262,7 @@ read.Spot <-  function(fnames = NULL,
                        ...)
   {
     ## If fnames not specified, read everything in the dir
-
+    opt <- list(...)
     if(is.null(fnames))
       {
         if(!is.null(targets))
@@ -283,7 +283,6 @@ read.Spot <-  function(fnames = NULL,
     if(is.null(gnames) | is.null(layout))
       {
         if(DEBUG) print("Reading Galfile ... ")
-        opt <- list(...)
         galfile <- dir(pattern="*.\\gal", path=path)
         defs <- list(galfile = galfile, path=path, info.id = c("ID", "Name"),
                      labels = "ID", sep = sep, quote=quote, fill=TRUE, check.names=FALSE,
@@ -372,7 +371,6 @@ read.GenePix <-  function(fnames = NULL,
     if(is.null(gnames) | is.null(layout))
       {
         if(DEBUG) print("Reading Galfile ... ")
-        opt <- list(...)
         defs <- list(galfile = fullnames[1], path=path, info.id = c("ID", "Name"),
                      labels = "ID", sep = sep, quote=quote, fill=TRUE, check.names=FALSE,
                      as.is=TRUE, ncolumns = 4)

@@ -29,8 +29,7 @@ name.Rb = "Ch2 Background (Median)", name.W = NULL, info.id = c("Name",
 
 read.Spot(fnames = NULL, path = ".", name.Gf = "Gmean", name.Gb =
 "morphG", name.Rf = "Rmean", name.Rb = "morphR",name.W = NULL, layout =
-NULL, gnames = NULL, targets = NULL, notes = NULL, skip = NULL, sep = "
-", quote = "\"", DEBUG=FALSE, ...)
+NULL, gnames = NULL, targets = NULL, notes = NULL, skip = NULL, sep = "\t", quote = "\"", DEBUG=FALSE, ...)
 
 read.Agilent(fnames = NULL, path=NULL, name.Gf = "gMedianSignal", name.Gb = "gBGMedianSignal", name.Rf = "rMedianSignal", name.Rb = "rBGMedianSignal", name.W= NULL, layout = NULL, gnames = NULL, targets = NULL, notes=NULL, skip=NULL, sep="\t", quote="\"", DEBUG=FALSE, info.id=NULL, ...)
 

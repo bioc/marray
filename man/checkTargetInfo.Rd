@@ -20,18 +20,18 @@ checkTargetInfo(mraw)
 \author{Yee Hwa (Jean) Yang}
 
 \examples{
+datadir <- system.file("swirldata", package="marray")
+swirl.targets <- read.marrayInfo(file.path(datadir, "SwirlSample.txt"))
 data(swirl)
-tmp <- cbind(colnames(maGf(swirl)), swirl@maTargets@maInfo)
-colnames(tmp)[1] <- "FileNames"
-swirl@maTargets@maInfo <- tmp
+swirl@maTargets <- swirl.targets
+
 checkTargetInfo(swirl)
+
+checkTargetInfo(swirl[, 2:4])
 
 ## reorder
-swirl@maTargets@maInfo <- tmp[, c(2:4, 1)]
+swirl@maTargets <- swirl.targets[c(2:4, 1),]
 checkTargetInfo(swirl)
-
-## Missing Target information
-checkTargetInfo(new("marrayRaw"))
 }
 
 \keyword{file}% at least one, from doc/KEYWORDS
