@@ -150,7 +150,7 @@ read.marrayRaw<-
     skip <- grep(name.Gf, y)[1] - 1
     if(DEBUG) cat(skip, "done \n")
 
-    cat("Reding ... ", f)
+    cat("Reading ... ", f)
     h<-strsplit(readLines(f, n=skip+1),split=sep)
     h<-as.list(unlist(h[[length(h)]]))
     names(h)<-gsub("\"", "", unlist(h))

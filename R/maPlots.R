@@ -22,11 +22,11 @@ setMethod("boxplot", signature(x="marrayRaw"), function (x, xvar = "maPrintTip",
 setMethod("boxplot", signature(x="marrayNorm"), function (x, xvar = "maPrintTip", yvar = "maM", ...){
               maBoxplot(m=x, x=xvar, y=yvar, ...)})
 setMethod("image", signature(x="marrayRaw"),
-          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ...){
-            maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ... )})
+          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ol.col=1,...){
+            maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ol.col=ol.col,... )})
 setMethod("image", signature(x="marrayNorm"),
-          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ...){
-              maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ... )})
+          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ol.col=1,...){
+              maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ol.col=ol.col,... )}) 
 
 ## points, lines, text
 setMethod("points", signature(x="marrayRaw"), function (x, xvar = "maA", yvar = "maM", ...)
@@ -370,7 +370,7 @@ maPlot <- function(m, x="maA", y="maM", z="maPrintTip",lines.func,text.func,lege
 # Modified March 15, 2004 to add overlay option (contribution from katie)
 ###########################################################################
 
-maImage.func<-function(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, overlay=NULL, ...)
+maImage.func<-function(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, overlay=NULL, ol.col=1, ...)
 {
   
   ## x is a matrix
@@ -416,7 +416,7 @@ maImage.func<-function(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, o
       zsub<-matrix(zsub[ord],nrow=nr,ncol=nc,byrow=TRUE)
       zsub<-t(zsub)[,nr:1]
       ## we hard code this part for the moment
-      points(row(zsub)[zsub],col(zsub)[zsub], pch=22, col="black", cex=0.9)  
+      points(row(zsub)[zsub],col(zsub)[zsub], pch=22, col=ol.col, cex=0.9)  
     }
  
 }
@@ -428,7 +428,7 @@ maImage.func<-function(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, o
 # Modified by Jean : Sept 15, 2002 to include centering of color
 # Modified March 15, 2004 to add overlay option (contribution from katie)
 
-maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, overlay=NULL, ...)
+maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, overlay=NULL, ol.col=1, ...)
 {
   subset<-maNum2Logic(maNspots(m), subset)
   m<-m[,1]
@@ -467,7 +467,7 @@ maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, over
   opt<-list(...)
   if(!is.null(opt))
     def<-maDotsDefaults(opt,def)
-  args<-c(list(x=xx, L=maLayout(m), subset=subset, col=col, contours=contours, overlay=overlay),def)
+  args<-c(list(x=xx, L=maLayout(m), subset=subset, col=col, contours=contours, overlay=overlay, ol.col=ol.col),def) 
   x.bar <- seq(args$zlim[1], args$zlim[2], length=41)
 
   if(!bar)
