@@ -12,6 +12,14 @@
 # source("~/Projects/maTools/R/maInOut.R")
 #
 
+write.marray <- function(mraw, file="maRawResults.xls", val="maM", ...)
+{
+  tmp <- cbind(maGeneTable(mraw), eval(call(val,mraw)))
+  write.table(tmp, file, row.names=FALSE, col.names=TRUE, sep="\t", ...)
+  return(NULL)
+}
+  
+  
 write.xls <- function(res, file="test.xls", ...)
   {
     write.table(res, file, row.names=FALSE, col.names=TRUE, sep="\t", ...)
