@@ -436,7 +436,6 @@ plot(swirl.norm[,3], main="Swirl array 93: post--normalization MA--plot")
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\bibliography{marrayPacks}
 
 \begin{figure}
 \begin{center}
