@@ -502,14 +502,6 @@ pch=19, col="purple")
 labels="a", col="red")
 \begin{verbatim}
 
-Figure \ref{fig:maPlot1} illustrates the non--linear dependence of the
-log--ratio $M$ on the overall spot intensity $A$ and thus suggests that
-an intensity or $A$--dependent normalization method is preferable to a
-global one (e.g. median normalization). Also, the lowess fits vary among
-print--tip--groups, again revealing the existence of spatial dye
-biases. Figure \ref{fig:maPlot1} panel (b) displays the $MA$--plot after
-within--print--tip--group loess location normalization.
-
 \begin{figure}
 \begin{center}
 \begin{tabular}{cc}
@@ -526,6 +518,15 @@ within--print--tip--group loess location normalization.
   columns. } 
 \protect\label{fig:maPlot1}
 \end{figure}
+
+
+Figure \ref{fig:maPlot1} illustrates the non--linear dependence of the
+log--ratio $M$ on the overall spot intensity $A$ and thus suggests that
+an intensity or $A$--dependent normalization method is preferable to a
+global one (e.g. median normalization). Also, the lowess fits vary among
+print--tip--groups, again revealing the existence of spatial dye
+biases. Figure \ref{fig:maPlot1} panel (b) displays the $MA$--plot after
+within--print--tip--group loess location normalization.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
