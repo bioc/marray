@@ -7,13 +7,11 @@
 \title{Subsetting methods for microarray objects}
 
 
-\description{
-Subsetting methods were defined for the microarray classes,
-\code{"\link{marrayInfo}"}, \code{"\link{marrayLayout}"},
-\code{"\link{marrayRaw}"} and \code{"\link{marrayNorm}"}}. These
-methods create instances of the given class, for a subset of spots
-and/or arrays in a batch. 
-}
+\description{Subsetting methods were defined for the microarray classes,
+  \code{\link{marrayInfo}},
+  \code{\link{marrayLayout}},\code{\link{marrayRaw}} and
+  \code{\link{marrayNorm}}. These methods create instances of the given
+class, for a subset of spots and/or arrays in a batch.}
 
 \section{Methods}{\describe{
 \item{x = ANY}{generic method.}

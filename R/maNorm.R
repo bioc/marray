@@ -2,7 +2,7 @@
 # maNorm.R
 #
 # Functions for location and scale normalization for two-color cDNA microarrays
-#
+#  source("~/Projects/madman/Rpacks/marray/R/maNorm.R")
 ###########################################################################
 
 ############################################################################
@@ -221,6 +221,8 @@ maNormMed<-function(x=NULL, y="maM", subset=TRUE)
 # In our case, x=NA iff y=NA
 ## Jean modify Nov 5th, April 9, 2003
 ## Very ugly fix
+## Jean modify Sep 14, 2004
+## Sample Loess if the number is too large
 
 maLoess <-
 function (x, y, z, w = NULL, subset = TRUE, span = 0.4, ...)
@@ -235,10 +237,19 @@ function (x, y, z, w = NULL, subset = TRUE, span = 0.4, ...)
   for (i in unique(info))
     {
       which <- z == i
+      ##      cat(i, " :: ", sum(which), "::", unique(z), "\n")
+      if((sum(which) == 1) | (length(unique(z)) == 1)) {
+        samplesub <- rep(TRUE, length(x))
+        samplesub[-sample(1:length(x), min(length(x), 2000))] <- FALSE
+        ## cat("in if ", sum(samplesub), " :: ", length(samplesub), "\n")
+      }
+      else
+        samplesub <- TRUE
+
       defs <- list(degree=1,
                    family="symmetric",
                    control=loess.control(trace.hat="approximate",iterations=5, surface="direct"),
-                   subset = which & subset & good,
+                   subset = samplesub & which & subset & good,
                    span=span,
                    na.action = na.omit,
                    weights=w)
@@ -247,7 +258,7 @@ function (x, y, z, w = NULL, subset = TRUE, span = 0.4, ...)
                    span = args$span, na.action = args$na.action,
                    degree = args$degree, family=args$family,
                    control=args$control)
-##      gc(TRUE)
+      ##      gc(TRUE)
       ##      fit <- loess(y ~ x, weights = w, subset = which & subset &
       ##                   good, span = span, na.action = na.omit)
       yfit[which & good] <- predict(fit, x[which & good])

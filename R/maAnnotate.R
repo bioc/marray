@@ -265,8 +265,8 @@ URLstring <- list(
  operonh1 = "http://oparray.operon.com/~operon/human/index.php?single_query=UNIQID",
  operonm2 = "http://oparray.operon.com/mouse2/index.php?single_query=UNIQID",
  operonm1 = "http://oparray.operon.com/~operon/mouse/index.php?single_query=UNIQID",
- operonST="http://sandlertest.ucsf.edu/NOMAD/nomad-cgi/query_annot.pl?UNIQID",
- genbank ="http://www.ncbi.nlm.nih.gov/entrez/viewer.fcgi?DB=nucleotide&val=UNIQID",
+ operonST= "http://arrays.ucsf.edu/cgi-bin/oligo_db.pl?oligo=UNIQID",
+ genbank = "http://www.ncbi.nlm.nih.gov/entrez/viewer.fcgi?DB=nucleotide&val=UNIQID",
  unigeneMm="http://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Mm&CID=UNIQID",
  unigeneHS="http://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Hs&CID=UNIQID")
                   

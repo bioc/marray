@@ -3,14 +3,10 @@
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Boxplots for cDNA microarray spot statistics}
-\description{
-The function \code{maBoxplot} produces boxplots of microarray spot
-statistics for the classes  \code{"\link{marrayRaw}"} and
-\code{"\link{marrayNorm}"}}.
-  We encourage users to use "boxplot"  rather than "maBoxplot".  The name of
-  the arguments have changed.
 
-}
+\description{ The function \code{maBoxplot} produces boxplots of microarray spot
+statistics for the classes  \code{\link{marrayRaw}} and
+\code{\link{marrayNorm}}.We encourage users to use "boxplot"  rather than "maBoxplot".  The name of the arguments have changed.}
 
 \usage{
 maBoxplot(m, x="maPrintTip", y="maM", ...)

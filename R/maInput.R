@@ -107,6 +107,7 @@ read.marrayInfo <-
   return(descript)
 }
 
+
 ###########################################################################
 # Function: read.marrayRaw
 #
@@ -129,8 +130,8 @@ read.marrayRaw<-
            DEBUG=FALSE,
            ...)
 {
-  print("in read.marrayraw")
-  print(path)
+  if(DEBUG) print("in read.marrayraw")
+  if(DEBUG) cat("Path", path, "\n")
   if(is.null(path))
     fullfnames <- fnames
   else
@@ -351,8 +352,15 @@ read.GenePix <-  function(fnames = NULL,
         if(DEBUG) print("done \n ")
       }
 
+    print(layout@maControls)
     if(DEBUG) cat("Setting up controls status ... ")
-    if(length(layout@maControls) != 0) layout@maControls <- as.factor(maGenControls(gnames))
+    if(length(layout@maControls) == 0)
+      {
+        if(DEBUG) cat("Generate controls \n")
+        GenControls.args <- maDotsMatch(maDotsMatch(opt, list(Gnames=gnames)), formals(args("maGenControls"))) 
+        layout@maControls <- as.factor(do.call("maGenControls", GenControls.args))
+        print(table(layout@maControls))
+      }
     if(DEBUG) cat("done \n ")
     
     if(is.null(notes)) notes <- "GenePix Data"
@@ -366,8 +374,122 @@ read.GenePix <-  function(fnames = NULL,
     maRaw.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.marrayRaw")))        
     mraw <- do.call("read.marrayRaw", maRaw.args)
 
+    ## Checking orders
+    mraw <- mraw[gal$neworder,]
+    ## make sure the reordering doesn't affect the subset fucntion.  
+    mraw@maLayout@maSub <- layout@maSub
+    
     return(mraw)
   }
+
+
+
+
+###########################################################################
+#  Read Agilent
+#
+read.Agilent <-  function(fnames = NULL,
+                          path=NULL,
+                          name.Gf = "gMedianSignal",
+                          name.Gb = "gBGMedianSignal",
+                          name.Rf = "rMedianSignal",
+                          name.Rb = "rBGMedianSignal",
+                          name.W= NULL,
+                          layout = NULL,
+                          gnames = NULL,
+                          targets = NULL,
+                          notes=NULL,
+                          skip=NULL,
+                          sep="\t",
+                          quote="\"",
+                          DEBUG=FALSE,
+                          info.id=NULL,
+                          ...)
+  {
+    
+    opt <- list(...)
+    ## If fnames not specified, read everything in the dir
+    if(is.null(fnames))
+      {
+        if(!is.null(targets))
+          fullnames <- maInfo(targets)[,1]  
+        else
+          {
+            if(is.null(path))
+              fullnames <- dir(pattern="*\\.txt$")
+            else
+              fullnames <- dir(path, pattern="*\\.txt$")
+          }
+      }
+    else
+      fullnames <- fnames
+    
+    if(DEBUG) print(fullnames)
+    if(is.null(gnames) | is.null(layout))
+      {
+        if(DEBUG) cat("Setting up Gene Annotation information  ... ")
+        ## Gnames : reading data in (the first one)
+        y <- readLines(fullnames[1], n=100)
+        if(class(info.id) == "character")
+          skip <- intersect(grep(info.id[1], y), grep("Row", y))[1] - 1
+        else
+          skip <- intersect(grep("Row", y), grep("ProbeName", y))[1] - 1
+        
+        defs <- list(file=fullnames[1], path = path, sep=sep, skip=skip,
+                     fill = TRUE, quote = "\"", check.names=FALSE,
+                     as.is=TRUE, comment.char="", header=TRUE)
+        read.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.table")))
+        dat <- do.call("read.table", read.args)
+        
+        descript <- new("marrayInfo", maNotes = "Agilent")
+        if(is.null(info.id))
+          {
+            info.id <- intersect(c("ProbeName", "ProbeUID", "SystematicName", "Description", "ControlType", "SwissProt", "GenBank", "Primate", "Sequence", "GenPept"), colnames(dat))
+          }
+        maInfo(descript) <- data.frame(dat[,info.id])
+        rownames(descript@maInfo) <- as.vector(dat[,info.id[1]])
+        descript@maLabels <- as.character(dat[,info.id[1]])
+        if(DEBUG) cat("done \n")
+        
+        ## Layout
+        if(DEBUG) cat("Setting up Layout information  ... ")
+##        idR<- grep(layout.id["Row"], colnames(dat));  ##Lrow <- dat[,id]
+##        idC <- grep(layout.id["Column"], colnames(dat)); ## Lcolumn <- dat[,id]
+        layout <- maCompLayout(cbind(1, 1, dat[,c("Row", "Col")]), ncolumns=1)
+        tmp <- rep(TRUE, max(as.integer(dat[,"FeatureNum"])))
+        tmp[-dat[,"FeatureNum"]] <- FALSE 
+        maSub(layout) <- tmp
+        if(DEBUG) cat("done \n")
+      }
+    
+    if(DEBUG) cat("Setting up controls status ... ")
+    if(length(layout@maControls) == 0) {
+      tmp <- as.character(dat[,"ControlType"])
+      tmp[tmp == "0"] <- "probes"
+      tmp[tmp == "1"] <- "Positive"
+      tmp[tmp == "-1"] <- "Negative"
+      layout@maControls <- as.factor(tmp)
+      rm(tmp)
+    }
+    if(DEBUG) cat("done \n ")
+    
+    if(is.null(notes)) notes <- "Agilent Data"
+
+    if(DEBUG) cat("Calling read.marrayRaw ... \n")
+    if(DEBUG) cat("To read", fullnames, "... \n")
+    
+    defs <- list(fnames = fullnames, path=path,
+                 name.Gf = name.Gf, name.Gb=name.Gb, name.Rf=name.Rf, name.Rb=name.Rb,
+                 name.W=name.W, layout = layout, gnames=descript, targets=targets,
+                 notes = notes, skip=skip, sep=sep, quote=quote, fill=TRUE,
+                 check.names=FALSE,  as.is=TRUE)
+    maRaw.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.marrayRaw")))        
+    mraw <- do.call("read.marrayRaw", maRaw.args)
+
+    return(mraw)
+  }
+
+
 
 
 ###########################################################################
@@ -387,7 +509,7 @@ read.Galfile <- function (galfile,
 
   if(!is.null(path))
     f <- file.path(path, galfile)
-  else
+   else
     f <- galfile
   y <- readLines(f, n=100)
 
@@ -407,7 +529,9 @@ read.Galfile <- function (galfile,
   if (is.null(info.id))
     info.id <- 1:ncol(dat)
   maInfo(descript) <- data.frame(dat[,info.id])
-  rownames(descript@maInfo) <- as.vector(dat[,info.id[1]])
+
+  ## Fix for R2.0 because data.frame needed unique rownames
+  rownames(descript@maInfo) <- make.names(as.vector(dat[,info.id[1]]), unique=TRUE)
   
   if (length(labels) == nrow(dat))
     maLabels(descript) <- as.vector(labels)
@@ -422,7 +546,14 @@ read.Galfile <- function (galfile,
   idR<- grep(layout.id["Row"], colnames(dat));  ##Lrow <- dat[,id]
   idC <- grep(layout.id["Column"], colnames(dat)); ## Lcolumn <- dat[,id]
   mlayout <- maCompLayout(dat[,c(idB, idR, idC)], ncolumns)
-  return(list(gnames = descript, layout=mlayout))
+  newmat <- cbind(gr = ((dat[,idB] - 1)%/%ncolumns) + 1, 
+                  gc = ((dat[,idB] - 1)%%ncolumns) + 1, sr = dat[,idR], sc = dat[,idC])
+  ngr<-maNgr(mlayout); ngc<-maNgc(mlayout)
+  nsr<-maNsr(mlayout); nsc<-maNsc(mlayout)
+  ind<-(nsr * nsc)* ((newmat[,1] - 1) * ngc + (newmat[,2] - 1)) + (newmat[,3] - 1) * nsc + newmat[,4]
+  ## ind provides the proper location of the entry
+  ## Assume no NAs and no missing values
+  return(list(gnames = descript, layout=mlayout, neworder=order(ind)))
 }
 
 
@@ -508,13 +639,12 @@ read.SMD <- function(fnames = NULL, path = NULL,
   rownames(maInfo) <- 1:dim(maInfo)[1]
   targets <- new("marrayInfo", maLabels = maLabels, maInfo = maInfo)
 
-  
-  if(DEBUG) cat("Calling read.marrayRaw ... \n")
   defs <- list(fnames = fullnames, path=path,
                name.Gf = name.Gf, name.Gb=name.Gb, name.Rf=name.Rf, name.Rb=name.Rb,
                name.W=name.W, layout = layout, gnames=gnames, targets=targets,
                notes = notes, skip=skip, sep=sep, quote=quote, fill=TRUE,
                check.names=FALSE,  as.is=TRUE)
+  if(DEBUG) cat("Calling read.marrayRaw ... \n")
   maRaw.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.marrayRaw")))        
   mraw <- do.call("read.marrayRaw", maRaw.args)
   return(mraw)

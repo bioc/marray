@@ -5,8 +5,9 @@
 \title{Table of spot coordinates and gene names}
 \description{
 This function produces a table of spot coordinates and gene names for
-objects of class \code{"\link{marrayRaw}"} and \code{"\link{marrayNorm}"}}.
-}
+objects of class \code{"\link{marrayRaw}"} and
+\code{"\link{marrayNorm}"}.}
+
 \usage{
 maGeneTable(object)
 }

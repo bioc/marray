@@ -32,8 +32,7 @@
 
 \description{This class is used to store information on target samples hybridized to a batch of arrays or probe sequences spotted onto these arrays. It is not specific to the microarray context.}
 
-
-x\section{Objects from the Class}{
+\section{Objects from the Class}{
 Objects can be created by calls of the form \code{  new('marrayInfo',}\cr
 \code{    maLabels = ...., # Object of class character}\cr
 \code{    maInfo   = ...., # Object of class data.frame}\cr

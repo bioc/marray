@@ -139,11 +139,10 @@ Objects can be created by calls of the form \code{  new('marrayLayout',}\cr
 \author{Sandrine Dudoit, \url{http://www.stat.berkeley.edu/~sandrine}.}
 
 \seealso{\code{\link{marrayRaw}}, \code{\link{marrayNorm}},
-  \code{\link{marrayInfo}} and \code{\link{[-methods}}}.} 
+  \code{\link{marrayInfo}} and \code{\link{[-methods}}.} 
 
 \examples{
 ## See marrayRaw
-
 }
 
 \keyword{classes}

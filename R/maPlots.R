@@ -4,7 +4,7 @@
 #
 # S4 methods
 # Diagnostic plots for two-color cDNA microarrays
-#
+# source("~/Projects/madman/Rpacks/marray/R/maPlots.R")
 ###########################################################################
 
 ## S3 + S4 settings
@@ -307,6 +307,12 @@ maLoessLines<-function(subset=TRUE, weights=NULL,
     for(i in (1:length(g)))
     {
       which<-z[subset]==g[i]
+      if(sum(which) >= 1000){
+##        print(sum(which));      print(length(which))
+        tmp <- sample(1:sum(which), 1000)
+        which[which][-tmp] <- FALSE 
+##        print(sum(which));        print(length(which))
+      }
       xx<-x[subset][which]
       yy<-y[subset][which]
       ww<-weights[subset][which]

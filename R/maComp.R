@@ -66,6 +66,28 @@ maCompPlate <- function (x, n = 384)
 ##  factor(rep(rep(1:totalPlate, rep(tmp, totalPlate)), (maNgr(x) * maNgc(x))))
 ##}
 
+
+
+###########################################################################
+# Partition Agilent spot index to small spatial regions
+# written by Nat Throne
+# Date: Sept 14, 2004
+
+##maAgilentPartition <- function(AgmaObj, max.r=15, max.c=15){
+##  
+##  Col <- maSpotCol(AgmaObj)
+##  Row <- maSpotRow(AgmaObj)
+##  grid.r <- Row %/% max.r + 1
+##  grid.c <- Col %/% max.c + 1
+##  spot.c <- Col-floor(Col/max.c)*max.c
+##  spot.r <- Row-floor(Row/max.r)*max.r
+##  newLayout <- new("marrayLayout", maNsr = max.r, maNsc = max.c, maNgr=max(grid.r), maNgc = max(grid.c),
+##                   maNspots  = maNspots(AgmaObj), maSub=TRUE)
+##  newmapping <- maCoord2Ind(cbind(grid.r, grid.c, spot.r, spot.c), newLayout)
+##  return(newmapping)
+##}
+## reutrn mapping information to use newdata <- olddata[maAgilentPartition,]
+
 ###########################################################################
 # Convert spot index to grid and spot matrix coordinates (4 coords)
 
@@ -78,6 +100,8 @@ maInd2Coord <- function (x, L)
 
 # Convert grid and spot matrix coordinates (4 coords) to spot index.
 # Works for subsetted arrays
+## BUG : Sept: 2004
+## co-ordinates has been re-order.
 
 maCoord2Ind <- function (x, L)
 {
