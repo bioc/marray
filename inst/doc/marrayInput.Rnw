@@ -8,6 +8,11 @@
 \usepackage[authoryear,round]{natbib}
 \usepackage{hyperref}
 
+
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+
 \parindent 0in
 
 \bibliographystyle{abbrvnat}
@@ -276,6 +281,7 @@ swirl <- read.Spot(fnames, path=datadir,
 \begin{verbatim}
  swirl <- read.Spot()
  test.raw <- read.GenePix()
+\end{verbatim}
 %@
 
 \begin{figure}[htbp]

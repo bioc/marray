@@ -1,16 +1,19 @@
-%
 % NOTE -- ONLY EDIT THE .Rnw FILE!!!  The .tex file is
 % likely to be overwritten.
 %
-% \VignetteIndexEntry{marray Overview}
-% \VignetteDepends{tools}
+% \VignetteIndexEntry{marray Normalization}
+% \VignetteDepends{marray}
 % \VignetteKeywords{Expression Analysis, Preprocessing}
-% \VignettePackage{marrayNorm}
+% \VignettePackage{marray}
+
 \documentclass[11pt]{article}
 
-\usepackage{amsmath,epsfig,fullpage}%,psfig,pstricks
-\usepackage[authoryear,round]{natbib}
-\usepackage{hyperref}
+\usepackage{amsmath,epsfig,fullpage,hyperref}%psfig,pstricks,
+\parindent 0in
+
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
 
 \parindent 0in
 
@@ -32,7 +35,7 @@
 
 
 % library(tools) 
-% setwd("C:/MyDoc/Projects/madman/Rpacks/marrayTools/inst/doc")
+% setwd("C:/MyDoc/Projects/madman/Rpacks/marray/inst/doc")
 % Rnwfile<-file.path("C:/MyDoc/Projects/madman/Rpacks/marray/inst/doc","marrayNorm.Rnw")
 % Sweave(Rnwfile,pdf=TRUE,eps=TRUE,stylepath=TRUE,driver=RweaveLatex())
 
@@ -108,7 +111,7 @@ ensure that differences in intensities are indeed due to differential
 expression and not experimental artifacts. The need for normalization
 can be seen most clearly in self--self experiments, in which two
 identical mRNA samples are labeled with different dyes and hybridized to
-the same slide \citep{Dudoitetal02}. Although there is no differential
+the same slide \cite{Dudoitetal02}. Although there is no differential
 expression and one expects the red and green intensities to be equal,
 the red intensities often tend to be lower than the green
 intensities. Furthermore, the imbalance in the red and green intensities
@@ -120,7 +123,7 @@ plate origin, and possibly other variables. \\
 {\bf Location normalization.} We have developed location normalization
 methods which correct for intensity, spatial, and other dye biases using
 {\it robust locally weighted regression}
-\citep{Cleveland79,Norm,NormNAR}. Local regression is a {\it smoothing}
+\cite{Cleveland79,Norm,NormNAR}. Local regression is a {\it smoothing}
 method for summarizing multivariate data using general curves and
 surfaces. The smoothing is achieved by fitting a linear or quadratic
 function of the predictor variables {\it locally} to the data, in a
@@ -137,7 +140,7 @@ the R {\tt loess} function ({\tt modreg} package), type {\tt ? loess}.\\
 
 {\bf Scale normalization.} For scale normalization, a robust estimate of
 scale, such as the {\it median absolute deviation (MAD)}, may be used
-\citep{Norm,NormNAR}. For a collection of numbers $x_1, \ldots, x_n$,
+\cite{Norm,NormNAR}. For a collection of numbers $x_1, \ldots, x_n$,
 the MAD is the median of their absolute deviations from the median $m =
 {\rm median}\{x_1, \ldots, x_n\}$
 
@@ -198,7 +201,7 @@ the weights used in combining several scale normalization functions.
  lists of functions {\tt f.loc} and {\tt f.scale}. Typically, only one
  function is given in each list, otherwise composite normalization is
  performed using the weights given by {\tt a.loc} and {\tt a.scale}
- \citep{NormNAR}. The {\tt maNormMain} function returns objects of class
+ \cite{NormNAR}. The {\tt maNormMain} function returns objects of class
  {\tt marray} (for more details on microarray classes, consult the help
  files and vignettes for the package {\tt marrayClasses}, for example
  type {\tt ? marrrayNorm}).\\ 
@@ -289,7 +292,7 @@ method.
         to compute the normalization values. 
 \item
 {{\tt geo}:} If {\tt TRUE}, the MAD of each group is divided by the
-geometric mean of the MADs across groups \citep{NormNAR}. This allows
+geometric mean of the MADs across groups \cite{NormNAR}. This allows
 observations to retain their original units. 
 \item
 {{\tt Mscale}:} If {\tt TRUE}, the scale normalization values are stored
@@ -394,7 +397,7 @@ swirl.norm2 <- maNormScale(swirl.norm1, norm="p")
 @
 
 For between slide scale normalization using MAD scaled by the geometric
-mean of MAD across slides \citep{Norm,NormNAR} 
+mean of MAD across slides \cite{Norm,NormNAR} 
 
 <<eval=FALSE,echo=TRUE>>=
 swirl.normg <- maNormScale(swirl.norm, norm="g")

@@ -12,6 +12,11 @@
 \usepackage[authoryear,round]{natbib} 
 \usepackage{hyperref}
 
+
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+
 \parindent 0in
 
 \bibliographystyle{abbrvnat}
@@ -323,7 +328,7 @@ print--tip--groups for the Swirl 93 array.
 
 
 <<maBoxplot1pre,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>=
-boxplot(swirl[,3], xvar="maPrintTip", y="maM", main="Swirl array 93: pre--normalization") 
+boxplot(swirl[,3], xvar="maPrintTip", yvar="maM", main="Swirl array 93: pre--normalization") 
 @
 
 The boxplots clearly reveal the need for normalization, since most

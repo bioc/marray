@@ -13,6 +13,10 @@
 \usepackage[authoryear,round]{natbib}
 \usepackage{hyperref}
 
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+
 \parindent 0in
 
 %%%\bibliographystyle{abbrvnat}
@@ -269,11 +273,6 @@ swirl.norm<-as(swirl, "marrayNorm")
 It is also possible to convert objects of class {\tt marrayRaw} or {\tt
 marrayNorm} into objects of class {\tt exprSet} (see definition in the
 {\tt Biobase} and {\tt convert} package)
-
-<<echo=TRUE, eval=FALSE>>=
-library(convert)
-as(swirl, "marrayNorm")    
-@
 
 \subsection{Functions for computing layout parameters}
 
