@@ -21,12 +21,16 @@
 \details{
 \code{cbind} combines data objects assuming the same gene lists but
 different arrays. 
-\code{rbind} combines data objects assuming equivalent arrays, i.e., the same RNA targets, but different genes.
+\code{rbind} combines data objects assuming equivalent arrays, i.e., the
+same RNA targets, but different genes. 
 
-For \code{cbind}, the matrices o f expression data from the individual objects are cbinded.
-The data.frames of target information, if they exist, are rbinded.
-The combined data object will preserve any additional components or attributes found in the first object to be combined.
-For \code{rbind}, the matrices of expression data are rbinded while the target information, in any, is unchanged.
+For \code{cbind}, the matrices o f expression data from the individual
+objects are cbinded. 
+The data.frames of target information, if they exist, are rbinded. 
+The combined data object will preserve any additional components or
+attributes found in the first object to be combined. 
+For \code{rbind}, the matrices of expression data are rbinded while the
+target information, in any, is unchanged. 
 }
 \value{
 }

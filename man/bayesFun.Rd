@@ -17,7 +17,7 @@ bayesFun(...)
 }
 
 \arguments{
-  \item{...}{arguments for the fuction \code{lm.series} and \code{ebayes}}
+\item{...}{arguments for the fuction \code{lm.series} and \code{ebayes}}
 }
 
 \details{

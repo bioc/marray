@@ -1,7 +1,8 @@
 \name{maBayesian}
 \alias{maBayesian}
 
-\title{Calculates an Odds Ratio for Each Gene in a Multi-slide Microarray Experiment. }
+\title{Calculates an Odds Ratio for Each Gene in a Multi-slide
+  Microarray Experiment. } 
 
 \description{This function calls the function "lm.series" and "ebayes"
   in the package "limma" to calculate the log-odds of differential
@@ -13,8 +14,9 @@ maBayesian(mraw, ...)
 }
 
 \arguments{
-  \item{mraw}{An object of class "matrix", "dataframe",
-    "marrayRaw", "marrayNorm" or "exprSet" that contains gene expression data.}
+  \item{mraw}{An object of class \code{matrix}, \code{dataframe},
+    \code{marrayRaw}, \code{marrayNorm} or \code{exprSet} that contains
+    gene expression data.} 
   \item{...}{arguments for the fuction \code{lm.series} and \code{ebayes}}
 }
 
@@ -29,7 +31,6 @@ maBayesian(mraw, ...)
 }
 
 \keyword{models}
-%\keyword{microarray, bayesian, lodsratio}
 
 
 

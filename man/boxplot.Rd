@@ -11,7 +11,7 @@
   The function \code{boxplot} produces boxplots of microarray spot
   statistics for the classes  \code{"\link{marrayRaw}"},
   \code{"\link{marrayNorm}"}.
-  We encourage users to use \code{boxplot} rather than \bode{maBoxplot}.
+  We encourage users to use \code{boxplot} rather than \code{maBoxplot}.
   The name of the arguments have changed slightly.
 }
 
