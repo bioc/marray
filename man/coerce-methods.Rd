@@ -1,7 +1,5 @@
 \name{coerce-methods}
 \docType{methods}
-
-
 \alias{coerce-methods}
 \alias{coerce}
 \alias{as}
@@ -21,9 +19,8 @@ into objects of another class, e.g., instances of the
   \code{"\link{marrayNorm}"}.} 
 }}
 
-\examples{
-##  Use Package convert to convert object to other data types such as
-exprSet, MAList
+\note{Use Package convert to convert object to other data types such as
+  \code{exprSet} and \code{MAList}.
 }
 
 \keyword{methods}

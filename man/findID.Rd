@@ -26,7 +26,6 @@ findID(text, Gnames = gnames, ID = "Name")
 \seealso{\code{\link{grep}}}
 
 \examples{
-library(marrayInput)
 data(swirl)
 findID("fb24a09", swirl, ID="ID")
 findID("geno1", swirl)

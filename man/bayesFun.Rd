@@ -21,7 +21,6 @@ bayesFun(...)
 }
 
 \details{
-  see \code{\link{ebayes}} for details.
 }
 
 \value{
@@ -34,7 +33,7 @@ bayesFun(...)
 
 \author{Yee Hwa (Jean) Yang}
 
-\seealso{\code{\link{lm.series}},\code{\link{ebayes}}}
+\seealso{\code{lm.series},\code{ebayes}}
 
 \examples{
   bayesFun()

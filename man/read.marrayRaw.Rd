@@ -18,7 +18,7 @@ notes=NULL, skip=0, sep="	", quote="\"", DEBUG=FALSE, ...)
 
 read.GenePix(fnames = NULL, path = NULL, name.Gf = "F532 Median",
 name.Gb ="B532 Median", name.Rf = "F635 Median", name.Rb = "B635 Median",
-name.W =NULL, layout = NULL, gnames = NULL, targets = NULL,
+name.W ="Flags", layout = NULL, gnames = NULL, targets = NULL,
 notes = NULL, skip=0, sep = "	", quote = "\"", DEBUG=FALSE, ...)
 
 read.SMDfnames = NULL, path = ".", name.Gf = "CH1I_MEAN",

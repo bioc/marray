@@ -43,16 +43,14 @@ S. Dudoit and Y. H. Yang. (2002). Bioconductor R packages for exploratory analys
 # Examples use swirl dataset, for description type ? swirl
 data(swirl)
 
-# Pre-normalization MA-plot for the Swirl 93 array, with the lowess fits for 
-# individual print-tip-groups. 
 # - Default arguments
-maPlot(swirl[,3])
+maPlot(swirl)
 
 # Lowess fit using all spots
-maPlot(swirl[,3], z=NULL, legend.func=NULL)
+maPlot(swirl, z=NULL, legend.func=NULL)
 
 # Loess fit using all spots
-maPlot(swirl[,3], z=NULL, legend.func=maLegendLines(legend="All spots",col="green"), lines.func=maLoessLines(loess.args=list(span=0.3),col="green"))
+maPlot(swirl, z=NULL, legend.func=maLegendLines(legend="All spots",col="green"), lines.func=maLoessLines(loess.args=list(span=0.3),col="green"))
 
 
 # Pre-normalization MA-plot for the Swirl 81 array, with the lowess fits for 

@@ -6,8 +6,8 @@
 ###########################################################################
 # marrayLayout class
 
-
-setMethod("summary", signature(object="marrayLayout"), function(object) {
+if( is.null(getGeneric("summary")))  setGeneric("summary")
+setMethod("summary", signature(object="marrayLayout"), function(object, ...) {
     cat("Array layout:\t Object of class marrayLayout. \n\n")
 
     cat("Total number of spots:\t\t\t")
@@ -45,7 +45,7 @@ setMethod("summary", signature(object="marrayLayout"), function(object) {
 
 setMethod("summary",
           signature(object="marrayInfo"),
-          function(object){
+          function(object, ...){
   cat("Object of class marrayInfo. \n\n")
             
   nr <- length(maLabels(object))
@@ -79,7 +79,7 @@ setMethod("summary",
 
 #########################
 # marrayRaw class
-setMethod("summary", signature(object="marrayRaw"), function(object){
+setMethod("summary", signature(object="marrayRaw"), function(object, ...){
   if((length(maGf(object))==0) | (length(maRf(object))==0))
     cat("Input is empty \n")
   else
@@ -133,7 +133,7 @@ setMethod("summary", signature(object="marrayRaw"), function(object){
 
 setMethod("summary",
           signature(object="marrayNorm"),
-          function(object)
+          function(object, ...)
           {
             if((length(maA(object))==0) & (length(maM(object))==0))
               cat("Input is empty \n")

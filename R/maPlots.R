@@ -17,10 +17,15 @@ plot.marrayNorm <-
   function (x, xvar = "maA", yvar = "maM", zvar="maPrintTip", lines.func,text.func,legend.func,...)
   {maPlot(m=x, x=xvar, y=yvar, lines.func=lines.func, text.func=text.func, legend.func=legend.func,...)}
 
+
+###boxplot
+if( is.null(getGeneric("boxplot")))  setGeneric("boxplot")
 setMethod("boxplot", signature(x="marrayRaw"), function (x, xvar = "maPrintTip", yvar = "maM", ...){
             maBoxplot(m=x, x=xvar, y=yvar, ...)})
 setMethod("boxplot", signature(x="marrayNorm"), function (x, xvar = "maPrintTip", yvar = "maM", ...){
               maBoxplot(m=x, x=xvar, y=yvar, ...)})
+
+if( is.null(getGeneric("image")))  setGeneric("image")
 setMethod("image", signature(x="marrayRaw"),
           function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ol.col=1,...){
             maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ol.col=ol.col,... )})
@@ -29,14 +34,19 @@ setMethod("image", signature(x="marrayNorm"),
               maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ol.col=ol.col,... )}) 
 
 ## points, lines, text
+if( is.null(getGeneric("points")))  setGeneric("points")
 setMethod("points", signature(x="marrayRaw"), function (x, xvar = "maA", yvar = "maM", ...)
           {addPoints(object=x, xvar=xvar, yvar=yvar, ...)})
 setMethod("points", signature(x="marrayNorm"), function (x, xvar = "maA", yvar = "maM", ...)
           {addPoints(object=x, xvar=xvar, yvar=yvar, ...)})
+
+if( is.null(getGeneric("text")))  setGeneric("text")
 setMethod("text", signature(x="marrayRaw"), function (x, xvar = "maA", yvar = "maM",...)
           {addText(object=x, xvar=xvar, yvar=yvar, ...)})
 setMethod("text", signature(x="marrayNorm"), function (x, xvar = "maA", yvar = "maM", ...)
           {addText(object=x, xvar=xvar, yvar=yvar, ...)})
+
+if( is.null(getGeneric("lines")))  setGeneric("lines")
 setMethod("lines", signature(x="marrayRaw"), function (x, xvar = "maA", yvar = "maM", zvar="maPrintTip",...)
           {addLines(object=x, xvar=xvar, yvar=yvar, ...)})
 setMethod("lines", signature(x="marrayNorm"), function (x, xvar = "maA", yvar = "maM", zvar="maPrintTip",...)

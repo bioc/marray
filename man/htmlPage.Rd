@@ -40,7 +40,7 @@ table2html(restable, filename = "GeneList.html", mapURL = SFGL,
     files and display information in the user's browser.}
 }
 \details{
-  This function is an extension to \code{\link{ll.htmlpage}}
+  This function is an extension to \code{ll.htmlpage}
 }
 
 \value{
@@ -49,14 +49,14 @@ table2html(restable, filename = "GeneList.html", mapURL = SFGL,
 }
 \author{Yee Hwa Yang }
 
-\seealso{\code{\link{ll.htmlpage}}, \code{\link{URLstring}}, \code{\link{widget.mapGeneInfo}}}
+\seealso{\code{ll.htmlpage}, \code{\link{URLstring}}, \code{\link{widget.mapGeneInfo}}}
 
 \examples{
 library(annotate)
 data(swirl)
 Gnames <- maGeneTable(swirl)
 swirlmap <- mapGeneInfo(Name = "none", ID="genbank")
-htmlPage(100:110, geneNames = Gnames, mapURL = swirlmap, title="Swirl")
+## htmlPage(100:110, geneNames = Gnames, mapURL = swirlmap, title="Swirl")
 
 moreinfo <- round(maM(swirl), 2)
 swirlmap <- mapGeneInfo(Name = "pubmed", ID="genbank")

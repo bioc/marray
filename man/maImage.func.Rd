@@ -34,7 +34,7 @@ maImage.func(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, overlay=NUL
 \seealso{\code{\link{image}}, \code{\link{maImage}}, \code{\link{maColorBar}}, \code{\link{maPalette}}.}
 
 \examples{
-# See examples for maImage.
+# See examples for image.
 }
 \keyword{hplot}% at least one, from doc/KEYWORDS
 

@@ -18,13 +18,9 @@ maBayesian(mraw, ...)
   \item{...}{arguments for the fuction \code{lm.series} and \code{ebayes}}
 }
 
-\value{
-  See \code{\link{ebayes}} for details.
-}
 
 \author{Yee Hwa Yang \email{jean@biostat.ucsf.edu} \cr}
 
-\seealso{\code{\link{lm.series}},\code{\link{ebayes}}}
 
 \examples{
 ## data(swirl)
