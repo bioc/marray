@@ -169,7 +169,7 @@ facilitate data entry.\\
  data files.
 
 <<eval=TRUE>>=
-datadir <- system.file("swirldata", package="marray")
+datadir <- system.file("data", package="marray")
 dir(datadir)
 @
 

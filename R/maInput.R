@@ -129,8 +129,6 @@ read.marrayRaw<-
            DEBUG=FALSE,
            ...)
 {
-  print("in read.marrayraw")
-  print(path)
   if(is.null(path))
     fullfnames <- fnames
   else
@@ -138,41 +136,22 @@ read.marrayRaw<-
 
   fname <- fullfnames[1]
 
-  if(DEBUG) print(skip)
   
   # Intensity data
   if(is.null(skip))
     {
-      if (DEBUG) print("In is.null(skip")
       y <- readLines(fullfnames[1], n=100)
-      #modify name.Gf for special character
-      regName.Gf <- gsub("\\(", "\\\\\\(", name.Gf)
-      regName.Gf <- gsub("\\)", "\\\\\\)", regName.Gf)
-      skip2 <- grep(regName.Gf, y)[1] - 1
-      if(DEBUG) cat(skip2, "done \n")
+      skip <- grep(name.Gf, y)[1] - 1
+      if(DEBUG) cat(skip, "done \n")
     }
-  else {
-    if(DEBUG) print("skip != NULL")
-    skip2 <- skip
-    if(DEBUG) print(paste("skip2 =", skip2, sep=" "))
-  }
     
   if(is.null(layout))
     {
-      if (DEBUG) print("in is.null(layout)")
-      nspots <- length(readLines(fullfnames[1])) - skip2 - 1
+      nspots <- length(readLines(fullfnames[1])) - skip - 1
       if(DEBUG) cat(nspots, "of rows \n")
     }
   else
-    {
-      if(sum(layout@maSub) == 1)
-        nspots  <- layout@maNspots
-      else
-        nspots <- sum(layout@maSub)
-    }
-  ##     nspots <- sum(layout@maSub)  ## Aug 3, maSub is default set to 1.
-    
-  if (DEBUG) print(paste("nspots = ", nspots, sep="")) 
+    nspots <- maNspots(layout)
   
   Y <- matrix(0, nspots, length(fullfnames))
   colnames(Y) <- fullfnames
@@ -184,31 +163,20 @@ read.marrayRaw<-
   
   for(f in fullfnames)
   {
-    cat("Reading ... ", f, "\n")
+    cat("Reading ... ", f)
 
     ## Calculate Skip
     if(is.null(skip))
       {
-        if (DEBUG) print("in is.null(skip) 2")
         if(DEBUG) cat("Calculating skip  ... ")
         y <- readLines(f, n=100)
-        #modify name.Gf for special character
-        regName.Gf <- gsub("\\(", "\\\\\\(", name.Gf)
-        regName.Gf <- gsub("\\)", "\\\\\\)", regName.Gf)
-
-        skip2 <- grep(regName.Gf, y)[1] - 1
-        if(DEBUG) cat(skip2, "done \n")
+        skip <- grep(name.Gf, y)[1] - 1
+        if(DEBUG) cat(skip, "done \n")
       }
-    else
-      {
-        if (DEBUG) print("in !is.null(skip) 2")
-        skip2 <- skip
-      }
-    
-    dat <- read.table(f, skip = skip2, header = TRUE, 
+    dat <- read.table(f, skip = skip, header = TRUE, 
                       sep = sep, as.is = TRUE, quote = quote, check.names = FALSE, 
                       comment.char = "", nrows = nspots, ...)
-    
+
     if(!is.null(name.Gf)) Gf[,f]<- as.matrix(dat[, name.Gf])
     if(!is.null(name.Gb)) Gb[,f]<- as.matrix(dat[, name.Gb])
     if(!is.null(name.Rf)) Rf[,f]<-as.matrix(dat[, name.Rf])
@@ -299,7 +267,7 @@ read.Spot <-  function(fnames = NULL,
 
 
 ###########################################################################
-#  Read GENEPIX
+#  Read SPOT
 #
 read.GenePix <-  function(fnames = NULL,
                           path=NULL,
@@ -352,7 +320,7 @@ read.GenePix <-  function(fnames = NULL,
       }
 
     if(DEBUG) cat("Setting up controls status ... ")
-    if(length(layout@maControls) != 0) layout@maControls <- as.factor(maGenControls(gnames))
+    layout@maControls <- as.factor(maGenControls(gnames))
     if(DEBUG) cat("done \n ")
     
     if(is.null(notes)) notes <- "GenePix Data"
@@ -391,11 +359,7 @@ read.Galfile <- function (galfile,
     f <- galfile
   y <- readLines(f, n=100)
 
-  if(class(info.id) == "character")
-    skip <- intersect(grep(info.id[1], y), grep(layout.id[1], y))[1] - 1
-  else
-    skip <- intersect(grep("ID", y), grep("Name", y))[1] - 1
-
+  skip <- intersect(grep(info.id[1], y), grep(layout.id[1], y))[1] - 1
   defs <- list(file=f, path = path, sep=sep, skip=skip,
                fill = TRUE, quote = "\"", check.names=FALSE,
                as.is=TRUE, comment.char="", header=TRUE)
@@ -425,20 +389,9 @@ read.Galfile <- function (galfile,
   return(list(gnames = descript, layout=mlayout))
 }
 
-
-
-##############################################################
-## Read SMD, default arguments are for Hs genome
-## For other genomes, you will need to modify the info.id field
-
-read.SMD <- function(fnames = NULL, path = NULL,
-                     name.Gf = "Ch1 Intensity (Median)", 
-                     name.Gb = "Ch1 Background (Median)",
-                     name.Rf = "Ch2 Intensity (Median)",
-                     name.Rb = "Ch2 Background (Median)", 
-                     name.W = NULL,
-                     info.id = c("Name", "Clone ID"),
-                     layout = NULL, gnames = NULL, targets = NULL, notes = NULL, 
+read.SMD <- function(fnames = NULL, path = NULL, name.Gf = "CH1I_MEDIAN", 
+                     name.Gb = "CH1B_MEDIAN", name.Rf = "CH2I_MEDIAN", name.Rb = "CH2B_MEDIAN", 
+                     name.W = NULL, layout = NULL, gnames = NULL, targets = NULL, notes = NULL, 
                      skip = NULL, sep = "\t", quote = "\"", DEBUG=FALSE, ...)
 {
   ## If fnames is NULL check target, if target is also NULL then read from dir()
@@ -458,37 +411,29 @@ read.SMD <- function(fnames = NULL, path = NULL,
     fullnames <- fnames
   
   if(DEBUG) print(fnames)
-
   if(is.null(gnames) | is.null(layout))
       {
         if(DEBUG) cat("Generating layout from ", fullnames[1], "\n", sep="")
         opt <- list(...)
-        defs <- list(galfile = fullnames[1], path=path, info.id = c("Name", "Clone ID"),
-                     layout.id=c(Block="Sector", Row="X Grid Coordinate \\(within sector\\)",
-                       Column="Y Grid Coordinate \\(within sector\\)"),
-                     labels = "Spot", sep = sep, quote=quote, fill=TRUE, check.names=FALSE,
+        defs <- list(galfile = fullnames[1], path=path, info.id = c("NAME", "Clone ID"),
+                     layout.id=c(Block="SECTOR", Row="SECTORROW", Column="SECTORCOL"),
+                     labels = "SPOT", sep = sep, quote=quote, fill=TRUE, check.names=FALSE,
                      as.is=TRUE, ncolumns = 4)
-        gal.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.Galfile")))
-        if (DEBUG) print("Reading Gal file")
+        gal.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.Galfile")))        
         gal <- do.call("read.Galfile", gal.args)
         if(is.null(gnames)) gnames <- gal$gnames
         if(is.null(layout)) layout <- gal$layout
         if(DEBUG) print("done \n ")
       }
 
-    if(is.null(targets))
+  if(is.null(targets))
     {
+      skip <- grep(name.Gf, readLines(fullnames[1], n=100))
       cat("Generating target sample info from all files\n")
       maLabels <- character(0)
       maInfo <- data.frame()
       for (i in 1:length(fullnames)) {
-        #modify name.Gf for special character
-        regName.Gf <- gsub("\\(", "\\\\\\(", name.Gf)
-        regName.Gf <- gsub("\\)", "\\\\\\)", regName.Gf)
-        if (DEBUG) print(regName.Gf)
-        comment <- grep(regName.Gf, readLines(fullnames[i], n=100))
-        if (DEBUG) print(paste("comment = ", comment, sep=""))
-        z <- readLines(fullnames[i], n = comment)
+        z <- readLines(fullnames[i], n = skip)
         row <- grep("Exptid", z)[1]
         maLabels <- c(maLabels, strsplit(z[row], "=")[[1]][2])
         row <- grep("Experiment Name", z)[1]
@@ -503,12 +448,45 @@ read.SMD <- function(fnames = NULL, path = NULL,
                                            Cy3 = Cy3, Cy5 = Cy5, 
                                            SlideName = SlideName))
       }
+      rownames(maInfo) <- 1:dim(maInfo)[1]
+      targets <- new("marrayInfo", maLabels = maLabels, maInfo = maInfo)
     }
 
-  rownames(maInfo) <- 1:dim(maInfo)[1]
-  targets <- new("marrayInfo", maLabels = maLabels, maInfo = maInfo)
+#    if (is.null(notes)) {
+#      cat("Generating notes from ", fnames[1], "\n", sep="")
+#      row <- grep("Organism", y)[1]
+#      organism <- strsplit(y[row], "=")[[1]][2]
+#      row <- grep("Category", y)[1]
+#      category <- strsplit(y[row], "=")[[1]][2]
+#      row <- grep("Subcategory", y)[1]
+#      subcategory <- strsplit(y[row], "=")[[1]][2]
+#      row <- grep("Description", y)[1]
+#      description <- strsplit(y[row], "=")[[1]][2]
+#      row <- grep("Experimenter", y)[1]
+#      experimenter <- strsplit(y[row], "=")[[1]][2]
+#      row <- grep("Contact email", y)[1]
+#      email <- strsplit(y[row], "=")[[1]][2]
+#      row <- grep("Scanning Software", y)[1]
+#      software <- strsplit(y[row], "=")[[1]][2]
+#      row <- grep("Software version", y)[1]
+#      version <- strsplit(y[row], "=")[[1]][2]
+#      row <- grep("Scanning parameters", y)[1]
+#      parameters <- strsplit(y[row], "=")[[1]]
+#      if (length(parameters) > 1)
+#        parameters <- paste(parameters[2:length(parameters)], collapse = ", ")
+#      else
+#        parameters <- NA
+#      
+#      notes <- paste("Organism: ", organism, 
+#                     "\nCategory: ", category, 
+#                     "\nSubcategory: ", subcategory, 
+#                     "\nDescription: ", description, 
+#                     "\nExperimenter: ", experimenter, 
+#                     "\nE-Mail: ", email,
+#                     "\nScanning Software: ", software, " ", version,
+#                     "\nScanning Parameters: ", parameters, sep = "")
+#    }
 
-  
   if(DEBUG) cat("Calling read.marrayRaw ... \n")
   defs <- list(fnames = fullnames, path=path,
                name.Gf = name.Gf, name.Gb=name.Gb, name.Rf=name.Rf, name.Rb=name.Rb,
@@ -519,6 +497,4 @@ read.SMD <- function(fnames = NULL, path = NULL,
   mraw <- do.call("read.marrayRaw", maRaw.args)
   return(mraw)
 }
-
-############################################
 

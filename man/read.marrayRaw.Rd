@@ -21,10 +21,11 @@ name.Gb ="B532 Median", name.Rf = "F635 Median", name.Rb = "B635 Median",
 name.W ="Flags", layout = NULL, gnames = NULL, targets = NULL,
 notes = NULL, skip=NULL, sep = "	", quote = "\"", DEBUG=FALSE, ...)
 
-read.SMD(fnames = NULL, path = NULL, name.Gf = "Ch1 Intensity (Median)",
-name.Gb = "Ch1 Background (Median)", name.Rf = "Ch2 Intensity (Median)",
-name.Rb = "Ch2 Background (Median)", name.W = NULL, info.id = c("Name",
-"Clone ID"), layout = NULL, gnames = NULL, targets = NULL, notes = NULL, skip = NULL, sep = "\t", quote = "\"", DEBUG=FALSE, ...)
+read.SMD(fnames = NULL, path = NULL, name.Gf = "CH1I_MEDIAN",
+                 name.Gb = "CH1B_MEDIAN", name.Rf = "CH2I_MEDIAN",
+                 name.Rb = "CH2B_MEDIAN", name.W = NULL, layout =
+                 NULL, gnames = NULL, targets = NULL, notes = NULL,
+                 skip = NULL, sep = "\t", quote = "\"", DEBUG=FALSE, ...)
 
 read.Spot(fnames = NULL, path = ".", name.Gf = "Gmean", name.Gb =
 "morphG", name.Rf = "Rmean", name.Rb = "morphR",name.W = NULL, layout =
@@ -49,13 +50,7 @@ widget.marrayRaw(ext = c("spot", "xls", "gpr"), skip = 0, sep = "\t",  quote = "
   \item{layout}{object of class \code{"\link{marrayLayout}"}, containing microarray layout parameters.}
   \item{gnames}{object of class \code{"\link{marrayInfo}"} containing probe sequence information.}
   \item{targets}{object of class \code{"\link{marrayInfo}"} containing target sample information.}
-  \item{notes}{object of class \code{"character"}, vector of explanatory
-    text.}
-  \item{info.id}{object of class \code{"character"}, vector containing
-    the name of the colums of the SMD file containing oligo information
-    you want to retrieve. By default, this is set to read Homo sapiens
-    data. You may need to modify this argument if your are working on
-    another genome.}
+  \item{notes}{object of class \code{"character"}, vector of explanatory text.}
   \item{skip}{the number of lines of the data file to skip before beginning to read in data.}
   \item{sep}{the field separator character.  Values on each line of the
     file are separated by this character. The
@@ -80,7 +75,7 @@ widget.marrayRaw(ext = c("spot", "xls", "gpr"), skip = 0, sep = "\t",  quote = "
   \code{\link{read.marrayInfo}} }
 
 \examples{
-datadir <- system.file("swirldata", package="marray")
+datadir <- system.file("data", package="marray")
 
 skip <-  grep("Row", readLines(file.path(datadir,"fish.gal"), n=100)) - 1
 

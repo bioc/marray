@@ -13,7 +13,7 @@ maNum2Logic<-function(n=length(subset), subset=TRUE)
   if(is.numeric(subset))
   {
     which<-rep(FALSE,n)
-    which[subset]<-TRUE
+    which[subset]<-TRUE 
     return(which)
   }
 }
@@ -116,7 +116,7 @@ maCompCoord<-function(grows, gcols, srows, scols)
   coord
 }
 
-# Generate spot index from ranges of rows and columns for the grid
+# Generate spot index from ranges of rows and columns for the grid 
 # and spot matrices
 
 maCompInd<-function(grows, gcols, srows, scols, L)
@@ -139,11 +139,11 @@ maCompLayout <- function(mat, ncolumns=4)
                       sr=mat[,2], sc=mat[,3])
     else
       newmat <- mat
-
+    
     ngr <- max(newmat[,1]);  ngc <- max(newmat[,2])
     nsr <- max(newmat[,3]);  nsc <- max(newmat[,4])
     nspots <- as.integer(ngr) * as.integer(ngc) * as.integer(nsr) *   as.integer(nsc)
-
+    
     mlayout <- new("marrayLayout", maNgr = as.integer(ngr),
                    maNgc = as.integer(ngc),
                    maNsr = as.integer(nsr),
@@ -160,24 +160,24 @@ maCompLayout <- function(mat, ncolumns=4)
 ##  May 7, 2003
 ###########################################################################
 controlCode <-
-structure(c("Buffer", "Empty", "EMPTY", "AT", "NC", "M200009348", "M200012700",
-"M200016219", "M200016205", "M200013499", "M200003425", "M200006376",
-"M200001318", "M200004477", "M200001732", "M200006590", "M200000829",
-"H200000553", "H200000680", "H200001719", "H200001847", "H200007830",
-"H200008181", "H200008484", "H200008489", "H200009216", "H200009498",
-"H200011103", "H200019704", "18S", "SSC", "mCNR", "NLG", "GABA",
-"pNICE", "M13", "Cot-1", "orward", "everse", "Genomic", "p133",
-"Blam", "T7/SP6", "ephrin", "Buffer", "Empty", "Empty", "Negative", "Negative",
-"Positive", "Positive", "Positive", "Positive", "Positive", "Positive",
-"Positive", "Positive", "Positive", "Positive", "Positive", "Positive",
-"Positive", "Positive", "Positive", "Positive", "Positive", "Positive",
-"Positive", "Positive", "Positive", "Positive", "Positive", "Positive",
-"Positive", "Buffer", "con", "con", "con", "con", "con", "Positive",
-"Negative", "Negative", "Negative", "Negative", "Negative", "con",
-"con"), .Dim = c(44, 2), .Dimnames = list(c("1", "2", "3", "4",
-"5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
-"16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26",
-"27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37",
+structure(c("Buffer", "Empty", "EMPTY", "AT", "NC", "M200009348", "M200012700", 
+"M200016219", "M200016205", "M200013499", "M200003425", "M200006376", 
+"M200001318", "M200004477", "M200001732", "M200006590", "M200000829", 
+"H200000553", "H200000680", "H200001719", "H200001847", "H200007830", 
+"H200008181", "H200008484", "H200008489", "H200009216", "H200009498", 
+"H200011103", "H200019704", "18S", "SSC", "mCNR", "NLG", "GABA", 
+"pNICE", "M13", "Cot-1", "orward", "everse", "Genomic", "p133", 
+"Blam", "T7/SP6", "ephrin", "Buffer", "Empty", "Empty", "Negative", "Negative", 
+"Positive", "Positive", "Positive", "Positive", "Positive", "Positive", 
+"Positive", "Positive", "Positive", "Positive", "Positive", "Positive", 
+"Positive", "Positive", "Positive", "Positive", "Positive", "Positive", 
+"Positive", "Positive", "Positive", "Positive", "Positive", "Positive", 
+"Positive", "Buffer", "con", "con", "con", "con", "con", "Positive", 
+"Negative", "Negative", "Negative", "Negative", "Negative", "con", 
+"con"), .Dim = c(44, 2), .Dimnames = list(c("1", "2", "3", "4", 
+"5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", 
+"16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", 
+"27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", 
 "38", "39", "40", "41", "42", "43", "44"), c("Pattern", "Name")))
 
 ## But Fix March 03, 2003
@@ -186,7 +186,7 @@ structure(c("Buffer", "Empty", "EMPTY", "AT", "NC", "M200009348", "M200012700",
 
 maGenControls <- function(Gnames, controlcode=controlCode, id="ID")
 {
-    if (is(Gnames, "marrayInfo"))
+  if(class(Gnames) == "marrayInfo")
     {
       ifelse(is.numeric(id), tmp <- id, tmp <- grep(id, colnames(maInfo(Gnames))))
       if(length(tmp) == 0)

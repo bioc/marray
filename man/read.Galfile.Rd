@@ -15,7 +15,7 @@ labels = "ID", notes = "", sep = "\t", skip = NULL,   ncolumns=4, ...)
   \item{galfile}{a character string representing the Gal file.}
   \item{path}{a character string representing the data directory. By
     default this is set to the current working directory ("."). }
-  \item{info.id}{the column numbers or names in `fname' that contain the required
+  \item{info.id}{the column numbers in `fname' that contain the required
     information.}
   \item{layout.id}{the column names in `fname' that specified the
     printer layout information.}
@@ -42,7 +42,7 @@ labels = "ID", notes = "", sep = "\t", skip = NULL,   ncolumns=4, ...)
 
 \examples{
 library(marray)
-datadir <- system.file("swirldata", package="marray")
+datadir <- system.file("data", package="marray")
 try <- read.Galfile(galfile="fish.gal", path=datadir)
 names(try)
 try$layout
