@@ -181,15 +181,18 @@ read.marrayRaw<-
     if(!is.null(name.Gb)) Gb[,f]<- dat[, name.Gb]
     if(!is.null(name.Rf)) Rf[,f]<-dat[, name.Rf]
     if(!is.null(name.Rb)) Rb[,f]<-dat[, name.Rb]
-    if(!is.null(name.W)) {W[,f] <-dat[, name.W]; print("hi2")}
+    if(!is.null(name.W)) {W[,f] <-dat[, name.W]}
   }
   
   ## Add Notes
+
   if(is.null(notes)) notes <- ""
-  
-  mraw<-new("marrayRaw", maRf=Rf, maRb=Rb, maGf=Gf, maGb=Gb, maNotes =notes)
-  
-  ## Add other informations ad Weights
+
+  mraw <- new("marrayRaw", maNotes=notes)
+  if(!is.null(name.Gf)) mraw@Gf <- Gf
+  if(!is.null(name.Gb)) mraw@Gb <- Gb
+  if(!is.null(name.Rf)) mraw@Rf <- Rf
+  if(!is.null(name.Rb)) mraw@Rb <- Rb
   if(!is.null(layout)) maLayout(mraw) <- layout
   if(!is.null(gnames)) maGnames(mraw) <- gnames
   if(!is.null(targets)) maTargets(mraw) <- targets
