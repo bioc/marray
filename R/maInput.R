@@ -234,7 +234,12 @@ read.Spot <-  function(fnames = NULL,
         if(!is.null(targets))
           fullnames <- maInfo(targets)[,1]  
         else
-          fullnames <- ifelse(is.null(path), dir(pattern="*\\.spot$"), dir(path, pattern="*\\.spot$"))
+          {
+            if(is.null(path))
+              fullnames <- dir(pattern="*\\.spot$")
+            else
+              fullnames <- dir(path, pattern="*\\.spot$")
+          }
       }
     else
       fullnames <- fnames
@@ -289,7 +294,12 @@ read.GenePix <-  function(fnames = NULL,
         if(!is.null(targets))
           fullnames <- maInfo(targets)[,1]  
         else
-          fullnames <- ifelse(is.null(path), dir(pattern="*\\.gpr$"), dir(path, pattern="*\\.gpr$"))
+          {
+            if(is.null(path))
+              fullnames <- dir(pattern="*\\.gpr$")
+            else
+              fullnames <- dir(path, pattern="*\\.gpr$")
+          }
       }
     else
       fullnames <- fnames
@@ -390,7 +400,12 @@ read.SMD <- function(fnames = NULL, path = NULL, name.Gf = "CH1I_MEDIAN",
       if(!is.null(targets))
         fullnames <- maInfo(targets)[,1]  
       else
-        fullnames <- ifelse(is.null(path), dir(pattern="*\\.xls$"), dir(path, pattern="*\\.xls$"))
+        {
+          if(is.null(path))
+            fullnames <- dir(pattern="*\\.xls$")
+          else
+            fullnames <- dir(path, pattern="*\\.xls$")
+        }
     }
   else
     fullnames <- fnames
