@@ -3,8 +3,8 @@
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Default graphical parameters for microarray objects}
 \description{
-This function returns default graphical parameters for microarray objects. The parameters may be passed as arguments to the functions \code{\link{maBoxplot}} and \code{\link{maPlot}}.
-}
+This function returns default graphical parameters for microarray objects. The parameters may be passed as arguments to the functions \code{maBoxplot} and \code{maPlot}.
+} 
 
 \usage{
 maDefaultPar(m, x, y, z)
@@ -12,11 +12,17 @@ maDefaultPar(m, x, y, z)
 %- maybe also `usage' for other objects documented here.
 
 \arguments{
-  \item{m}{Microarray object of class \code{"\link{marrayRaw}"}, \code{"\link{marrayNorm}"}, or \code{"\link{marrayTwo}"}.}
-  \item{x}{Name of accessor method for the abscissa spot statistic, typically a slot name for the microarray object \code{m}, such as \code{maA}.}
-  \item{y}{Name of accessor method for the ordinate spot statistic, typically a slot name for the microarray object \code{m}, such as \code{maM}.}
-  \item{z}{Name of accessor method for the spot statistic used to stratify the data, typically a slot name for the microarray layout object (see \code{"\link{marrayLayout}"}) such as \code{maPlate} or a method such as \code{maPrintTip}.}
-
+  \item{m}{Microarray object of class \code{"\link{marrayRaw}"} and \code{"\link{marrayNorm}"}.}
+  \item{x}{Name of accessor method for the abscissa spot statistic,
+    typically a slot name for the microarray object \code{m}, such as
+    \code{maA}.} 
+  \item{y}{Name of accessor method for the ordinate spot statistic,
+    typically a slot name for the microarray object \code{m}, such as
+    \code{maM}.} 
+  \item{z}{Name of accessor method for the spot statistic used to
+    stratify the data, typically a slot name for the microarray layout
+    object (see \code{"\link{marrayLayout}"}) such as \code{maPlate} or
+    a method such as \code{maPrintTip}.} 
 }
 
 \value{
@@ -35,7 +41,9 @@ A list with elements
 
 \author{Sandrine Dudoit, \url{http://www.stat.berkeley.edu/~sandrine}.}
 
-\seealso{\code{\link{maBoxplot}}, \code{\link{maPlot}}, \code{\link{maLegendLines}}, \code{\link{maLoessLines}}, \code{\link{maText}}, \code{\link{maDotsDefaults}}.}
+\seealso{\code{\link{maBoxplot}}, \code{\link{maPlot}},
+  \code{\link{maLegendLines}}, \code{\link{maLoessLines}},
+  \code{\link{maText}}, \code{\link{maDotsDefaults}}.} 
 
 \examples{
 # See examples for maPlot.

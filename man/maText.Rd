@@ -1,5 +1,7 @@
 \name{maText}
 \alias{maText}
+
+
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Highlight points on a plot}
 \description{

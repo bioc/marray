@@ -187,14 +187,13 @@ setMethod("summary",
               }
           })
 
-          
-setClass("LargeDataObject")
-setIs("marrayRaw","LargeDataObject")
-setIs("marrayNorm","LargeDataObject")
-setIs("marrayInfo","LargeDataObject")
-setIs("marrayLayout","LargeDataObject")
+setClass("ShowLargeObject")
+setIs("marrayRaw","ShowLargeObject")
+setIs("marrayNorm","ShowLargeObject")
+setIs("marrayInfo","ShowLargeObject")
+setIs("marrayLayout","ShowLargeObject")
 
-setMethod("show","LargeDataObject",
+setMethod("show","ShowLargeObject",
 #  Print and show method large data objects
 #  Modified from Gordon Smyth
 #  March 2004

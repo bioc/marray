@@ -8,7 +8,11 @@
 
 
 \description{
-Subsetting methods were defined for the microarray classes, \code{"\link{marrayInfo}"}, \code{"\link{marrayLayout}"}, \code{"\link{marrayRaw}"}, \code{"\link{marrayNorm}"}, \code{"\link{marraySpots}"}, and \code{"\link{marrayTwo}"}. These methods create instances of the given class, for a subset of spots and/or arrays in a batch.
+Subsetting methods were defined for the microarray classes,
+\code{"\link{marrayInfo}"}, \code{"\link{marrayLayout}"},
+\code{"\link{marrayRaw}"} and \code{"\link{marrayNorm}"}}. These
+methods create instances of the given class, for a subset of spots
+and/or arrays in a batch. 
 }
 
 \section{Methods}{\describe{
@@ -16,8 +20,6 @@ Subsetting methods were defined for the microarray classes, \code{"\link{marrayI
 \item{x = marrayInfo}{\code{x[i, j]} extract object of class \code{"\link{marrayInfo}"} for spots or arrays with indices i and labels with indices j.}
 \item{x = marrayLayout}{\code{x[i]} extract object of class \code{"\link{marrayLayout}"} for spots with indices i.}
 \item{x = marrayRaw}{\code{x[i, j]} extract object of class \code{"\link{marrayRaw}"} for spots with indices i and arrays with indices j.}
-\item{x = marrayTwo}{\code{x[i, j]} extract object of class \code{"\link{marrayTwo}"} for spots with indices i and arrays with indices j.}
-\item{x = marraySpots}{\code{x[i]} extract object of class \code{"\link{marraySpots}"} for spots with indices i.}
 \item{x = marrayNorm}{\code{x[i, j]} extract object of class \code{"\link{marrayNorm}"} for spots with indices i and arrays with indices j.}
 }}
 

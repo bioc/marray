@@ -1,1 +1,1 @@
-require("Biobase", quietly=TRUE)
+require("limma", quietly=TRUE)

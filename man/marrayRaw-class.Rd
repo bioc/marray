@@ -20,8 +20,7 @@
 \alias{[,marrayRaw-method}
 \alias{cbind,marrayRaw-method}
 %\alias{coerce,marrayRaw,marrayNorm-method}
-\alias{coerce,marrayRaw,exprSet-method}
-\alias{coerce,marrayRaw,marraySpots-method}
+%\alias{coerce,marrayRaw,exprSet-method}
 \alias{maA,marrayRaw-method}
 \alias{maControls<-,marrayRaw-method}
 \alias{maControls,marrayRaw-method}
@@ -104,7 +103,13 @@
 
 \title{Class "marrayRaw", classes and methods for pre-normalization cDNA microarray intensity data}
 
-\description{This class represents pre-normalization intensity data for a batch of cDNA microarrays. A \emph{batch of arrays} consists of a collection of arrays with the same layout  (\code{"\link{marrayLayout}"}). The class contains slots for the green (Cy3) and red (Cy5) foreground and background intensities, the layout of the arrays, and descriptions of the target samples hybridized to the arrays and probe sequences spotted onto the arrays.}
+\description{This class represents pre-normalization intensity data for
+  a batch of cDNA microarrays. A \emph{batch of arrays} consists of a
+  collection of arrays with the same layout
+  (\code{"\link{marrayLayout}"}). The class contains slots for the green
+  (Cy3) and red (Cy5) foreground and background intensities, the layout
+  of the arrays, and descriptions of the target samples hybridized to
+  the arrays and probe sequences spotted onto the arrays.} 
 
 \section{Objects from the Class}{
 Objects can be created by calls of the form 
@@ -139,8 +144,6 @@ Objects can be created by calls of the form
   \describe{
     \item{[}{\code{signature(x = "marrayRaw")}: subsetting operator for spots on the array and arrays in the batch, ensures that all slots are subset properly.}
     \item{coerce}{\code{signature(from = "marrayRaw", to = "marrayNorm")}: coerce an object of class \code{"\link{marrayRaw}"} into an object of class \code{"\link{marrayNorm}"}. }
-    \item{coerce}{\code{signature(from = "marrayRaw", to = "exprSet")}:  coerce an object of class \code{"\link{marrayRaw}"} into an object of class \code{"\link{exprSet-class}"}. }
-\item{coerce}{\code{signature(from = "marrayRaw", to = "marraySpots")}:  coerce an object of class \code{"\link{marrayRaw}"} into an object of class \code{"\link{marraySpots}"}. }
     \item{maA}{\code{signature(object = "marrayRaw")}: function which computes average log-intensities (base 2) A for an object of class \code{"\link{marrayRaw}"}.}
     \item{maControls<-}{\code{signature(object = "marrayRaw")}: slot assignment method.} 
     \item{maControls}{\code{signature(object = "marrayRaw")}: slot accessor method.}
@@ -196,12 +199,12 @@ Objects can be created by calls of the form
 
 \author{Sandrine Dudoit, \url{http://www.stat.berkeley.edu/~sandrine}.}
 
-\seealso{\code{\link{marrayLayout}}, \code{\link{marrayNorm}}, \code{\link{marrayInfo}}, \code{\link{marraySpots}}, \code{\link{marrayTwo}}, \code{\link{exprSet-class}}, \code{\link{print-methods}}, \code{\link{[-methods}}, \code{\link{coerce-methods}}.}
+\seealso{\code{\link{marrayLayout}}, \code{\link{marrayNorm}}, \code{\link{marrayInfo}}.}
 
 
 \examples{
 # Examples use swirl dataset, for description type ? swirl
-
+require(limma)
 data(swirl)
 
 # Object of class marrayRaw for the 4 swirl arrays

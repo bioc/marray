@@ -24,7 +24,6 @@
 \alias{maNotes,marrayInfo-method}
 \alias{maTargets<-,marrayRaw,marrayInfo-method}
 \alias{maTargets<-,marrayNorm,marrayInfo-method}
-\alias{maTargets<-,marrayTwo,marrayInfo-method}
 \alias{print,marrayInfo-method}
 \alias{rbind,marrayInfo-method}
 \alias{show,marrayInfo-method}
@@ -34,7 +33,7 @@
 \description{This class is used to store information on target samples hybridized to a batch of arrays or probe sequences spotted onto these arrays. It is not specific to the microarray context.}
 
 
-\section{Objects from the Class}{
+x\section{Objects from the Class}{
 Objects can be created by calls of the form \code{  new('marrayInfo',}\cr
 \code{    maLabels = ...., # Object of class character}\cr
 \code{    maInfo   = ...., # Object of class data.frame}\cr
@@ -66,7 +65,6 @@ If the object of class \code{"marrayInfo"} is used to describe target samples hy
     \item{maNotes<-}{\code{signature(object = "marrayInfo", value = "character")}: slot assignment method.}
     \item{maTargets<-}{\code{signature(object = "marrayRaw", value = "marrayInfo")}: slot assignment method.}
     \item{maTargets<-}{\code{signature(object = "marrayNorm", value = "marrayInfo")}: slot assignment method.}
-    \item{maTargets<-}{\code{signature(object = "marrayTwo", value = "marrayInfo")}: slot assignment method.}
     \item{print}{\code{signature(x = "marrayInfo")}: print method for \code{"\link{marrayInfo}"} class.}
   }
 }
@@ -75,9 +73,9 @@ If the object of class \code{"marrayInfo"} is used to describe target samples hy
 }
 
 
-\author{Sandrine Dudoit, \url{http://www.stat.berkeley.edu/~sandrine}.}
+\author{Jean Yang and Sandrine Dudoit}
 
-\seealso{\code{\link{marrayLayout}}, \code{\link{marrayRaw}}, \code{\link{marrayNorm}}, \code{\link{marraySpots}}, \code{\link{marrayTwo}}, \code{\link{exprSet-class}}, \code{\link{print-methods}}, \code{\link{[-methods}}.}
+\seealso{\code{\link{marrayLayout}}, \code{\link{marrayRaw}}, \code{\link{marrayNorm}}.}
 
 \examples{
 ## See marrayRaw

@@ -87,13 +87,9 @@ cor.na <- function(x)
   cor(x, use="pairwise.complete.obs")
 }
 
-sum.na <- function(x)
+sum.na <- function(x, ...)
 {
-        res <- NA
-        tmp <- !(is.na(x) | is.infinite(x))
-        if(sum(tmp) > 0)
-                res <- sum(x[tmp])
-        res
+  sum(x, na.rm=TRUE, ...)
 }
 
 
@@ -167,9 +163,10 @@ scale.na<-function(x, center = TRUE, scale = TRUE)
     x
 }
 
-prod.na <- function (x)
+prod.na <- function (x, ...)
 {
-  prod(x[!(is.na(x) | is.infinite(x))])
+##  prod(x[!(is.na(x) | is.infinite(x))])
+  prod(x, na.rm=TRUE, ...)
 }
 
 

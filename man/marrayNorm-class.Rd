@@ -16,8 +16,8 @@
 \alias{[,marrayNorm-method}
 \alias{cbind,marrayNorm-method}
 \alias{coerce,marrayRaw,marrayNorm-method}
-\alias{coerce,marrayNorm,exprSet-method}
-\alias{coerce,marrayNorm,marraySpots-method}
+%\alias{coerce,marrayNorm,exprSet-method}
+%\alias{coerce,marrayNorm,marraySpots-method}
 \alias{maA<-,marrayNorm,matrix-method}
 \alias{maA,marrayNorm-method}
 \alias{maControls<-,marrayNorm-method}
@@ -62,28 +62,6 @@
 \alias{print,marrayNorm-method}
 \alias{show,marrayNorm-method}
 \alias{summary,marrayNorm-method}
-
-%\alias{maW}
-
-%\alias{maLayout}
-%\alias{maNgr}
-%\alias{maNgc}
-%\alias{maNsr}
-%\alias{maNsc}
-%\alias{maNspots}
-%\alias{maSub}
-%\alias{maPlate}
-%\alias{maControls}
-
-%\alias{maPrintTip}
-%\alias{maGridRow}
-%\alias{maGridCol}
-%\alias{maSpotRow}
-%\alias{maSpotCol}
-
-%\alias{maGnames}
-%\alias{maTargets}
-%\alias{maNotes}
 \alias{maNormCall}
 
 \title{Class "marrayNorm", classes and methods for post-normalization cDNA microarray intensity data}
@@ -129,8 +107,8 @@ Objects can be created by calls of the form
   \describe{
     \item{[}{\code{signature(x = "marrayNorm")}:  subsetting operator for spots on the array and arrays in the batch, ensures that all slots are subset properly.}
     \item{coerce}{\code{signature(from = "marrayRaw", to = "marrayNorm")}: coerce an object of class \code{"\link{marrayRaw}"} into an object of class \code{\link{marrayNorm}}. }
-    \item{coerce}{\code{signature(from = "marrayNorm", to = "exprSet")}: coerce an object of class \code{"\link{marrayNorm}"} into an object of class \code{\link{exprSet-class}}. }
- \item{coerce}{\code{signature(from = "marrayNorm", to = "marraySpots")}: coerce an object of class \code{"\link{marrayNorm}"} into an object of class \code{"\link{marraySpots}"}. }
+%    \item{coerce}{\code{signature(from = "marrayNorm", to = "exprSet")}: coerce an object of class \code{"\link{marrayNorm}"} into an object of class \code{\link{exprSet-class}}. }
+% \item{coerce}{\code{signature(from = "marrayNorm", to = "marraySpots")}: coerce an object of class \code{"\link{marrayNorm}"} into an object of class \code{"\link{marraySpots}"}. }
     \item{maA}{\code{signature(object = "marrayNorm")}: slot accessor method.}
     \item{maA<-}{\code{signature(object = "marrayNorm", value = "matrix")}: slot assignment method.} 
     \item{maControls<-}{\code{signature(object = "marrayNorm")}: slot assignment method.} 
@@ -181,7 +159,8 @@ Objects can be created by calls of the form
 
 \author{Sandrine Dudoit, \url{http://www.stat.berkeley.edu/~sandrine}.}
 
-\seealso{\code{\link{marrayLayout}}, \code{\link{marrayRaw}}, \code{\link{marrayInfo}}, \code{\link{marraySpots}}, \code{\link{marrayTwo}}, \code{\link{exprSet-class}}, \code{\link{print-methods}}, \code{\link{[-methods}}, \code{\link{coerce-methods}}.}
+\seealso{\code{\link{marrayLayout}}, \code{\link{marrayRaw}},
+  \code{\link{marrayInfo}}}
 
 \examples{
 # Examples use swirl dataset, for description type ? swirl

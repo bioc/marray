@@ -28,8 +28,6 @@
 \alias{maGridRow,marrayLayout-method}
 \alias{maLayout<-,marrayRaw,marrayLayout-method}
 \alias{maLayout<-,marrayNorm,marrayLayout-method}
-\alias{maLayout<-,marraySpots,marrayLayout-method}
-\alias{maLayout<-,marrayTwo,marrayLayout-method}
 \alias{maNgc<-,marrayLayout,numeric-method}
 \alias{maNgc,marrayLayout-method}
 \alias{maNgr<-,marrayLayout,numeric-method}
@@ -63,7 +61,15 @@
 
 
 \title{Class "marrayLayout", classes and methods for layout parameters of cDNA microarrays}
-\description{This class is used to keep track of important layout parameters for two-color cDNA microarrays. It contains slots for: the total number of spotted probe sequences on the array, the dimensions of the spot and grid matrices, the plate origin of the probes, information on spotted control sequences (e.g. probe sequences which should have equal abundance in the two target samples, such as housekeeping genes). The terms \emph{print-tip-group}, \emph{grid}, \emph{spot matrix}, and \emph{sector} are used interchangeably and refer to a set of spots printed using the same print-tip.}
+\description{This class is used to keep track of important layout
+  parameters for two-color cDNA microarrays. It contains slots for: the
+  total number of spotted probe sequences on the array, the dimensions
+  of the spot and grid matrices, the plate origin of the probes,
+  information on spotted control sequences (e.g. probe sequences which
+  should have equal abundance in the two target samples, such as
+  housekeeping genes). The terms \emph{print-tip-group}, \emph{grid},
+  \emph{spot matrix}, and \emph{sector} are used interchangeably and
+  refer to a set of spots printed using the same print-tip.} 
 
 
 \section{Objects from the Class}{
@@ -103,8 +109,6 @@ Objects can be created by calls of the form \code{  new('marrayLayout',}\cr
     \item{maGridRow}{\code{signature(object = "marrayLayout")}: method which computes a vector of grid row coordinates for each spot.}
     \item{maLayout<-}{\code{signature(object = "marrayRaw", value = "marrayLayout")}: slot assignment method.} 
     \item{maLayout<-}{\code{signature(object = "marrayNorm", value = "marrayLayout")}: slot assignment method.} 
-    \item{maLayout<-}{\code{signature(object = "marrayTwo", value = "marrayLayout")}: slot assignment method.} 
-    \item{maLayout<-}{\code{signature(object = "marraySpots", value = "marrayLayout")}: slot assignment method.} 
     \item{maNgc}{\code{signature(object = "marrayLayout")}: slot accessor method.}
  \item{maNgc<-}{\code{signature(object = "marrayLayout", value = "numeric")}: slot assignment method.}
     \item{maNgr}{\code{signature(object = "marrayLayout")}: slot accessor method.}
@@ -134,7 +138,8 @@ Objects can be created by calls of the form \code{  new('marrayLayout',}\cr
 
 \author{Sandrine Dudoit, \url{http://www.stat.berkeley.edu/~sandrine}.}
 
-\seealso{\code{\link{marrayRaw}}, \code{\link{marrayNorm}}, \code{\link{marrayInfo}},   \code{\link{marraySpots}}, \code{\link{marrayTwo}}, \code{\link{print-methods}}, \code{\link{[-methods}}.}
+\seealso{\code{\link{marrayRaw}}, \code{\link{marrayNorm}},
+  \code{\link{marrayInfo}} and \code{\link{[-methods}}}.} 
 
 \examples{
 ## See marrayRaw

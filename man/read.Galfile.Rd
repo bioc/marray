@@ -7,8 +7,7 @@
 }
 \usage{
 read.Galfile(galfile, path = ".", info.id = c("Name", "ID"),
-labels = "ID", notes = galfile, sep = "\t", skip = NULL, quote = "\"",
-fill=TRUE, ncolumns=4, ...)
+labels = "ID", notes = "", sep = "\t", skip = NULL,   ncolumns=4, ...)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -24,10 +23,6 @@ fill=TRUE, ncolumns=4, ...)
     default is to read a tab delimited file.}
   \item{skip}{the number of lines of the data file to skip before
     beginning to read data.}
-  \item{quote}{the set of quoting characters. By default, this is disable
-    by setting `quote=""'.}
-  \item{fill}{logical: if `TRUE', `scan' will implicitly add empty fields
-    to any lines with fewer fields than implied by `what'.}
   \item{ncolumns}{an integer representing the number of columns of
     sub-array (print-tips) on a slides.}
   \item{\dots}{further arguments to \code{\link{scan}}.}

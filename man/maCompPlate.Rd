@@ -14,11 +14,16 @@ maCompPlate(x, n=384)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{x}{object of class \code{"\link{marrayLayout}"}, \code{"\link{marrayRaw}"}, \code{"\link{marrayNorm}"},  \code{"\link{marraySpots}"}, or  \code{"\link{marrayTwo}"}.}
-  \item{n}{object of class "numeric", number of wells in each plate, usually 384 or 96.}
+  \item{x}{object of class \code{"\link{marrayLayout}"},
+    \code{"\link{marrayRaw}"} and \code{"\link{marrayNorm}"}}
+  \item{n}{object of class "numeric", number of wells in each plate,
+    usually 384 or 96.} 
 }
+
 \details{
-Having plate IDs may be useful for the purpose of normalization. Normalization by plate can be done using the function \code{\link{maNormMain}}.
+  Having plate IDs may be useful for the purpose of
+  normalization. Normalization by plate can be done using the function
+  \code{\link{maNormMain}}. 
 }
 \value{
 a vector of plate IDs (\code{\link{factor}}).
@@ -26,7 +31,8 @@ a vector of plate IDs (\code{\link{factor}}).
 
 \author{Yee Hwa (Jean) Yang, Sandrine Dudoit, \url{http://www.stat.berkeley.edu/~sandrine}.}
 
-\seealso{\code{\link{marrayLayout}}, \code{\link{marrayRaw}}, \code{\link{marrayNorm}}, \code{\link{marraySpots}}, \code{\link{marrayTwo}}.}
+\seealso{\code{\link{marrayLayout}}, \code{\link{marrayRaw}},
+  \code{\link{marrayNorm}}}
 
 \examples{
 

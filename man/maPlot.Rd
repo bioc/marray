@@ -1,10 +1,11 @@
 \name{maPlot}
 \alias{maPlot}
-\alias{plot.marrayRaw}
-\alias{plot.marrayNorm}
+
+
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Scatter-plots for cDNA microarray spot statistics}
-\description{The function \code{maPlot} produces scatter-plots of microarray spot statistics for the classes \code{"\link{marrayRaw}"}, \code{"\link{marrayNorm}"}, and \code{"\link{marrayTwo}"}. It also allows the user to highlight and annotate subsets of points on the plot, and display fitted curves from robust local regression or other smoothing procedures.
+\description{The function \code{maPlot} produces scatter-plots of
+  microarray spot statistics for the classes \code{"\link{marrayRaw}"} and \code{"\link{marrayNorm}"}. It also allows the user to highlight and annotate subsets of points on the plot, and display fitted curves from robust local regression or other smoothing procedures.
 }
 
 \usage{
@@ -13,7 +14,7 @@ maPlot(m, x="maA", y="maM", z="maPrintTip", lines.func, text.func, legend.func, 
 %- maybe also `usage' for other objects documented here.
 
 \arguments{
-  \item{m}{Microarray object of class \code{"\link{marrayRaw}"}, \code{"\link{marrayNorm}"}, or \code{"\link{marrayTwo}"}.}
+  \item{m}{Microarray object of class \code{"\link{marrayRaw}"} and \code{"\link{marrayNorm}"}.}
   \item{x}{Name of accessor function for the abscissa spot statistic, typically a slot name for the microarray object \code{m}, such as \code{maA}.}
   \item{y}{Name of accessor function for the ordinate spot statistic, typically a slot name for the microarray object \code{m}, such as \code{maM}.}
   \item{z}{Name of accessor method for the spot statistic used to stratify the data, typically a slot name for the microarray layout object (see \code{"\link{marrayLayout}"}) such as \code{maPlate} or a method such as \code{maPrintTip}. If \code{z} is NULL, the data are not stratified.}

@@ -1,7 +1,5 @@
 \name{maImage}
 \alias{maImage}
-\alias{image,marrayRaw-method}
-\alias{image,marrayNorm-method}
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Color image for cDNA microarray spot statistics}
@@ -16,7 +14,7 @@
   data, for example, print-tip or cover-slip effects.  
 }
 \usage{
-image(x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ...)
+image(x, xvar = "maM", subset = TRUE, col, contours = FALSE, bar=TRUE, overlay=NULL, ol.col=1, ...)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -35,6 +33,8 @@ image(x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overla
     palettes from user supplied low, middle, and high color values. } 
   \item{contours}{If \code{contours=TRUE}, contours are plotted, otherwise they are not shown.}
   \item{bar}{If \code{bar=TRUE}, a calibration color bar is shown to the right of the image.}
+  \item{overlay}{A logical vector of spots to be highlighted on the image plots.}
+  \item{ol.col}{Color of the overlay spots.}
   \item{\dots}{Optional graphical parameters, see \code{\link{par}}.}
 }
 \details{
