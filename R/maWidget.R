@@ -342,7 +342,7 @@ widget.marrayInfo <- function(path=".",
 widget.marrayRaw<-function(ext=c("spot", "xls", "gpr"),
                            skip=0,
                            sep="\t",
-                           quote="",
+                           quote="\"",
                            ...)
 
 {

@@ -14,26 +14,25 @@
 \usage{
 read.marrayRaw(fnames, path=".", name.Gf=NULL, name.Gb=NULL, name.Rf=NULL,
 name.Rb=NULL,name.W=NULL, layout=NULL, gnames=NULL, targets=NULL,
-notes=NULL, skip=0, sep="	", quote="\"", DEBUG=FALSE, ...)
+notes=NULL, skip=NULL, sep="	", quote="\"", DEBUG=FALSE, ...)
 
 read.GenePix(fnames = NULL, path = NULL, name.Gf = "F532 Median",
 name.Gb ="B532 Median", name.Rf = "F635 Median", name.Rb = "B635 Median",
 name.W ="Flags", layout = NULL, gnames = NULL, targets = NULL,
-notes = NULL, skip=0, sep = "	", quote = "\"", DEBUG=FALSE, ...)
+notes = NULL, skip=NULL, sep = "	", quote = "\"", DEBUG=FALSE, ...)
 
-read.SMDfnames = NULL, path = ".", name.Gf = "CH1I_MEAN",
+read.SMD(fnames = NULL, path = ".", name.Gf = "CH1I_MEAN",
                  name.Gb = "CH1B_MEDIAN", name.Rf = "CH2I_MEAN",
                  name.Rb = "CH2B_MEDIAN", name.W = NULL, layout =
                  NULL, gnames = NULL, targets = NULL, notes = NULL,
-                 skip = 0, sep = "\t", quote = "", ...)
+                 skip = NULL, sep = "\t", quote = "\"", DEBUG=FALSE, ...)
 
-read.Spot(fnames = NULL, path = ".", name.Gf = "Gmean",
-name.Gb = "morphG", name.Rf = "Rmean", name.Rb = "morphR",
-name.W = NULL, layout = NULL, gnames = NULL, targets = NULL,
-notes = NULL, skip = 0, sep = "	", quote = "\"", ...)
+read.Spot(fnames = NULL, path = ".", name.Gf = "Gmean", name.Gb =
+"morphG", name.Rf = "Rmean", name.Rb = "morphR",name.W = NULL, layout =
+NULL, gnames = NULL, targets = NULL, notes = NULL, skip = NULL, sep = "	", quote = "\"", ...)
 
-widget.marrayRawext = c("spot", "xls", "gpr"), skip = 0, sep = "\t",
-                 quote = "", ...)
+widget.marrayRaw(ext = c("spot", "xls", "gpr"), skip = 0, sep = "\t",
+                 quote = "\"", ...)
 }
 
 \arguments{

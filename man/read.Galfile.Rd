@@ -7,6 +7,7 @@
 }
 \usage{
 read.Galfile(galfile, path = ".", info.id = c("Name", "ID"),
+layout.id =c(Block="Block", Row="Row", Column="Column"),
 labels = "ID", notes = "", sep = "\t", skip = NULL,   ncolumns=4, ...)
 }
 %- maybe also `usage' for other objects documented here.
@@ -16,6 +17,8 @@ labels = "ID", notes = "", sep = "\t", skip = NULL,   ncolumns=4, ...)
     default this is set to the current working directory ("."). }
   \item{info.id}{the column numbers in `fname' that contain the required
     information.}
+  \item{layout.id}{the column names in `fname' that specified the
+    printer layout information.}
   \item{labels}{the column number in \code{fname} which contains the names that the user would like to use to label spots or arrays (e.g. for default titles in \code{\link{maPlot}}.}
   \item{notes}{object of class character, vector of explanatory text}
   \item{sep}{the field separator character.  Values on each line of the
