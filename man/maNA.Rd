@@ -39,7 +39,7 @@ all the values present in its arguments, omitting any missing values.
 
 \seealso{\code{\link{log}}, \code{\link{sum}}, \code{\link{mean}},
   \code{\link{var}}, \code{\link{cor}}, \code{\link{order}},
-  \code{\link{scale}}, \code{link{prod}}.}
+  \code{\link{scale}}, \code{\link{prod}}.}
 
 %%\keyword{log, sum, mean, variance, correlation, order, scale, product, missing values, NA.} 
 \keyword{arith} 
