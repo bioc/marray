@@ -451,7 +451,7 @@ read.Agilent <-  function(fnames = NULL,
             info.id <- intersect(c("ProbeName", "ProbeUID", "SystematicName", "Description", "ControlType", "SwissProt", "GenBank", "Primate", "Sequence", "GenPept"), colnames(dat))
           }
         maInfo(descript) <- data.frame(dat[,info.id])
-        rownames(descript@maInfo) <- as.vector(dat[,info.id[1]])
+        rownames(descript@maInfo) <- make.names(as.vector(dat[,info.id[1]]), unique=TRUE)
         descript@maLabels <- as.character(dat[,info.id[1]])
         if(DEBUG) cat("done \n")
         
