@@ -34,13 +34,13 @@ setMethod("points", signature(x="marrayRaw"), function (x, xvar = "maA", yvar = 
 setMethod("points", signature(x="marrayNorm"), function (x, xvar = "maA", yvar = "maM", ...)
           {addPoints(object=x, xvar=xvar, yvar=yvar, ...)})
 setMethod("text", signature(x="marrayRaw"), function (x, xvar = "maA", yvar = "maM",...)
-          {addPoints(object=x, xvar=xvar, yvar=yvar, ...)})
+          {addText(object=x, xvar=xvar, yvar=yvar, ...)})
 setMethod("text", signature(x="marrayNorm"), function (x, xvar = "maA", yvar = "maM", ...)
-          {addPoints(object=x, xvar=xvar, yvar=yvar, ...)})
+          {addText(object=x, xvar=xvar, yvar=yvar, ...)})
 setMethod("lines", signature(x="marrayRaw"), function (x, xvar = "maA", yvar = "maM", zvar="maPrintTip",...)
-          {addPoints(object=x, xvar=xvar, yvar=yvar, ...)})
+          {addLines(object=x, xvar=xvar, yvar=yvar, ...)})
 setMethod("lines", signature(x="marrayNorm"), function (x, xvar = "maA", yvar = "maM", zvar="maPrintTip",...)
-          {addPoints(object=x, xvar=xvar, yvar=yvar, ...)})
+          {addLines(object=x, xvar=xvar, yvar=yvar, ...)})
 
 
 addText <- function(object, xvar="maA", yvar="maM", subset=NULL, labels = as.character(1:length(subset)), ...)
@@ -59,6 +59,7 @@ addPoints <- function(object, xvar="maA", yvar="maM", subset=TRUE, ...)
 
 addLines <- function(object, xvar="maA", yvar="maM", zvar="maPrintTip", subset=TRUE, ...)
   {
+    defs <- maDefaultPar(m=object,x=xvar,y=yvar,z=zvar)
     lines.func<-do.call("maLoessLines",
                         c(list(subset=subset, loess.args=list(span=0.4, degree=1, family="symmetric",
                                               control=loess.control(trace.hat="approximate",

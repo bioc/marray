@@ -247,7 +247,7 @@ read.Spot <-  function(fnames = NULL,
 #  Read SPOT
 #
 read.GenePix <-  function(fnames = NULL,
-                          path=".",
+                          path=NULL,
                           name.Gf = "F532 Median",
                           name.Gb = "B532 Median",
                           name.Rf = "F635 Median",
@@ -276,7 +276,7 @@ read.GenePix <-  function(fnames = NULL,
       {
         cat("Reading Galfile ... ")
         gal <- read.Galfile(galfile = fnames[1], path=path, info.id = c("Name", "ID"),
-                            labels = "ID", sep = sep, quote=quote, fill=fill, check.names=FALSE,
+                            labels = "ID", sep = sep, quote=quote, fill=TRUE, check.names=FALSE,
                             as.is=TRUE, ncolumns = 4, ...)
         if(is.null(gnames)) gnames <- gal$gnames
         if(is.null(layout)) layout <- gal$layout
@@ -370,30 +370,35 @@ read.Galfile <- function (galfile,
                           notes = galfile,
                           sep = "\t",
                           skip = NULL,
-                          quote = "\"",
-                          fill=TRUE,
                           ncolumns = 4,
                           ...)
 {
+  opt <- list(...)
+
   if(!is.null(path))
-    y <- readLines(file.path(path, galfile), n=100)
+    f <- file.path(path, galfile)
   else
-    y <- galfile
+    f <- galfile
+
+  y <- readLines(f, n=100)
+
   skip <- intersect(grep("ID", y), grep("Name", y))[1] - 1
-  dat <- read.table(file.path(path, galfile), header=TRUE, sep = sep,
-                    quote = quote, skip=skip, fill=fill, ...)
+  defs <- list(file=f, path = path, sep=sep, skip=skip,
+               fill = TRUE, quote = "\"", check.names=FALSE, as.is=TRUE, comment.char="", header=TRUE)
+  read.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.table")))
+  dat <- do.call("read.table", read.args)
+
   ## Gnames
   descript <- new("marrayInfo", maNotes = notes)
   if (is.null(info.id))
     info.id <- 1:ncol(dat)
   maInfo(descript) <- data.frame(dat[,info.id])
-##     data.frame(apply(dat[, info.id], 2, gsub, pattern="\"", replacement=""))
+
   if (length(labels) == nrow(dat))
     maLabels(descript) <- as.vector(labels)
   else {
     if (is.null(labels))
       labels <- 1
-    ## maLabels(descript) <- gsub("\"", "", as.vector(dat[, labels]))
     maLabels(descript) <- as.character(dat[,labels])
   }
   ## Layout
