@@ -258,6 +258,7 @@ read.Spot <-  function(fnames = NULL,
                        skip=NULL,
                        sep="\t",
                        quote="\"",
+                       DEBUG=FALSE,
                        ...)
   {
     ## If fnames not specified, read everything in the dir
@@ -265,7 +266,7 @@ read.Spot <-  function(fnames = NULL,
     if(is.null(fnames))
       {
         if(!is.null(targets))
-          fullnames <- maInfo(targets)[,1]  
+          fullnames <- as.vector(maInfo(targets)[,1]) ## modified
         else
           {
             if(is.null(path))
@@ -276,24 +277,53 @@ read.Spot <-  function(fnames = NULL,
       }
     else
       fullnames <- fnames
+    
+    setgal <- FALSE
+    if(DEBUG) print(fullnames)
+    if(is.null(gnames) | is.null(layout))
+      {
+        if(DEBUG) print("Reading Galfile ... ")
+        opt <- list(...)
+        galfile <- dir(pattern="*.\\gal", path=path)
+        defs <- list(galfile = galfile, path=path, info.id = c("ID", "Name"),
+                     labels = "ID", sep = sep, quote=quote, fill=TRUE, check.names=FALSE,
+                     as.is=TRUE, ncolumns = 4)
+        gal.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.Galfile")))        
+        gal <- do.call("read.Galfile", gal.args)
+        if(is.null(gnames)) gnames <- gal$gnames
+        if(is.null(layout)) layout <- gal$layout
+        if(DEBUG) print("done \n ")
+        setgal <- TRUE
+      }
 
+    if(DEBUG) print(table(layout@maControls))
+    if(DEBUG) cat("Setting up controls status ... ")
+    if(length(layout@maControls) == 0)
+      {
+        if(DEBUG) cat("Generate controls \n")
+        GenControls.args <- maDotsMatch(maDotsMatch(opt, list(Gnames=gnames)), formals(args("maGenControls"))) 
+        layout@maControls <- as.factor(do.call("maGenControls", GenControls.args))
+        if(DEBUG) print(table(layout@maControls))
+      }
+    if(DEBUG) cat("done \n ")
     if(is.null(notes)) notes <- "Spot Data"
+    
+    if(DEBUG) cat("Calling read.marrayRaw ... \n")
+    defs <- list(fnames = fullnames, path=path,
+                 name.Gf = name.Gf, name.Gb=name.Gb, name.Rf=name.Rf, name.Rb=name.Rb,
+                 name.W=name.W, layout = layout, gnames=gnames, targets=targets,
+                 notes = notes, skip=skip, sep=sep, quote=quote, fill=TRUE)
+    maRaw.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.marrayRaw")))        
+    maRaw.args <- c(maRaw.args, defs[names(defs[setdiff(names(defs), names(maRaw.args))])])
+    mraw <- do.call("read.marrayRaw", maRaw.args)
 
-    mraw <- read.marrayRaw(fnames =fullnames,
-                           path=path,
-                           name.Gf = name.Gf,
-                           name.Gb = name.Gb,
-                           name.Rf = name.Rf,
-                           name.Rb = name.Rb,
-                           name.W= name.W,
-                           layout = layout,
-                           gnames = gnames,
-                           targets = targets,
-                           notes = notes,
-                           skip= skip,
-                           sep= sep,
-                           quote=quote,
-                           ...)
+    if(setgal)
+      {
+        ## Checking orders
+        mraw <- mraw[gal$neworder,]
+        ## make sure the reordering doesn't affect the subset fucntion.  
+        mraw@maLayout@maSub <- layout@maSub
+      }
     return(mraw)
   }
 
@@ -325,7 +355,7 @@ read.GenePix <-  function(fnames = NULL,
     if(is.null(fnames))
       {
         if(!is.null(targets))
-          fullnames <- maInfo(targets)[,1]  
+          fullnames <- as.vector(maInfo(targets)[,1]) ## modified
         else
           {
             if(is.null(path))
@@ -417,7 +447,7 @@ read.Agilent <-  function(fnames = NULL,
     if(is.null(fnames))
       {
         if(!is.null(targets))
-          fullnames <- maInfo(targets)[,1]  
+          fullnames <- as.vector(maInfo(targets)[,1]) ## modified
         else
           {
             if(is.null(path))
@@ -581,7 +611,7 @@ read.SMD <- function(fnames = NULL, path = NULL,
   if(is.null(fnames))
     {
       if(!is.null(targets))
-        fullnames <- maInfo(targets)[,1]  
+        fullnames <- as.vector(maInfo(targets)[,1]) ## modified
       else
         {
           if(is.null(path))
@@ -655,5 +685,39 @@ read.SMD <- function(fnames = NULL, path = NULL,
   return(mraw)
 }
 
-############################################
+###########################################################################
+# Function: checkTargetInfo
+# ADD:  check that the foreground and backgruond intensities are
+# stored in the same order as provided in the first column of target file.
+# Date:  Jan 05, 2005 
+###########################################################################
+checkTargetInfo <- function(mraw)
+  {
+    if(length(mraw@maTargets@maInfo) == 0)
+      stop("Missing Target Information \n")
+    targetFnames <- as.vector(mraw@maTargets@maInfo[,1])
 
+    if(class(mraw) == "marrayRaw")
+      {
+        if((length(mraw@maGf) == 0 ) & length(mraw@maRf) == 0)
+          stop("Missing intensities information in both channels\n")
+        if((length(mraw@maGf) != 0 ))
+          colFnames <- colnames(mraw@maGf)
+        else
+          colFnames <- colnames(mraw@maRf)
+      }
+    if(class(mraw) == "marrayNorm")
+      {
+        if((length(mraw@maM) == 0 ))
+          stop("Missing Log-ratio information \n")
+        colFnames <- colnames(mraw@maM)
+      }
+    
+    res <- sapply(targetFnames, grep, colFnames) == 1:length(colFnames)
+    return(sum(res) == length(colFnames))
+    
+  }
+    
+############################################
+## END OF FILE
+############################################

@@ -496,9 +496,7 @@ maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, over
     layout(1)
     par(mar=c(5,4,4,2) + 0.1)
   }
-
-  return(list(x.col=col[1:length(x.bar)], x.bar=x.bar,
-              summary=summary(xx[subset])))
+##  return(list(x.col=col[1:length(x.bar)], x.bar=x.bar, summary=summary(xx[subset])))
 }
 
 ###########################################################################

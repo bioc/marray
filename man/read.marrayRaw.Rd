@@ -29,7 +29,8 @@ name.Rb = "Ch2 Background (Median)", name.W = NULL, info.id = c("Name",
 
 read.Spot(fnames = NULL, path = ".", name.Gf = "Gmean", name.Gb =
 "morphG", name.Rf = "Rmean", name.Rb = "morphR",name.W = NULL, layout =
-NULL, gnames = NULL, targets = NULL, notes = NULL, skip = NULL, sep = "	", quote = "\"", ...)
+NULL, gnames = NULL, targets = NULL, notes = NULL, skip = NULL, sep = "
+", quote = "\"", DEBUG=FALSE, ...)
 
 read.Agilent(fnames = NULL, path=NULL, name.Gf = "gMedianSignal", name.Gb = "gBGMedianSignal", name.Rf = "rMedianSignal", name.Rb = "rBGMedianSignal", name.W= NULL, layout = NULL, gnames = NULL, targets = NULL, notes=NULL, skip=NULL, sep="\t", quote="\"", DEBUG=FALSE, info.id=NULL, ...)
 
@@ -85,6 +86,11 @@ widget.marrayRaw(ext = c("spot", "xls", "gpr"), skip = 0, sep = "\t",  quote = "
 \examples{
 datadir <- system.file("swirldata", package="marray")
 
+## Quick guide
+swirl.targets <- read.marrayInfo(file.path(datadir, "SwirlSample.txt"))
+data <- read.Spot(path=datadir, targets=swirl.targets)
+
+## Alternate commands
 skip <-  grep("Row", readLines(file.path(datadir,"fish.gal"), n=100)) - 1
 
 swirl.layout <- read.marrayLayout(ngr=4, ngc=4, nsr=22, nsc=24)
