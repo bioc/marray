@@ -31,10 +31,13 @@
    \url{http://www.stat.berkeley.edu/~sandrine}
 \end{center}
 
-% library(tools) 
-% Rnwfile<-file.path("/home/sandrine/CVS_stuff/madman/Rpacks/marrayPlots/inst/doc","marrayPlots.Rnw")
-%Sweave(Rnwfile,pdf=TRUE,eps=TRUE,stylepath=TRUE,driver=RweaveLatex())
 
+
+% library(tools) 
+% setwd("C:/MyDoc/Projects/madman/Rpacks/marray/inst/doc")
+% Rnwfile<-file.path("C:/MyDoc/Projects/madman/Rpacks/marray/inst/doc","marrayPlots.Rnw")
+% options(width=65)
+% Sweave(Rnwfile,pdf=TRUE,eps=TRUE,stylepath=TRUE,driver=RweaveLatex())
 
 \tableofcontents
 
@@ -151,22 +154,20 @@ the Swirl 93 array (third array in the batch) using white--to--green
 and white--to--red color palettes, respectively.
 
 <<maImageGb,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>=
-tmp<-image(swirl[,3], x="maGb", subset=TRUE, col=Gcol,contours=FALSE, bar=FALSE) 
+tmp<-image(swirl[,3], xvar="maGb", subset=TRUE, col=Gcol,contours=FALSE, bar=FALSE) 
 @
+
 <<maImageRb,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>=
-tmp<-image(swirl[,3], x="maRb", subset=TRUE, col=Rcol,
-contours=FALSE, bar=FALSE) 
+tmp<-image(swirl[,3], xvar="maRb", subset=TRUE, col=Rcol, contours=FALSE, bar=FALSE) 
 @
 
 Note that the same images can be obtained using the default arguments
 of the function by the shorter commands 
 
-%%<<eval=FALSE,echo=TRUE>>=
-\begin{verbatim}
-image(swirl[,3], x="maGb") 
-image(swirl[,3], x="maRb") 
-\end{verbatim}
-%%@
+<<eval=FALSE,echo=TRUE>>=
+image(swirl[,3], xvar="maGb") 
+image(swirl[,3], xvar="maRb") 
+@
 
 If {\tt bar=TRUE}, a calibration color bar is displayed to the right
 of the images. The {\tt image} function returns the values and
@@ -194,11 +195,11 @@ spatial dye biases in the intensity log--ratio, with higher values in
 grid (3,3) and lower values in grid column 1 of the array.
 
 <<maImageMraw1,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>= 
-tmp<-image(swirl[,3], x="maM", bar=FALSE, main="Swirl array 93: image of pre--normalization M") 
+tmp<-image(swirl[,3], xvar="maM", bar=FALSE, main="Swirl array 93: image of pre--normalization M") 
 @
 
 <<maImageMraw2,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>= 
-tmp<-image(swirl[,3], x="maM", subset=maTop(maM(swirl[,3]), h=0.10, l=0.10), col=RGcol, contours=FALSE, bar=FALSE,main="Swirl array 93: image of pre--normalization M for \% 10 tails") 
+tmp<-image(swirl[,3], xvar="maM", subset=maTop(maM(swirl[,3]), h=0.10, l=0.10), col=RGcol, contours=FALSE, bar=FALSE,main="Swirl array 93: image of pre--normalization M for \% 10 tails") 
 @
 
 Note that the {\tt image} function (and other functions {\tt
@@ -210,19 +211,19 @@ maPlate} (Figure \ref{fig:maImageLayout}).
 
 
 <<maImageSpotCol,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>=
-tmp<- image(swirl[,3], x="maSpotCol", bar=FALSE) 
+tmp<- image(swirl[,3], xvar="maSpotCol", bar=FALSE) 
 @
 
 <<maImagePrintTip,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>=
-tmp<- image(swirl[,3], x="maPrintTip", bar=FALSE) 
+tmp<- image(swirl[,3], xvar="maPrintTip", bar=FALSE) 
 @
 
 <<maImageControls,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>=
-tmp<- image(swirl[,3], x="maControls",col=heat.colors(10),bar=FALSE) 
+tmp<- image(swirl[,3], xvar="maControls",col=heat.colors(10),bar=FALSE) 
 @
 
 <<maImagePlate,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>= 
-tmp<- image(swirl[,3], x="maPlate",bar=FALSE) 
+tmp<- image(swirl[,3], xvar="maPlate",bar=FALSE) 
 @
 
 
@@ -322,7 +323,7 @@ print--tip--groups for the Swirl 93 array.
 
 
 <<maBoxplot1pre,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>=
-boxplot(swirl[,3], x="maPrintTip", y="maM", main="Swirl array 93: pre--normalization") 
+boxplot(swirl[,3], xvar="maPrintTip", y="maM", main="Swirl array 93: pre--normalization") 
 @
 
 The boxplots clearly reveal the need for normalization, since most
@@ -346,7 +347,7 @@ including possibly scale normalization.
 
 
 <<maBoxplot2pre,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>=
-boxplot(swirl, y="maM", main="Swirl arrays: pre--normalization") 
+boxplot(swirl, yvar="maM", main="Swirl arrays: pre--normalization") 
 @
 
 The function {\tt maNorm} from the {\tt marrayNorm} package can be
@@ -357,7 +358,7 @@ the vignette or help files of the {\tt marrayNorm} package for more
 information (e.g. {\tt ? maNorm}).
 
 <<eval=TRUE>>= 
-swirl.norm <- maNorm(swirl,norm="p") 
+swirl.norm <- maNorm(swirl)
 @
 
 The following commands can be used to produce post--normalization
@@ -365,12 +366,12 @@ boxplots of the log--ratios. The plots are shown in panel (b) of
 Figures \ref{fig:maBoxplot1} and \ref{fig:maBoxplot2}.
 
 <<maBoxplot1post,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>=
-boxplot(swirl.norm[,3], x="maPrintTip", y="maM",
+boxplot(swirl.norm[,3], xvar="maPrintTip", yvar="maM",
 	main="Swirl array 93: post--normalization") 
 @
 
 <<maBoxplot2post,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>=
-boxplot(swirl.norm, y="maM", col="green", main="Swirl arrays: post--normalization") 
+boxplot(swirl.norm, yvar="maM", col="green", main="Swirl arrays: post--normalization") 
 @
 
 
@@ -468,7 +469,6 @@ each of the print--tip--groups (using a smoother span $f=0.3$ for the
 {\tt lowess} function). The figure was generated with the following
 commands
 
-
 <<maPlot1pre,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>=
 defs<-maDefaultPar(swirl[,3],x="maA",y="maM",z="maPrintTip")
 
@@ -478,7 +478,7 @@ legend.func<-do.call("maLegendLines",defs$def.legend)
 # Function for performing and plotting lowess fits
 lines.func<-do.call("maLowessLines",c(list(TRUE,f=0.3),defs$def.lines))
 
-plot(swirl[,3], x="maA", y="maM", z="maPrintTip",
+plot(swirl[,3], xvar="maA", yvar="maM", zvar="maPrintTip",
 		      lines.func,
 		      text.func=maText(),
 		      legend.func,
@@ -486,7 +486,7 @@ plot(swirl[,3], x="maA", y="maM", z="maPrintTip",
 @
 
 <<maPlot1post,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>=
-plot(swirl.norm[,3], x="maA", y="maM", z="maPrintTip",
+plot(swirl.norm[,3], xvar="maA", yvar="maM", zvar="maPrintTip",
 		      lines.func,
 		      text.func=maText(),
 		      legend.func,
@@ -495,11 +495,10 @@ plot(swirl.norm[,3], x="maA", y="maM", z="maPrintTip",
 
 The same plots can be obtain using the default arguments of the
 function by the commands 
-%%<<eval=FALSE,echo=TRUE>>= 
-\begin{verbatim}
+<<eval=FALSE,echo=TRUE>>= 
 plot(swirl[,3])
 plot(swirl.norm[,3]) 
-\end{verbatim}
+@
 
 To highlight, say, the spots with the highest and lowest 5\%
 log--ratios using purple symbols {\tt "O"}, set {\tt

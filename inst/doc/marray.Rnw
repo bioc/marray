@@ -1,10 +1,10 @@
 % NOTE -- ONLY EDIT THE .Rnw FILE!!!  The .tex file is
 % likely to be overwritten.
 %
-% \VignetteIndexEntry{marrayTools Overview}
-% \VignetteDepends{marrayNorm}
+% \VignetteIndexEntry{marray Overview}
+% \VignetteDepends{marray}
 % \VignetteKeywords{Expression Analysis, Preprocessing}
-% \VignettePackage{marrayTools}
+% \VignettePackage{marray}
 
 \documentclass[11pt]{article}
 

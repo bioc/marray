@@ -30,77 +30,117 @@
 2. Department of Me, University of California, Berkeley, {\tt yeehwa@stat.berkeley.edu}
 \end{center}
 
-% library(tools)
-%Rnwfile<- file.path("/home/sandrine/CVS_stuff/madman/Rpacks/marrayClasses/inst/doc","marrayClasses.Rnw")
+
+% library(tools) 
+% setwd("C:/MyDoc/Projects/madman/Rpacks/marray/inst/doc")
+% Rnwfile<-file.path("C:/MyDoc/Projects/madman/Rpacks/marray/inst/doc","marrayClasses.Rnw")
+% options(width=65)
 % Sweave(Rnwfile,pdf=TRUE,eps=TRUE,stylepath=TRUE,driver=RweaveLatex())
 
-
 \tableofcontents
-
-%%%{\red TO DO:\\
-%%%*** ADD: a figure explaining the layout terminology.\\
-%%%*** ADD: pictures for classes.\\
-%%%}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview}
 
-This document provides a detailed discussion of the {\tt marrayClasses} package, which is part of a suite of four packages for diagnostic plots and normalization of cDNA microarray data. A shorter guide to the package is given in {\tt marrayClassesShort}. Information on the other packages can be found in \cite{Dudoit&Yang02} and the vignettes for each package. Like most Bioconductor packages, these four packages rely on the object--oriented class/method mechanism, provided by the R {\tt methods} package, to allow efficient and systematic representation and manipulation of microarray data.  {\tt marrayClasses} contains basic class definitions and associated methods for pre-- and post--normalization intensity data for batches of arrays. The other three packages are
+This document provides a short tutorial for the {\tt marray} package,
+which is packages for diagnostic plots and normalization of cDNA
+microarray data.  The {\tt marray} packages contains basic class
+definitions and associated methods for pre-- and post--normalization
+intensity data for batches of arrays. Greater details on the package are
+given in the {\tt marrayClasses} document of the {\tt inst/doc}
+directory.  \\
 
-\begin{description}
-\item
-{\tt marrayInput}. This package provides functionality for reading microarray data into R, such as intensity data from image processing output files (e.g. {\tt .spot} and {\tt .gpr} files for the {\tt Spot} and {\tt GenePix} packages, respectively) and textual information on probes and targets (e.g. from gal files and god lists). {\tt tcltk} widgets are supplied to facilitate and automate data input and the creation of microarray specific R objects for storing these data. 
-\item
-{\tt marrayPlot}. This package provides functions for diagnostic plots of microarray spot statistics, such as boxplots, scatter--plots, and spatial color images. Examination of diagnostic plots of intensity data is important in order to identify printing, hybridization, and scanning artifacts which can lead to biased inference concerning gene expression.
-\item
-{\tt marrayNorm}. This package implements robust adaptive location and scale normalization procedures, which correct for different types of dye biases (e.g. intensity, spatial, plate biases) and allow the use of control sequences spotted onto the array and possibly spiked into the mRNA samples. Normalization is needed to ensure that observed differences in intensities are indeed due to differential expression and not experimental artifacts; fluorescence intensities should therefore be normalized before any analysis which involves comparisons among genes within or between arrays. 
-\end{description}
+{\bf Help files.}  As with any R package, detailed information on
+functions, classes and methods can be obtained in the help files. For
+instance, to view the help file for the class {\tt marrayRaw} in a
+browser, use {\tt help.start()} followed by {\tt ? marrayRaw} or
+alternately the dyadic {\tt class ? marrayRaw}.\\ 
 
+{\bf Case study.} We demonstrate the functionality of this collection of
+R packages using gene expression data from the Swirl zebrafish
+experiment. To load the Swirl dataset, use {\tt data(swirl)}, and to
+view a description of the experiments and data, type {\tt ? swirl}. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Getting started}
-
-{\bf Installing the package.} To install the {\tt marrayClasses} package for Windows operating systems, first download the file {\tt
-marrayClasses-snapshot.zip} from the Bioconductor website \url{http://www.bioconductor.org/packages/html/marrayClasses.html}.  Next, after starting
-R, from the menu select {\tt Packages}, then {\tt
-Install package from local zip file...}.  Find and highlight the
-location of the zip file and click on {\tt open}.\\
-
-
-{\bf Loading the package.} To load the {\tt marrayClasses} package in your R session, type {\tt library(marrayClasses)}.\\
-
-{\bf Help files.}  As with any R package, detailed information on functions, classes and methods can be obtained in the help files. For instance, to view the help file for the class {\tt marrayRaw} in a browser, use {\tt help.start()} followed by {\tt ? marrayRaw} or alternately the dyadic {\tt class ? marrayRaw}.\\
-
-{\bf Case study.} We demonstrate the functionality of this collection of R packages using gene expression data from the Swirl zebrafish experiment. To load the Swirl dataset, use {\tt data(swirl)}, and to view a description of the experiments and data, type {\tt ? swirl}.\\
-
+Getting started:
 <<eval=TRUE, echo=FALSE>>=
-library("marrayClasses")
+library("marray")
 data(swirl)
 @
-
-{\bf Sweave.} This document was generated using the {\tt Sweave} function from the R {\tt tools} package. The source file is in the {\tt /inst/doc} directory of the package {\tt marrayClasses}.
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Object--oriented programming}\label{soo}
 
-Microarray experiments generate large and complex multivariate datasets, which contain textual information on probe sequences (e.g. gene names, annotation, layout parameters) and mRNA target samples (e.g. description of samples, protocols, hybridization and scanning conditions), in addition to the primary fluorescence intensity data. Efficient and coordinated access to these various types of data is an important aspect of computing with microarray data. To facilitate the management of microarray data at different stages of the analysis process, a collection of microarray specific data structures or {\it classes} were defined (see also the Bioconductor package {\tt Biobase} for microarray classes and methods for normalized data). The packages rely on the class/method mechanism provided by John Chambers' R {\tt methods} package, which allows object--oriented programming in R. Broadly speaking, {\it classes} reflect how we think of certain objects and what information these objects should contain. Classes are defined in terms of {\it slots} which contain the relevant data for the application at hand. {\it Methods} define how a particular function should behave depending on the class of its arguments and allow computations to be adapted to particular classes, that is, data types. For example, a microarray object should contain intensity data as well as information on the probe sequences spotted on the array and the target samples hybridized to it. Useful methods for microarray classes include specializations of printing, subsetting, and plotting functions for the types of data represented by these classes. 
-%%% Although the class/method approach is important from a programming point of view, the user won't need to be familiar with or even aware of object oriented programming, unless interested in extending the functionality of the packages.
-The use of classes and methods greatly reduces the complexity of handling microarray data, by automatically coordinating various sources of information associated with microarray experiments.
+Microarray experiments generate large and complex multivariate datasets,
+which contain textual information on probe sequences (e.g. gene names,
+annotation, layout parameters) and mRNA target samples (e.g. description
+of samples, protocols, hybridization and scanning conditions), in
+addition to the primary fluorescence intensity data. Efficient and
+coordinated access to these various types of data is an important aspect
+of computing with microarray data. To facilitate the management of
+microarray data at different stages of the analysis process, a
+collection of microarray specific data structures or {\it classes} were
+defined (see also the Bioconductor package {\tt Biobase} for microarray
+classes and methods for normalized data). The packages rely on the
+class/method mechanism provided by John Chambers' R {\tt methods}
+package, which allows object--oriented programming in R. Broadly
+speaking, {\it classes} reflect how we think of certain objects and what
+information these objects should contain. Classes are defined in terms
+of {\it slots} which contain the relevant data for the application at
+hand. {\it Methods} define how a particular function should behave
+depending on the class of its arguments and allow computations to be
+adapted to particular classes, that is, data types. For example, a
+microarray object should contain intensity data as well as information
+on the probe sequences spotted on the array and the target samples
+hybridized to it. Useful methods for microarray classes include
+specializations of printing, subsetting, and plotting functions for the
+types of data represented by these classes.  
+
+The use of classes and methods greatly reduces the complexity of
+handling microarray data, by automatically coordinating various sources
+of information associated with microarray experiments. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Microarray classes}\label{sclasses}
 
-The {\it raw data} from a microarray experiment are the image files produced by the scanner; these are typically pairs of 16--bit tagged image file format (TIFF) files, one for each fluorescent dye (images usually range in size from a few megabytes (MB) to 10 or 20 MB for high resolution scans). Image analysis is required to extract foreground and background fluorescence intensity measurements for each spotted DNA sequence. \\
+The {\it raw data} from a microarray experiment are the image files
+produced by the scanner; these are typically pairs of 16--bit tagged
+image file format (TIFF) files, one for each fluorescent dye (images
+usually range in size from a few megabytes (MB) to 10 or 20 MB for high
+resolution scans). Image analysis is required to extract foreground and
+background fluorescence intensity measurements for each spotted DNA
+sequence. \\ 
 
 Here, we begin our analysis of microarray data with the output files of image processing packages such as {\tt GenePix} or {\tt Spot}. In what follows, red and green background intensities are denoted by $R_b$ and $G_b$, respectively, and red and green foreground intensities by $R_f$ and $G_f$, respectively. Background--corrected red and green fluorescence intensities are denoted by $R$ and $G$, and $M$ denotes the corresponding base--2 log--ratio, $M = \log_2 R/G$. 
 
 \subsection{{\tt marrayLayout} class} 
 
-The term {\it array layout} refers to the layout of DNA probe sequences on the array, as determined by the printing process. In general, probe sequences are spotted on a glass microscope slide using an arrayer which has an $ngr \times ngc$ print--head, that is, a regular array of $ngr$ rows and $ngc$ columns of print--tips or pins. The resulting microarrays are thus partitioned into an $ngr \times ngc$ {\it grid matrix}. The terms {\it grid}, {\it sector}, and {\it print--tip--group} are used interchangeably in the microarray literature. Each grid consists of an $nsr \times nsc$ {\it spot matrix} that was printed with a single print--tip. DNA probes are usually printed sequentially from a collection of 384--well plates (or 96--well plates), thus, in some sense, plates are proxies for time of printing. In addition, a number of control probe sequences may be spotted on the array for normalization or other calibration purposes. The term {\it array batch} is used to refer to a collection of arrays with the same layout. Keeping track of spot layout information is essential for quality assessment of fluorescent intensity data and for normalization purposes.\\
+The term {\it array layout} refers to the layout of DNA probe sequences
+on the array, as determined by the printing process. In general, probe
+sequences are spotted on a glass microscope slide using an arrayer which
+has an $ngr \times ngc$ print--head, that is, a regular array of $ngr$
+rows and $ngc$ columns of print--tips or pins. The resulting microarrays
+are thus partitioned into an $ngr \times ngc$ {\it grid matrix}. The
+terms {\it grid}, {\it sector}, and {\it print--tip--group} are used
+interchangeably in the microarray literature. Each grid consists of an
+$nsr \times nsc$ {\it spot matrix} that was printed with a single
+print--tip. DNA probes are usually printed sequentially from a
+collection of 384--well plates (or 96--well plates), thus, in some
+sense, plates are proxies for time of printing. In addition, a number of
+control probe sequences may be spotted on the array for normalization or
+other calibration purposes. The term {\it array batch} is used to refer
+to a collection of arrays with the same layout. Keeping track of spot
+layout information is essential for quality assessment of fluorescent
+intensity data and for normalization purposes.\\ 
 
-Important layout parameters are the dimensions of the spot and grid matrices, and, for each probe on the array, its grid matrix and spot matrix coordinates. In addition, it is useful to keep track of gene names, plate origin of the probes, and information on the spotted control sequences (e.g. probe sequences which should have equal abundance in the two target samples, such as housekeeping genes). The class {\tt marrayLayout} was designed to keep track of these various layout parameters and contains the following slots (the classes of the slots are listed below the slot names)
+Important layout parameters are the dimensions of the spot and grid
+matrices, and, for each probe on the array, its grid matrix and spot
+matrix coordinates. In addition, it is useful to keep track of gene
+names, plate origin of the probes, and information on the spotted
+control sequences (e.g. probe sequences which should have equal
+abundance in the two target samples, such as housekeeping genes). The
+class {\tt marrayLayout} was designed to keep track of these various
+layout parameters and contains the following slots (the classes of the
+slots are listed below the slot names) 
 
 <<R>>=
 getClassDef("marrayLayout")
@@ -117,7 +157,11 @@ getClassDef("marrayLayout")
     \item{{\tt maNotes}:}{ Object of class "character",  any notes concerning the microarray layout, e.g., printing conditions.}
 \end{description}
 
-In addition, a number of {\it methods} were defined to compute other important layout parameters, such as print--tip, grid matrix, and spot matrix coordinates: {\tt maPrintTip}, {\tt maGridRow}, {\tt maGridCol}, {\tt maSpotRow}, and {\tt maSpotCol} (see Section \ref{smethods}). No slots were defined for these quantities for memory management reasons.
+In addition, a number of {\it methods} were defined to compute other
+important layout parameters, such as print--tip, grid matrix, and spot
+matrix coordinates: {\tt maPrintTip}, {\tt maGridRow}, {\tt maGridCol},
+{\tt maSpotRow}, and {\tt maSpotCol} (see Section \ref{smethods}). No
+slots were defined for these quantities for memory management reasons. 
 
 \subsection{{\tt marrayInfo} class} 
 
@@ -129,7 +173,13 @@ getClassDef("marrayInfo")
 
 \subsection{{\tt marrayRaw} class}
 
- Pre--normalization intensity data for a batch of arrays are stored in objects of class {\tt marrayRaw}, which contain slots for the matrices of Cy3 and Cy5 background and foreground intensities ({\tt maGb}, {\tt maRb}, {\tt maGf}, {\tt maRf}), spot quality weights ({\tt maW}), layout parameters of the arrays ({\tt marrayLayout}), description of the probes spotted onto the arrays ({\tt maGnames}) and mRNA target samples hybridized to the arrays ({\tt maTargets}). 
+ Pre--normalization intensity data for a batch of arrays are stored in
+ objects of class {\tt marrayRaw}, which contain slots for the matrices
+ of Cy3 and Cy5 background and foreground intensities ({\tt maGb}, {\tt
+ maRb}, {\tt maGf}, {\tt maRf}), spot quality weights ({\tt maW}),
+ layout parameters of the arrays ({\tt marrayLayout}), description of
+ the probes spotted onto the arrays ({\tt maGnames}) and mRNA target
+ samples hybridized to the arrays ({\tt maTargets}).  
 
 <<R>>=
 getClassDef("marrayRaw")
@@ -145,11 +195,18 @@ getClassDef("marrayRaw")
     \item{{\tt maGnames}:}{ Object of class "marrayInfo", description of spotted probe sequences.}
     \item{{\tt maTargets}:}{ Object of class "marrayInfo", description of target samples hybridized to the arrays.}
     \item{{\tt maNotes}:}{ Object of class "character", any notes concerning the microarray experiments, e.g. hybridization or scanning conditions.}
-\end{description}
+\end{description} 
 
 \subsection{{\tt marrayNorm} class} 
 
-Post--normalization intensity data are stored in similar objects of class {\tt marrayNorm}. These objects store the normalized intensity log--ratios {\tt maM}, the location and scale normalization values ({\tt maMloc} and {\tt maMscale}), and the average log--intensities ({\tt maA}). In addition, the {\tt marrayNorm} class has a slot for the function call used to normalize the data, {\tt maNormCall}. For more details on the creation of normalized microarray objects, the reader is referred to the vignette for the {\tt marrayNorm} package.
+Post--normalization intensity data are stored in similar objects of
+class {\tt marrayNorm}. These objects store the normalized intensity
+log--ratios {\tt maM}, the location and scale normalization values ({\tt
+  maMloc} and {\tt maMscale}), and the average log--intensities ({\tt
+  maA}). In addition, the {\tt marrayNorm} class has a slot for the
+function call used to normalize the data, {\tt maNormCall}. For more
+details on the creation of normalized microarray objects, the reader is
+referred to the vignette for the {\tt marrayNorm} package. 
 
 <<R>>=
 getClassDef("marrayNorm")
@@ -167,28 +224,6 @@ getClassDef("marrayNorm")
     \item{{\tt maNotes}:}{ Object of class "character",  any notes concerning the microarray experiments, e.g. hybridization or scanning conditions.}
     \item{{\tt maNormCall}:}{ Object of class "call", function call for normalizing the batch of arrays.}
 \end{description}
-
-
-\subsection{{\tt marraySpots} class} 
-
-This class is used to store information on the spotted probe sequences for a batch of arrays. The class contains slots for the layout of the arrays, {\tt maLayout}, and a description of the probe sequences spotted onto the arrays, {\tt maGnames}. 
-
-
-<<R>>=
-getClassDef("marraySpots")
-@ 
-
-
-\subsection{{\tt marrayTwo} class} 
-
-The {\tt marrayTwo} class can be viewed as a leaner version of the {\tt marrayRaw} and {\tt marrayNorm} classes. It can be used to represent pre-- or post--normalization intensity data for a batch of cDNA microarrays. The class contains slots for only two types of spot statistics ({\tt maX} and {\tt maY}), the layout of the arrays ({\tt maLayout}), and a description of the target samples hybridized to the arrays ({\tt maTargets}). The two spot statistics can be, for example,  the unnormalized green (Cy3) and red (Cy5) foreground intensities, or the normalized log--ratios $M$ and average intensities $A = \log_2 \sqrt{RG}$.
-
-
-
-<<R>>=
-getClassDef("marrayTwo")
-@ 
-
 
 Most microarray objects contain an {\tt maNotes} slots which may be used to store any string of characters describing the experiments, for examples, notes on the printing, hybridization, or scanning conditions.
 
@@ -241,23 +276,23 @@ To see all methods available for a particular class, e.g., {\tt marrayLayout}, o
 
 <<eval=FALSE>>==
 showMethods(classes="marrayLayout")
-showMethods("print",classes="marrayLayout") 
+showMethods("show",classes="marrayLayout") 
 @
 
 
 \subsection{Printing methods for microarray objects} 
 
-Since there is usually no need to print out fluorescence intensities for thousands of genes, the {\tt print} method was overloaded for microarray classes by simple report generators. For an overview of the available microarray printing methods, type {\tt  methods ? print}, or to see all print methods for the session
+Since there is usually no need to print out fluorescence intensities for thousands of genes, the {\tt print} method was overloaded for microarray classes by simple report generators. For an overview of the available microarray printing methods, type {\tt  methods ? summary}, or to see all summary methods for the session
 
 <<eval=TRUE>>=
-showMethods("print")
+showMethods("summary")
 @
 
 For example, summary statistics for an object of class {\tt marrayRaw},
  such as {\tt swirl}, can be obtained by {\tt print(swirl)} or simply {\tt swirl}.
 
 <<eval=TRUE>>=
-swirl
+summary(swirl)
 @
 
 \subsection{Subsetting methods for microarray objects} 
@@ -320,7 +355,8 @@ swirl.norm<-as(swirl, "marrayNorm")
 
 It is also possible to convert objects of class {\tt marrayRaw} or {\tt marrayNorm} into objects of class {\tt exprSet} (see definition in the {\tt Biobase} package)
 
-<<eval=TRUE>>=
+<<echo=TRUE, eval=FALSE>>=
+library(convert)
 as(swirl, "exprSet")    
 @
 

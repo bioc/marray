@@ -31,8 +31,11 @@
 2. Division of Biostatistics, University of California, Berkeley.\\
 \end{center}
 
-% library(tools)
-% Rnwfile<- file.path("/home/sandrine/CVS_stuff/madman/Rpacks/marrayClasses/inst/doc","marrayClassesShort.Rnw")
+
+% library(tools) 
+% setwd("C:/MyDoc/Projects/madman/Rpacks/marray/inst/doc")
+% Rnwfile<-file.path("C:/MyDoc/Projects/madman/Rpacks/marray/inst/doc","marrayClassesShort.Rnw")
+% options(width=65)
 % Sweave(Rnwfile,pdf=TRUE,eps=TRUE,stylepath=TRUE,driver=RweaveLatex())
 
 \tableofcontents
@@ -61,7 +64,7 @@ experiment. To load the Swirl dataset, use {\tt data(swirl)}, and to
 view a description of the experiments and data, type {\tt ? swirl}. 
 
 <<eval=TRUE, echo=TRUE>>=
-library("marray")
+library(marray)
 data(swirl)
 @
 
@@ -267,7 +270,8 @@ It is also possible to convert objects of class {\tt marrayRaw} or {\tt
 marrayNorm} into objects of class {\tt exprSet} (see definition in the
 {\tt Biobase} and {\tt convert} package)
 
-<<eval=TRUE>>=
+<<echo=TRUE, eval=FALSE>>=
+library(convert)
 as(swirl, "marrayNorm")    
 @
 

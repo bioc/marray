@@ -27,8 +27,14 @@
 \end{center}
 
 
-%Rnwfile<- file.path("/home/sandrine/CVS_stuff/madman/Rpacks/marray/inst/doc/marrayInput.Rnw")
-%Sweave(Rnwfile,pdf=TRUE,eps=TRUE,stylepath=TRUE,driver=RweaveLatex())
+
+
+% library(tools) 
+% setwd("C:/MyDoc/Projects/madman/Rpacks/marray/inst/doc")
+% Rnwfile<-file.path("C:/MyDoc/Projects/madman/Rpacks/marray/inst/doc","marrayInput.Rnw")
+% options(width=65)
+% Sweave(Rnwfile,pdf=TRUE,eps=TRUE,stylepath=TRUE,driver=RweaveLatex())
+
 
 \tableofcontents
 
@@ -124,7 +130,7 @@ R. For convenience, we have also stored the resuls in the object {\tt
 swirl} of class {\tt marrayRaw}.
 
 <<eval=TRUE>>=
-library(marrayInput)
+library(marray)
 data(swirl)
 swirl
 @
@@ -158,7 +164,7 @@ facilitate data entry.\\
  data files.
 
 <<eval=TRUE>>=
-datadir <- system.file("data", package="marrayInput")
+datadir <- system.file("data", package="marray")
 dir(datadir)
 @
 

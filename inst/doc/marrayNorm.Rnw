@@ -2,8 +2,8 @@
 % NOTE -- ONLY EDIT THE .Rnw FILE!!!  The .tex file is
 % likely to be overwritten.
 %
-% \VignetteIndexEntry{marrayNorm Overview}
-% \VignetteDepends{tools, marrayNorm, marrayPlots}
+% \VignetteIndexEntry{marray Overview}
+% \VignetteDepends{tools}
 % \VignetteKeywords{Expression Analysis, Preprocessing}
 % \VignettePackage{marrayNorm}
 \documentclass[11pt]{article}
@@ -30,8 +30,10 @@
    \url{http://www.stat.berkeley.edu/~sandrine}
 \end{center}
 
-% library(tools)
-% Rnwfile<- file.path("/home/sandrine/CVS_stuff/madman/Rpacks/marrayNorm/inst/doc","marrayNorm.Rnw")
+
+% library(tools) 
+% setwd("C:/MyDoc/Projects/madman/Rpacks/marrayTools/inst/doc")
+% Rnwfile<-file.path("C:/MyDoc/Projects/madman/Rpacks/marray/inst/doc","marrayNorm.Rnw")
 % Sweave(Rnwfile,pdf=TRUE,eps=TRUE,stylepath=TRUE,driver=RweaveLatex())
 
 
@@ -78,7 +80,7 @@ read.GenePix} in a browser, use {\tt help.start()} followed by
 
 {\bf Case study.} We demonstrate the functionality of this collection of
 R packages using gene expression data from the Swirl zebrafish
-experiment. These data are included as part of the {\tt marrayInput}
+experiment. These data are included as part of the {\tt marray}
 package, hence you will also need to install this package. To load the
 swirl dataset, use {\tt data(swirl)}, and to view a description of the
 experiments and data, type {\tt ? swirl}.\\ 
