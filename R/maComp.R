@@ -57,6 +57,8 @@ maCompPlate <- function (x, n = 384)
       }
   }
 
+
+
 ##maCompPlate<-function(x, n=384){
 ##  totalPlate <- maNspots(x) /n
 ##  tmp <- n / (maNgr(x) * maNgc(x))
@@ -135,7 +137,7 @@ maCompLayout <- function(mat, ncolumns=4)
       {
         Blocks <- mat[,1]
         gr <- mat[,1] / ncolumns
-        newmat <- cbind(gr=(mat[,1] - 1) %/% ncolumns, gc=((mat[,1] -1) %% 4) + 1,
+        newmat <- cbind(gr=((mat[,1] - 1) %/% ncolumns) + 1, gc=((mat[,1] -1) %% 4) + 1,
                         sr=mat[,2], sc=mat[,3])
       }  else
     newmat <- mat
@@ -194,16 +196,16 @@ maGenControls <- function(Gnames, controlcode=controlCode, id="ID")
           tmp <- 1
           print("Controls are generated from an arbitaray columns\n")
         }
-      ID <- as.vector(maInfo(Gnames[,tmp])[[1]])
+      ID <- as.vector(as.character(maInfo(Gnames[,tmp])[[1]]))
     }
   else
     {
       if(is.null(dim(Gnames)))
-        ID <- Gnames
+        ID <- as.character(Gnames)
       else
         {
           ifelse(is.numeric(id), tmp <- id, tmp <- grep(id, colnames(Gnames)))
-          ID <- as.vector(Gnames[,tmp])
+          ID <- as.vector(as.character(Gnames[,tmp]))
         }
     }
   Control <- rep("probes", length(ID))

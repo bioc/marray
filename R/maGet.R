@@ -320,7 +320,7 @@ setMethod("maControls", "marrayRaw", function(object) maControls(maLayout(object
 
 if(!isGeneric("maNsamples"))
    setGeneric("maNsamples", function(object) standardGeneric("maNsamples"))
-setMethod("maNsamples", "marrayRaw", function(object) ncol(maRf(object)))
+setMethod("maNsamples", "marrayRaw", function(object) max(ncol(maRf(object)), ncol(maGf(object))))
 
 #########################
 if(!isGeneric("maGnames"))

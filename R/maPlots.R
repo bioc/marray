@@ -161,7 +161,6 @@ maDefaultPar<-function(m,x,y,z)
 
 maBoxplot<- function(m, x="maPrintTip", y="maM", ...) {
     opt<-list(...)
-
     if(maNsamples(m)==1)
     {
 
@@ -171,7 +170,6 @@ maBoxplot<- function(m, x="maPrintTip", y="maM", ...) {
         xx<-rep(1,length(yy))
       if(!is.null(x))
         xx<-eval(call(x,m))
-
       # Optional graphical parameter defaults
       def<-maDefaultPar(m,x,y,x)$def.box
       if(!is.null(opt))
@@ -189,7 +187,6 @@ maBoxplot<- function(m, x="maPrintTip", y="maM", ...) {
        def <- list(names=maLabels(maTargets(m)),ylab=strsplit(y,"ma")[[1]][2],col=2)
      else
        def <- list(names=dimnames(yy)[[2]], ylab=strsplit(y,"ma")[[1]][2],col=2)
-
      if(!is.null(opt))
         def<-maDotsDefaults(opt,def)
 

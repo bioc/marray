@@ -172,7 +172,10 @@ gsubAnchor <-function (id, urlString)
 }
 #####################################################
 ## Table 2 HTML
+## Extention of ll.htmlpage
 ## Date: Feb 16, 2003
+##
+#####################################################
 table2html <- function (restable, filename = "GeneList.html",
                         mapURL = SFGL, title, table.head, table.center = TRUE, 
                         disp = c("browser", "file")[1]) 
@@ -181,8 +184,11 @@ table2html <- function (restable, filename = "GeneList.html",
   HTwrap <- function(x, tag = "TD") {
     paste("<", tag, ">", x, "</", tag, ">", sep = "")
   }
-  
+
+  ## Open file
   outfile <- file(filename, "w")
+
+  ## Write Header
   cat("<html>", file = outfile)
   cat(HTwrap(HTwrap("Gene Lists", tag = "TITLE"), tag = "head"), file = outfile)
   cat("<body bgcolor=\"#FFFFEF\">", "<H1 ALIGN=CENTER > BioConductor Gene Listing </H1>", 
@@ -192,23 +198,28 @@ table2html <- function (restable, filename = "GeneList.html",
         file = outfile, sep = "\n")
   if (table.center) 
     cat("<CENTER> \n", file = outfile)
+
+  ## Start TABLE header
   cat("<TABLE BORDER=4>", file = outfile, sep = "\n")
   if (!missing(table.head)) {
     headout <- paste("<TH>", table.head, "</TH>")
     cat("<TR>", headout, "</TR>", file = outfile, sep = "\n")
   }
+
+  ## Check that we have URL mapping information
   if (is.null(mapURL)) 
     mapURL <- widget.mapGeneInfo(restable)
 
+  ## Main part: convert restable to html
+  ##
   oldGnamesID <- colnames(restable)
   GnamesID <- rep("none", length(oldGnamesID))
   for (i in 1:nrow(mapURL))
     GnamesID[grep(mapURL[i, 1], oldGnamesID)] <- mapURL[i,2]
-  
-  if (sum(GnamesID == "operon") != 0) 
+  if (sum(GnamesID == "operon") != 0)    ## Special case for operon
     GnamesID[grep("operon", GnamesID)] <- opVersionID(restable[1:100, grep("operon", GnamesID)])
+
   mainTable <- Headings <- NULL
-  
   for (i in 1:length(GnamesID)) {
     info <- GnamesID[i]
     x <- as.vector(restable[, i])
@@ -221,18 +232,20 @@ table2html <- function (restable, filename = "GeneList.html",
     }
     Headings <- c(Headings, colnames(restable)[i])
   }
-  
   cat(paste(HTwrap(Headings), collapse = ""), file = outfile)
   cat("\n", file = outfile)
   cat(HTwrap(mainTable, tag = "TR"), file = outfile, sep = "\n")
+  ##
+  ## END Main part: convert restable to html
+
+  ## End html file
   cat("</TABLE>", "</body>", "</html>", sep = "\n", file = outfile)
   if (table.center) 
     cat("</CENTER> \n", file = outfile)
   close(outfile)
-
+  
   if (disp == "browser") 
     browseURL(paste("file://", filename, sep = "/"))
-  ##  openBrowser(paste("file://", getwd(), filename, sep = "/"))
   return()
 }
 
@@ -257,6 +270,9 @@ URLstring <- list(
  unigeneMm="http://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Mm&CID=UNIQID",
  unigeneHS="http://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Hs&CID=UNIQID")
                   
+###################################################################
+## Some example of Map Info
+###################################################################
 
 SFGL <- mapGeneInfo(ID="operonST",
                     ACC="SMDacc",

@@ -114,9 +114,9 @@ read.marrayInfo <-
 read.marrayRaw<-
   function(fnames,
            path=".",
-           name.Gf,
+           name.Gf=NULL,
            name.Gb=NULL,
-           name.Rf,
+           name.Rf=NULL,
            name.Rb=NULL,
            name.W=NULL,
            layout=NULL,
@@ -265,24 +265,29 @@ read.GenePix <-  function(fnames = NULL,
                           DEBUG=FALSE,
                           ...)
   {
-
+    
+    opt <- list(...)
     ## If fnames not specified, read everything in the dir
     if(is.null(fnames))
-      fnames <-  dir(path, pattern="*\\.gal$")
+      fnames <- ifelse(is.null(path), dir(pattern="*\\.gpr$"), dir(path, pattern="*\\.gpr$"))
     else{
       if(!is.null(targets))
         fnames <- maInfo(targets)[,1]
     }
     
+    if(DEBUG) print(fnames)
     if(is.null(gnames) | is.null(layout))
       {
-        cat("Reading Galfile ... ")
-        gal <- read.Galfile(galfile = fnames[1], path=path, info.id = c("Name", "ID"),
-                            labels = "ID", sep = sep, quote=quote, fill=TRUE, check.names=FALSE,
-                            as.is=TRUE, ncolumns = 4, ...)
+        if(DEBUG) print("Reading Galfile ... ")
+        opt <- list(...)
+        defs <- list(galfile = fnames[1], path=path, info.id = c("Name", "ID"),
+                     labels = "ID", sep = sep, quote=quote, fill=TRUE, check.names=FALSE,
+                     as.is=TRUE, ncolumns = 4)
+        gal.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.Galfile")))        
+        gal <- do.call("read.Galfile", gal.args)
         if(is.null(gnames)) gnames <- gal$gnames
         if(is.null(layout)) layout <- gal$layout
-        cat("done \n ")
+        if(DEBUG) print("done \n ")
       }
 
     if(DEBUG) cat("Setting up controls status ... ")
@@ -292,22 +297,13 @@ read.GenePix <-  function(fnames = NULL,
     if(is.null(notes)) notes <- "GenePix Data"
 
     if(DEBUG) cat("Calling read.marrayRaw ... \n")
-    mraw <- read.marrayRaw(fnames =fnames,
-                           path=path,
-                           name.Gf = name.Gf,
-                           name.Gb = name.Gb,
-                           name.Rf = name.Rf,
-                           name.Rb = name.Rb,
-                           name.W= name.W,
-                           layout = layout,
-                           gnames = gnames,
-                           targets = targets,
-                           notes = notes,
-                           skip= skip,
-                           sep= sep,
-                           quote=quote,
-                           ...)
-    
+    defs <- list(fnames = fnames, path=path,
+                 name.Gf = name.Gf, name.Gb=name.Gb, name.Rf=name.Rf, name.Rb=name.Rb,
+                 name.W=name.W, layout = layout, gnames=gnames, targets=targets,
+                 notes = notes, skip=skip, sep=sep, quote=quote, fill=TRUE,
+                 check.names=FALSE,  as.is=TRUE)
+    maRaw.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.marrayRaw")))        
+    mraw <- do.call("read.marrayRaw", maRaw.args)
 
     return(mraw)
   }
@@ -369,7 +365,7 @@ read.Galfile <- function (galfile,
                           path=".",
                           info.id = c("Name", "ID"),
                           labels = "ID",
-                          notes = galfile,
+                          notes = "",
                           sep = "\t",
                           skip = NULL,
                           ncolumns = 4,
@@ -404,24 +400,26 @@ read.Galfile <- function (galfile,
     maLabels(descript) <- as.character(dat[,labels])
   }
   ## Layout
-  id <- grep("Block", colnames(dat));  Lblock <- dat[,id]
-  id <- grep("Row", colnames(dat));  Lrow <- dat[,id]
-  id <- grep("Column", colnames(dat));  Lcolumn <- dat[,id]
-
-  ngr <- max(Lblock) / ncolumns
-  ngc <- ncolumns
-  nsr <- max(Lrow)
-  nsc <- max(Lcolumn)
-  nspots <- as.integer(ngr) * as.integer(ngc) * as.integer(nsr) * as.integer(nsc)
-  temp <- rep(FALSE, nspots)
-  ind <- (nsr * nsc) * (Lblock - 1) + (Lrow - 1) * nsc + Lcolumn
-  temp[ind] <- TRUE
-  mlayout <- new("marrayLayout", maNgr = as.integer(ngr),
-                 maNgc = as.integer(ngc),
-                 maNsr = as.integer(nsr),
-                 maNsc = as.integer(nsc),
-                 maNspots = nspots,
-                 maSub=temp)
+  
+  idB <- grep("Block", colnames(dat));  ##Lblock <- dat[,id]
+  idR<- grep("Row", colnames(dat));  ##Lrow <- dat[,id]
+  idC <- grep("Column", colnames(dat)); ## Lcolumn <- dat[,id]
+  mlayout <- maCompLayout(dat[,c(idB, idR, idC)])
+  
+##  ngr <- max(Lblock) / ncolumns
+##   ngc <- ncolumns
+##   nsr <- max(Lrow)
+##   nsc <- max(Lcolumn)
+##  nspots <- as.integer(ngr) * as.integer(ngc) * as.integer(nsr) * as.integer(nsc)
+##  temp <- rep(FALSE, nspots)
+##  ind <- (nsr * nsc) * (Lblock - 1) + (Lrow - 1) * nsc + Lcolumn
+##  temp[ind] <- TRUE
+##  mlayout <- new("marrayLayout", maNgr = as.integer(ngr),
+##                 maNgc = as.integer(ngc),
+##                 maNsr = as.integer(nsr),
+##                 maNsc = as.integer(nsc),
+##                 maNspots = nspots,
+##                 maSub=temp)
   return(list(gnames = descript, layout=mlayout))
 }
 
