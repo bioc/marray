@@ -189,10 +189,10 @@ read.marrayRaw<-
   if(is.null(notes)) notes <- ""
 
   mraw <- new("marrayRaw", maNotes=notes)
-  if(!is.null(name.Gf)) mraw@Gf <- Gf
-  if(!is.null(name.Gb)) mraw@Gb <- Gb
-  if(!is.null(name.Rf)) mraw@Rf <- Rf
-  if(!is.null(name.Rb)) mraw@Rb <- Rb
+  if(!is.null(name.Gf)) mraw@maGf <- Gf
+  if(!is.null(name.Gb)) mraw@maGb <- Gb
+  if(!is.null(name.Rf)) mraw@maRf <- Rf
+  if(!is.null(name.Rb)) mraw@maRb <- Rb
   if(!is.null(layout)) maLayout(mraw) <- layout
   if(!is.null(gnames)) maGnames(mraw) <- gnames
   if(!is.null(targets)) maTargets(mraw) <- targets
