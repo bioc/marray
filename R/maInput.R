@@ -181,7 +181,7 @@ read.marrayRaw<-
     if(!is.null(name.Gb)) Gb[,f]<- as.matrix(dat[, name.Gb])
     if(!is.null(name.Rf)) Rf[,f]<-as.matrix(dat[, name.Rf])
     if(!is.null(name.Rb)) Rb[,f]<-as.matrix(dat[, name.Rb])
-    if(!is.null(name.W)) {W[,f] <-as.matrix(dat[, name.W]})
+    if(!is.null(name.W)) W[,f] <-as.matrix(dat[, name.W])
   }
   
   ## Add Notes
