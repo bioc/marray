@@ -177,11 +177,11 @@ read.marrayRaw<-
                       sep = sep, as.is = TRUE, quote = quote, check.names = FALSE, 
                       comment.char = "", nrows = nspots, ...)
 
-    if(!is.null(name.Gf)) Gf[,f]<- dat[, name.Gf]
-    if(!is.null(name.Gb)) Gb[,f]<- dat[, name.Gb]
-    if(!is.null(name.Rf)) Rf[,f]<-dat[, name.Rf]
-    if(!is.null(name.Rb)) Rb[,f]<-dat[, name.Rb]
-    if(!is.null(name.W)) {W[,f] <-dat[, name.W]}
+    if(!is.null(name.Gf)) Gf[,f]<- as.matrix(dat[, name.Gf])
+    if(!is.null(name.Gb)) Gb[,f]<- as.matrix(dat[, name.Gb])
+    if(!is.null(name.Rf)) Rf[,f]<-as.matrix(dat[, name.Rf])
+    if(!is.null(name.Rb)) Rb[,f]<-as.matrix(dat[, name.Rb])
+    if(!is.null(name.W)) {W[,f] <-as.matrix(dat[, name.W]})
   }
   
   ## Add Notes
