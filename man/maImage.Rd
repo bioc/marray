@@ -10,7 +10,7 @@
 }
 \usage{
 maImage(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE,
-overlay=NULL, ol.col=1, ...)
+overlay=NULL, ol.col=1, colorinfo=FALSE, ...)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -23,6 +23,8 @@ overlay=NULL, ol.col=1, ...)
     right of the image.}
   \item{overlay}{A logical vector of spots to be highlighted on the image plots.}
   \item{ol.col}{Color of the overlay spots.}
+  \item{colorinfo}{A logical value indicating whether the function
+    should return the color scale information.} 
   \item{\dots}{Optional graphical parameters, see \code{\link{par}}.}
 }
 \details{
@@ -30,7 +32,7 @@ overlay=NULL, ol.col=1, ...)
 }
 
 \value{
- A list with elements 
+  If \code{colorinfo} is set to TRUE, the following list with elements will be returned.
   \item{x.col}{vector of colors to be used for calibration color bar.}
   \item{x.bar}{vector of values to be used for calibration color bar.}
   \item{summary}{six number summary of the spot statistics, from the function \code{\link{summary}}.}

@@ -30,8 +30,8 @@ setMethod("image", signature(x="marrayRaw"),
           function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ol.col=1,...){
             maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ol.col=ol.col,... )})
 setMethod("image", signature(x="marrayNorm"),
-          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ol.col=1,...){
-              maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ol.col=ol.col,... )}) 
+          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ol.col=1,colorinfo = FALSE, ...){
+              maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ol.col=ol.col, colorinfo = colorinfo, ... )}) 
 
 ## points, lines, text
 if( is.null(getGeneric("points")))  setGeneric("points")
@@ -441,7 +441,8 @@ maImage.func<-function(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, o
 # Modified by Jean : Sept 15, 2002 to include centering of color
 # Modified March 15, 2004 to add overlay option (contribution from katie)
 
-maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, overlay=NULL, ol.col=1, ...)
+maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, overlay=NULL, ol.col=1,
+                    colorinfo = FALSE, ...)
 {
   subset<-maNum2Logic(maNspots(m), subset)
   m<-m[,1]
@@ -496,7 +497,10 @@ maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, over
     layout(1)
     par(mar=c(5,4,4,2) + 0.1)
   }
-##  return(list(x.col=col[1:length(x.bar)], x.bar=x.bar, summary=summary(xx[subset])))
+  if(colorinfo)
+    return(list(x.col=col[1:length(x.bar)], x.bar=x.bar, summary=summary(xx[subset])))
+  else
+    return()
 }
 
 ###########################################################################
