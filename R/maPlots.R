@@ -11,11 +11,11 @@
 ## March 15, 2004
 plot.marrayRaw <-
   function (x, xvar = "maA", yvar = "maM", zvar="maPrintTip", lines.func,text.func,legend.func,...)
-  {maPlot(m=x, x=xvar, y=yvar, lines.func=lines.func, text.func=text.func, legend.func=legend.func,...)}
+  {maPlot(m=x, x=xvar, y=yvar, z=zvar, lines.func=lines.func, text.func=text.func, legend.func=legend.func,...)}
 
 plot.marrayNorm <-
   function (x, xvar = "maA", yvar = "maM", zvar="maPrintTip", lines.func,text.func,legend.func,...)
-  {maPlot(m=x, x=xvar, y=yvar, lines.func=lines.func, text.func=text.func, legend.func=legend.func,...)}
+  {maPlot(m=x, x=xvar, y=yvar, z=zvar, lines.func=lines.func, text.func=text.func, legend.func=legend.func,...)}
 
 
 ###boxplot
