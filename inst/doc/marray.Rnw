@@ -135,9 +135,9 @@ mraw@maGnames <- galinfo$gnames
 
 In addition, you can perform simple diagnostic plots with
 \begin{verbatim}
-> image(data)
-> boxplot(data)
-> plot(data)
+> image(mraw)
+> boxplot(mraw)
+> plot(mraw)
 \end{verbatim}
 
 \item {\bf Normalization:} Perform print-tip normalization

@@ -133,7 +133,7 @@ read.marrayRaw<-
   if(DEBUG) print("in read.marrayraw")
   if(DEBUG) cat("Path", path, "\n")
   if(is.null(path))
-    fullfnames <- fnames
+    fullfnames <- fnames 
   else
     fullfnames <- file.path(path, fnames)
 
@@ -144,7 +144,7 @@ read.marrayRaw<-
   # Intensity data
   if(is.null(skip))
     {
-      if (DEBUG) print("In is.null(skip")
+      if (DEBUG) print("In is.null(skip) ")
       y <- readLines(fullfnames[1], n=100)
       #modify name.Gf for special character
       regName.Gf <- gsub("\\(", "\\\\\\(", name.Gf)
@@ -167,7 +167,7 @@ read.marrayRaw<-
   else
     {
       if(sum(layout@maSub) == 1)
-        nspots  <- layout@maNspots
+        nspots  <- layout@maNgr * layout@maNgc * layout@maNsr * layout@maNsc
       else
         nspots <- sum(layout@maSub)
     }
@@ -190,7 +190,7 @@ read.marrayRaw<-
     ## Calculate Skip
     if(is.null(skip))
       {
-        if (DEBUG) print("in is.null(skip) 2")
+        if(DEBUG) print("in is.null(skip), part 2")
         if(DEBUG) cat("Calculating skip  ... ")
         y <- readLines(f, n=100)
         #modify name.Gf for special character
@@ -206,9 +206,9 @@ read.marrayRaw<-
         skip2 <- skip
       }
     
-    dat <- read.table(f, skip = skip2, header = TRUE, 
-                      sep = sep, as.is = TRUE, quote = quote, check.names = FALSE, 
-                      comment.char = "", nrows = nspots, ...)
+    dat <- read.table(f, skip = skip2, header = TRUE,
+                      sep = sep, quote = quote, check.names = FALSE,
+                      as.is = TRUE, comment.char = "", nrows = nspots, ...)
     
     if(!is.null(name.Gf)) Gf[,f]<- as.matrix(dat[, name.Gf])
     if(!is.null(name.Gb)) Gb[,f]<- as.matrix(dat[, name.Gb])
@@ -371,9 +371,9 @@ read.GenePix <-  function(fnames = NULL,
     defs <- list(fnames = fullnames, path=path,
                  name.Gf = name.Gf, name.Gb=name.Gb, name.Rf=name.Rf, name.Rb=name.Rb,
                  name.W=name.W, layout = layout, gnames=gnames, targets=targets,
-                 notes = notes, skip=skip, sep=sep, quote=quote, fill=TRUE,
-                 check.names=FALSE,  as.is=TRUE)
+                 notes = notes, skip=skip, sep=sep, quote=quote, fill=TRUE)
     maRaw.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.marrayRaw")))        
+    maRaw.args <- c(maRaw.args, defs[names(defs[setdiff(names(defs), names(maRaw.args))])])
     mraw <- do.call("read.marrayRaw", maRaw.args)
 
     if(setgal)
