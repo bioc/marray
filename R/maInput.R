@@ -129,6 +129,8 @@ read.marrayRaw<-
            DEBUG=FALSE,
            ...)
 {
+  print("in read.marrayraw")
+  print(path)
   if(is.null(path))
     fullfnames <- fnames
   else
@@ -136,18 +138,22 @@ read.marrayRaw<-
 
   fname <- fullfnames[1]
 
+  print(skip)
   
   # Intensity data
   if(is.null(skip))
     {
       y <- readLines(fullfnames[1], n=100)
-      skip <- grep(name.Gf, y)[1] - 1
-      if(DEBUG) cat(skip, "done \n")
+      skip2 <- grep(name.Gf, y)[1] - 1
+      if(DEBUG) cat(skip2, "done \n")
     }
+  else {
+    skip2 <- skip
+  }
     
   if(is.null(layout))
     {
-      nspots <- length(readLines(fullfnames[1])) - skip - 1
+      nspots <- length(readLines(fullfnames[1])) - skip2 - 1
       if(DEBUG) cat(nspots, "of rows \n")
     }
   else
@@ -163,17 +169,20 @@ read.marrayRaw<-
   
   for(f in fullfnames)
   {
-    cat("Reading ... ", f)
+    cat("Reading ... ", f, "\n")
 
     ## Calculate Skip
     if(is.null(skip))
       {
         if(DEBUG) cat("Calculating skip  ... ")
         y <- readLines(f, n=100)
-        skip <- grep(name.Gf, y)[1] - 1
-        if(DEBUG) cat(skip, "done \n")
+        skip2 <- grep(name.Gf, y)[1] - 1
+        if(DEBUG) cat(skip2, "done \n")
       }
-    dat <- read.table(f, skip = skip, header = TRUE, 
+    else
+      skip2 <- skip
+    
+    dat <- read.table(f, skip = skip2, header = TRUE, 
                       sep = sep, as.is = TRUE, quote = quote, check.names = FALSE, 
                       comment.char = "", nrows = nspots, ...)
 
