@@ -80,7 +80,7 @@ widget.marrayRaw(ext = c("spot", "xls", "gpr"), skip = 0, sep = "\t",  quote = "
   \code{\link{read.marrayInfo}} }
 
 \examples{
-datadir <- system.file("data", package="marray")
+datadir <- system.file("swirldata", package="marray")
 
 skip <-  grep("Row", readLines(file.path(datadir,"fish.gal"), n=100)) - 1
 

@@ -35,7 +35,7 @@ maQuality(mraw, path=".")
 
 \examples{
 ##   data(swirl)
-##   datadir <- system.file("data", package="marray")
+##   datadir <- system.file("swirldata", package="marray")
 ##   maControls(swirl) <- maGenControls(maGnames(swirl), id="Name")
 ##   maQualityMain(swirl[,1], path=datadir)
 }

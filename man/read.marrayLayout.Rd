@@ -44,7 +44,7 @@ read.marrayLayoutfname = NULL, ngr, ngc, nsr, nsc, pl.col = NULL,
 \note{}
 
 \examples{
-datadir <- system.file("data", package="marray")
+datadir <- system.file("swirldata", package="marray")
 
 ### Reading in control information from file
 skip <-  grep("Row", readLines(file.path(datadir,"fish.gal"), n=100)) - 1

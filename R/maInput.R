@@ -385,7 +385,11 @@ read.Galfile <- function (galfile,
     f <- galfile
   y <- readLines(f, n=100)
 
-  skip <- intersect(grep(info.id[1], y), grep(layout.id[1], y))[1] - 1
+  if(class(info.id) == "character")
+    skip <- intersect(grep(info.id[1], y), grep(layout.id[1], y))[1] - 1
+  else
+    skip <- intersect(grep("ID", y), grep("Name", y))[1] - 1
+
   defs <- list(file=f, path = path, sep=sep, skip=skip,
                fill = TRUE, quote = "\"", check.names=FALSE,
                as.is=TRUE, comment.char="", header=TRUE)
