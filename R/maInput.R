@@ -164,8 +164,14 @@ read.marrayRaw<-
       if(DEBUG) cat(nspots, "of rows \n")
     }
   else
-     nspots <- sum(layout@maSub)
-
+    {
+      if(sum(layout@maSub) == 1)
+        nspots  <- layout@maNspots
+      else
+        nspots <- sum(layout@maSub)
+    }
+  ##     nspots <- sum(layout@maSub)  ## Aug 3, maSub is default set to 1.
+    
   if (DEBUG) print(paste("nspots = ", nspots, sep="")) 
   
   Y <- matrix(0, nspots, length(fullfnames))
@@ -346,7 +352,7 @@ read.GenePix <-  function(fnames = NULL,
       }
 
     if(DEBUG) cat("Setting up controls status ... ")
-    layout@maControls <- as.factor(maGenControls(gnames))
+    if(length(layout@maControls) != 0) layout@maControls <- as.factor(maGenControls(gnames))
     if(DEBUG) cat("done \n ")
     
     if(is.null(notes)) notes <- "GenePix Data"
