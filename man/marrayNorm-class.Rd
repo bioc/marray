@@ -59,6 +59,8 @@
 \alias{maTargets,marrayNorm-method}
 \alias{maW<-,marrayNorm,matrix-method}
 \alias{maW,marrayNorm-method}
+\alias{maLG,marrayNorm-method}
+\alias{maLR,marrayNorm-method}
 \alias{print,marrayNorm-method}
 \alias{show,marrayNorm-method}
 \alias{summary,marrayNorm-method}

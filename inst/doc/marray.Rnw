@@ -99,6 +99,11 @@ library(marray) ##load all the packages.
 
 \item Perform diagnostic plots with package {\tt arrayQuality}.
 
+\item Generate diagnostic plots
+\begin{verbatim}
+> maQualityPlots(data)
+\end{verbatim}
+
 \item Perform print-tip normalization.
 \begin{verbatim}
 > normdata <- maNorm(data)
@@ -112,15 +117,8 @@ library(marray) ##load all the packages.
 \end{verbatim}
 \end{enumerate}
 
-With the default arguments, these two functions will read in all the
-files residing in the directory, create a sub--directory containing the
-corresponding diagnostic plots (in JPEG format), create a sub--directory
-with basic quality information and four excel files. The four excel
-files are normA.xls, normM.xls, normMA.xls and quality.xls which has the
-normalized log--intensity ($A$) , log-ratios($M$), both $M$ and $A$
-values and quality information respectively for all image processing files.\\
-
-This wrapper function automatically produces nine plots of 
+This wrapper function \Rfunction{?maQualityPlots} automatically produces
+nine plots of  
 \begin{itemize}
 \item pre-- and post--normalization cDNA microarray data;
 \item $MA$--plots of pre-- and post--normalization log--ratios $M$; 
@@ -133,14 +131,11 @@ This wrapper function automatically produces nine plots of
 \item dot--plots of $M$ and $A$ values for replicate controls probes.
 \end{itemize}
 
-In addition, this function automatically saves the figures to a file, in
-jpeg format.  More detailed descriptions of all the arguments and
-options can be found in the help files. For instance, to view the help
-file for the function \Rfunction{gpTools} in a browser, use \Rfunction{help.start()}
-followed by \Rfunction{?gpTools}.\\
-
-Please contact us if you have other image processing output formats and
-would like a similar wrapper functions.
+In addition, this function automatically saves the figures to a file.
+More detailed descriptions of all the arguments and options and be found
+the in the arrayQuality package.  Please contact us if you have other
+image processing output formats and would like a similar wrapper
+functions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Other vignettes and packages}

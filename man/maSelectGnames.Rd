@@ -43,8 +43,9 @@ maSelectGnames(statdata, crit1 = 50, crit2 = crit1, sub = TRUE, selectstat, oper
 
 \examples{
 X <- matrix(rnorm(1000), 100,10)
-Xstat <- maStat(X, funNames=c("meanFun", "ttestFun"))
-maSelectGnames(Xstat[,1:2], crit1=50)
+Xstat <- cbind(mean=apply(X, 1, mean, na.rm=TRUE),
+               var=apply(X, 1, var, na.rm=TRUE))
+maSelectGnames(Xstat, crit1=50)
 }
 \keyword{manip}% at least one, from doc/KEYWORDS
 
