@@ -283,7 +283,7 @@ read.Spot <-  function(fnames = NULL,
     if(is.null(gnames) | is.null(layout))
       {
         if(DEBUG) print("Reading Galfile ... ")
-        galfile <- dir(pattern="*.\\gal", path=path)
+        galfile <- dir(pattern=".\\gal", path=path)
         defs <- list(galfile = galfile, path=path, info.id = c("ID", "Name"),
                      labels = "ID", sep = sep, quote=quote, fill=TRUE, check.names=FALSE,
                      as.is=TRUE, ncolumns = 4)
