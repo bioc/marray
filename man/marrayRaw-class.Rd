@@ -70,6 +70,7 @@
 \alias{maW,marrayRaw-method}
 \alias{print,marrayRaw-method}
 \alias{show,marrayRaw-method}
+\alias{summary,marrayRaw-method}
 
 %\alias{maNgr}
 %\alias{maNgc}

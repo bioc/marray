@@ -263,7 +263,7 @@ maDotPlots <- function(data,
                        nrep=3,
                        ...)
   {
-    .Deprecated("maDotPlots in arrayQuality")
+    .Deprecated("gpDotPlots in arrayQuality")
     newdata <- NULL
     for(i in x)
       newdata <- cbind(newdata, eval(call(i, data)))

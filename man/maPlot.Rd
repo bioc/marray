@@ -1,5 +1,7 @@
 \name{maPlot}
 \alias{maPlot}
+\alias{plot.marrayRaw}
+\alias{plot.marrayNorm}
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Scatter-plots for cDNA microarray spot statistics}
 \description{The function \code{maPlot} produces scatter-plots of microarray spot statistics for the classes \code{"\link{marrayRaw}"}, \code{"\link{marrayNorm}"}, and \code{"\link{marrayTwo}"}. It also allows the user to highlight and annotate subsets of points on the plot, and display fitted curves from robust local regression or other smoothing procedures.

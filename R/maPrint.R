@@ -192,6 +192,7 @@ setClass("LargeDataObject")
 setIs("marrayRaw","LargeDataObject")
 setIs("marrayNorm","LargeDataObject")
 setIs("marrayInfo","LargeDataObject")
+setIs("marrayLayout","LargeDataObject")
 
 setMethod("show","LargeDataObject",
 #  Print and show method large data objects
@@ -201,7 +202,7 @@ function(object) {
   cat("An object of class \"",class(object),"\"\n",sep="")
   for (what in slotNames(object)) {
     x <- slot(object,what)
-    if(length(x) > 0) {
+    if((length(x) > 0) | !is.null(x)) {
       cat("@",what,"\n",sep="")
       printHead(x)
       cat("\n")

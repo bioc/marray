@@ -7,23 +7,26 @@
 #
 ###########################################################################
 
-## S4 settings
+## S3 + S4 settings
 ## March 15, 2004
-setMethod("plot", signature(x="marrayRaw"), function (x, xvar = "maA", yvar = "maM", zvar="maPrintTip",...)
-          {maPlot(m=x, x=xvar, y=yvar, ...)})
-setMethod("plot", signature(x="marrayNorm"),
-          function (x, xvar = "maPrintTip", yvar = "maM", zvar="maPrintTip", ...)
-          {maBoxplot(m=x, x=xvar, y=yvar, ...)})
+plot.marrayRaw <-
+  function (x, xvar = "maA", yvar = "maM", zvar="maPrintTip", lines.func,text.func,legend.func,...)
+  {maPlot(m=x, x=xvar, y=yvar, lines.func=lines.func, text.func=text.func, legend.func=legend.func,...)}
+
+plot.marrayNorm <-
+  function (x, xvar = "maA", yvar = "maM", zvar="maPrintTip", lines.func,text.func,legend.func,...)
+  {maPlot(m=x, x=xvar, y=yvar, lines.func=lines.func, text.func=text.func, legend.func=legend.func,...)}
+
 setMethod("boxplot", signature(x="marrayRaw"), function (x, xvar = "maPrintTip", yvar = "maM", ...){
             maBoxplot(m=x, x=xvar, y=yvar, ...)})
 setMethod("boxplot", signature(x="marrayNorm"), function (x, xvar = "maPrintTip", yvar = "maM", ...){
               maBoxplot(m=x, x=xvar, y=yvar, ...)})
 setMethod("image", signature(x="marrayRaw"),
-          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, ...){
-            maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, ... )})
+          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ...){
+            maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ... )})
 setMethod("image", signature(x="marrayNorm"),
-          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, ...){
-              maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, ... )})
+          function (x, xvar = "maM", subset = TRUE, col, contours = FALSE,  bar = TRUE, overlay=NULL, ...){
+              maImage(m=x, x=xvar, subset=subset, col=col, contours=contours, bar=bar, overlay=overlay, ... )})
 
 ## points, lines, text
 setMethod("points", signature(x="marrayRaw"), function (x, xvar = "maA", yvar = "maM", ...)
@@ -42,7 +45,7 @@ setMethod("lines", signature(x="marrayNorm"), function (x, xvar = "maA", yvar = 
 
 addText <- function(object, xvar="maA", yvar="maM", subset=NULL, labels = as.character(1:length(subset)), ...)
   {
-    text.func <- maText(subset=subset, labels=lables, ...)
+    text.func <- maText(subset=subset, labels=labels, ...)
     text.func(as.numeric(eval(call(xvar,object))), as.numeric(eval(call(y,m))))
   }
 
@@ -192,7 +195,7 @@ maBoxplot<- function(m, x="maPrintTip", y="maM", ...) {
       args<-c(list(yy),def)
       do.call("boxplot",args)
     }
-    if(y=="maM") abline(h=0,col="gray",lwd=2.5)
+##    if(y=="maM") abline(h=0,col="gray",lwd=2.5)
 }
 
 ###########################################################################
@@ -363,27 +366,20 @@ maPlot <- function(m, x="maA", y="maM", z="maPrintTip",lines.func,text.func,lege
 ###########################################################################
 # maImage: image methods for microarray objects
 # add overlay, NULL which means no overlay or a subset of information
+# Modified March 15, 2004 to add overlay option (contribution from katie)
 ###########################################################################
 
-maImage.func<-function(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, overlay=NULL...)
+maImage.func<-function(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, overlay=NULL, ...)
 {
+  
   ## x is a matrix
   if(missing(L))
     L <- new(marrayLayout, maNgr=1, maNgc=1, maNsr=nrow(x), maNsc=ncol(x))
-  
-  # When only a subset of spots are stored in marray object, pad with NA
+
+  ## When only a subset of spots are stored in marray object, pad with NA
   subset<-maNum2Logic(maNspots(L), subset)
   z<-rep(NA,maNspots(L))
   z[maSub(L)][subset]<-x[subset]
-
-  # Only for overlay
-  if(!is.null(overlay))
-    {
-      zsub<-rep(NA,maNspots(L))
-      subset.over<-maNum2Logic(maNspots(L), overlay)
-      zsub[maSub(L)][subset] <- subset.over[subset]
-      ## This is subset of subset so we assume that subset.over (or overlay) is a subset of the subset data a subset on the original
-    }
  
   # Create a "full layout"
   Ig<-maNgr(L);  Jg<-maNgc(L);  Is<-maNsr(L);  Js<-maNsc(L)
@@ -406,6 +402,22 @@ maImage.func<-function(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, o
   abline(v=((1:Jg-1)*Js + 0.5),lwd=3)
   abline(h=((1:Ig-1)*Is + 0.5),lwd=3)
 
+ # Only for overlay
+  if(!is.null(overlay))
+    {
+      zsub<-rep(NA,maNspots(L))
+      subset.over<-maNum2Logic(maNspots(L), overlay)
+      zsub[maSub(L)][subset] <- subset.over[subset]
+      ## This is subset of subset so we assume that subset.over
+      ## (or overlay) is a subset of the subset data a subset on the original
+
+      ## Plotting
+      zsub<-matrix(zsub[ord],nrow=nr,ncol=nc,byrow=TRUE)
+      zsub<-t(zsub)[,nr:1]
+      ## we hard code this part for the moment
+      points(row(zsub)[zsub],col(zsub)[zsub], pch=22, col="black", cex=0.9)  
+    }
+ 
 }
 
 #########################
@@ -415,7 +427,7 @@ maImage.func<-function(x, L, subset=TRUE, col=heat.colors(12), contours=FALSE, o
 # Modified by Jean : Sept 15, 2002 to include centering of color
 # Modified March 15, 2004 to add overlay option (contribution from katie)
 
-maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, overlay=NULL...)
+maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, overlay=NULL, ...)
 {
   subset<-maNum2Logic(maNspots(m), subset)
   m<-m[,1]
@@ -433,6 +445,7 @@ maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, over
   }
 
   xx<-as.numeric(eval(call(x,m)))
+
 
   # Set color range [ensure it's centered]
   tmp<-xx[subset]

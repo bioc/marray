@@ -61,7 +61,10 @@ setMethod("maSub", "marrayLayout", function(object) slot(object, "maSub"))
 if(!isGeneric("maPlate"))
    setGeneric("maPlate", function(object) standardGeneric("maPlate"))
 setMethod("maPlate", "marrayLayout", function(object)
-          slot(object, "maPlate"))
+          {if(length(object@maPlate) == 0)
+             maCompPlate(object)
+          else
+            slot(object, "maPlate")})
 
 if(!isGeneric("maControls"))
    setGeneric("maControls", function(object) standardGeneric("maControls"))
@@ -163,6 +166,7 @@ setMethod("maPrintTip", "marrayLayout",
 		}
 		pt
 	})
+
 
 ###########################################################################
 # Accessor methods for marrayRaw class

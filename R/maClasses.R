@@ -64,9 +64,21 @@ setClass("marrayNorm",
                         maGnames="marrayInfo",
 			maTargets="marrayInfo",
 			maNotes="character",
-			maNormCall="character")
+			maNormCall="call")
          )
 
+
+
+#########################
+# Coerce object from class marrayRaw to marrayNorm
+#########################
+setAs("marrayRaw", "marrayNorm", function(from)
+{
+    mnorm<-new("marrayNorm", maA=maA(from), maM=maM(from), maW=maW(from),
+        maLayout=maLayout(from), maGnames=maGnames(from),
+        maTargets=maTargets(from), maNotes=maNotes(from))
+    mnorm
+})
 
 dim.marrayRaw <- function(x) dim(x@maRf)
 dim.marrayNorm <- function(x) dim(x@maM)

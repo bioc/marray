@@ -126,6 +126,7 @@ read.marrayRaw<-
            skip=0,
            sep="\t",
            quote="\"",
+           DEBUG=FALSE,
            ...)
 {
   if(is.null(path))
@@ -144,11 +145,12 @@ read.marrayRaw<-
   for(f in fullfnames)
   {
     ## Calculate Skip
+    if(DEBUG) cat("Calculating skip  ... ")
     y <- readLines(f, n=100)
     skip <- grep(name.Gf, y)[1] - 1
-    print(skip)
+    if(DEBUG) cat(skip, "done \n")
 
-    print(paste("Reading", f))
+    cat("Reding ... ", f)
     h<-strsplit(readLines(f, n=skip+1),split=sep)
     h<-as.list(unlist(h[[length(h)]]))
     names(h)<-gsub("\"", "", unlist(h))
@@ -177,7 +179,7 @@ read.marrayRaw<-
   if(!is.null(gnames)) maGnames(mraw) <- gnames
   if(!is.null(targets)) maTargets(mraw) <- targets
   if(!is.null(W)) maW(mraw) <- W
-
+  cat(" ... done \n")
   return(mraw)
 }
 
@@ -246,11 +248,11 @@ read.Spot <-  function(fnames = NULL,
 #
 read.GenePix <-  function(fnames = NULL,
                           path=".",
-                          name.Gf = "F532 Mean",
+                          name.Gf = "F532 Median",
                           name.Gb = "B532 Median",
-                          name.Rf = "F635 Mean",
+                          name.Rf = "F635 Median",
                           name.Rb = "B635 Median",
-                          name.W= NULL,
+                          name.W= "Flags",
                           layout = NULL,
                           gnames = NULL,
                           targets = NULL,
@@ -258,14 +260,36 @@ read.GenePix <-  function(fnames = NULL,
                           skip=0,
                           sep="\t",
                           quote="\"",
+                          DEBUG=FALSE,
                           ...)
   {
 
     ## If fnames not specified, read everything in the dir
     if(is.null(fnames))
-      fnames <- dir(path=path, pattern=paste("*", "gpr", sep="\."))
+      fnames <-  dir(path, pattern="*\\.gal$")
+    else{
+      if(!is.null(targets))
+        fnames <- maInfo(targets)[,1]
+    }
+    
+    if(is.null(gnames) | is.null(layout))
+      {
+        cat("Reading Galfile ... ")
+        gal <- read.Galfile(galfile = fnames[1], path=path, info.id = c("Name", "ID"),
+                            labels = "ID", sep = sep, quote=quote, fill=fill, check.names=FALSE,
+                            as.is=TRUE, ncolumns = 4, ...)
+        if(is.null(gnames)) gnames <- gal$gnames
+        if(is.null(layout)) layout <- gal$layout
+        cat("done \n ")
+      }
+
+    if(DEBUG) cat("Setting up controls status ... ")
+    layout@maControls <- as.factor(maGenControls(gnames))
+    if(DEBUG) cat("done \n ")
     
     if(is.null(notes)) notes <- "GenePix Data"
+
+    if(DEBUG) cat("Calling read.marrayRaw ... \n")
     mraw <- read.marrayRaw(fnames =fnames,
                            path=path,
                            name.Gf = name.Gf,
@@ -281,6 +305,8 @@ read.GenePix <-  function(fnames = NULL,
                            sep= sep,
                            quote=quote,
                            ...)
+    
+
     return(mraw)
   }
 
@@ -349,7 +375,10 @@ read.Galfile <- function (galfile,
                           ncolumns = 4,
                           ...)
 {
-  y <- readLines(file.path(path, galfile), n=100)
+  if(!is.null(path))
+    y <- readLines(file.path(path, galfile), n=100)
+  else
+    y <- galfile
   skip <- intersect(grep("ID", y), grep("Name", y))[1] - 1
   dat <- read.table(file.path(path, galfile), header=TRUE, sep = sep,
                     quote = quote, skip=skip, fill=fill, ...)

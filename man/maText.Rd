@@ -3,7 +3,9 @@
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Highlight points on a plot}
 \description{
-This function may be used to highlight a subset of points on an existing plot, such as a plot produced by \code{\link{plot}}, \code{\link{maPlot}}, or \code{\link{maPlot.func}}.
+This function may be used to highlight a subset of points on an existing
+plot, such as a plot produced by \code{\link{plot}},
+\code{\link{maPlot}}, or \code{\link{maPlot.func}}. 
 }
 
 \usage{

@@ -61,6 +61,7 @@
 \alias{maW,marrayNorm-method}
 \alias{print,marrayNorm-method}
 \alias{show,marrayNorm-method}
+\alias{summary,marrayNorm-method}
 
 %\alias{maW}
 
