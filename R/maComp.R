@@ -28,7 +28,8 @@ maGeneTable <- function(object)
   GC=maGridCol(object),
   SR=maSpotRow(object),
   SC=maSpotCol(object),
-  maInfo(maGnames(object)))
+  maInfo(maGnames(object)), row.names=NULL)
+  rownames(tmp) <- rownames(maInfo(maGnames(object)))
   colnames(tmp) <- c("Grid.R", "Grid.C", "Spot.R", "Spot.C", names(maInfo(maGnames(object))))
   return(tmp)
 }
