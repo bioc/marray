@@ -17,16 +17,16 @@ maNormMain<-function(mbatch,
                      Mloc=TRUE, Mscale=TRUE, echo=FALSE)
 {
 
-  if(class(mbatch)=="marrayRaw")
-  {
-    mnorm<-as(mbatch, "marrayNorm")
-    M<-Ml<-Ms<-NULL
-  }
-  if(class(mbatch)=="marrayNorm")
-    mnorm<-mbatch
+    if (is(mbatch, "marrayRaw"))
+    {
+        mnorm<-as(mbatch, "marrayNorm")
+        M<-Ml<-Ms<-NULL
+    }
+    if (is(mbatch, "marrayNorm"))
+        mnorm<-mbatch
 
   slot(mnorm, "maNormCall") <- match.call()
-  
+
   if(length(f.loc)>0)
     M<-Ml<-NULL
   if(length(f.scale)>0)
