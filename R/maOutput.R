@@ -3,7 +3,7 @@
 # Output functions
 #
 # Date : September 19, 2002
-# Modify : October, 14, 2002
+# Modify : October, 14, 2002, April 10 2005 (Agnes)
 #
 # Runs on R 1.6 and above
 #
@@ -14,7 +14,11 @@
 
 write.marray <- function(mraw, file="maRawResults.xls", val="maM", ...)
 {
-  tmp <- cbind(maGeneTable(mraw), eval(call(val,mraw)), row.names=NULL)
+  # Was tmp <- cbind(maGeneTable(mraw), eval(call(val,mraw)), row.names=NULL)
+  res <- c()
+  for(i in 1:length(val))
+    res <- cbind(res, eval(call(val[i],mraw)))
+  tmp <- cbind(maGeneTable(mraw), res, row.names=NULL)
   write.table(tmp, file, row.names=FALSE, col.names=TRUE, sep="\t", ...)
   return(NULL)
 }
