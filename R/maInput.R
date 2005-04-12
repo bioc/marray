@@ -358,9 +358,9 @@ read.GenePix <-  function(fnames = NULL,
         else
           {
             if(is.null(path))
-              fullnames <- dir(pattern="\\.gpr$")
+              fullnames <- dir(pattern=".*\\.gpr$")
             else
-              fullnames <- dir(path, pattern="\\.gpr$")
+              fullnames <- dir(path, pattern=".*\\.gpr$")
           }
       }
     else
@@ -449,9 +449,9 @@ read.Agilent <-  function(fnames = NULL,
         else
           {
             if(is.null(path))
-              fullnames <- dir(pattern="\\.txt$")
+              fullnames <- dir(pattern=".*\\.txt$")
             else
-              fullnames <- dir(path, pattern="\\.txt$")
+              fullnames <- dir(path, pattern=".*\\.txt$")
           }
       }
     else
