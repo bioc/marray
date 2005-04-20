@@ -268,7 +268,10 @@ URLstring <- list(
  operonST= "http://arrays.ucsf.edu/cgi-bin/oligo_db.pl?oligo=UNIQID",
  genbank = "http://www.ncbi.nlm.nih.gov/entrez/viewer.fcgi?DB=nucleotide&val=UNIQID",
  unigeneMm="http://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Mm&CID=UNIQID",
- unigeneHS="http://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Hs&CID=UNIQID")
+ unigeneHS="http://www.ncbi.nlm.nih.gov/UniGene/clust.cgi?ORG=Hs&CID=UNIQID",
+ gene="http://www.ncbi.nih.gov/entrez/query.fcgi?db=gene&cmd=Retrieve&dopt=summary&list_uids=UNIQID",
+ affyid = "https://www.affymetrix.com/LinkServlet?probeset=UNIQID")
+
                   
 ###################################################################
 ## Some example of Map Info

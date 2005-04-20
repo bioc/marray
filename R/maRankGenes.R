@@ -55,7 +55,7 @@ maSelectGnames <- function(statdata,
             list.id <- c(list.id, list(c(tmp1, tmp2)))
           }
       }
-    finalid <- operate.list(list.id, operate)
+    finalid <- operate.list(list.id, operate[1])
     return(finalid)
   }
 
