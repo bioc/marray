@@ -104,7 +104,7 @@ y <- rep(0, maNspots(swirl.layout))
 y[x == "control"] <- 1
 slot(swirl.layout, "maControls") <- as.factor(y)
 
-fnames <- dir(path=datadir,pattern=paste("*", "spot", sep="\."))
+fnames <- dir(path=datadir,pattern="spot")
 swirl<- read.Spot(fnames, path=datadir,
                        layout = swirl.layout,
                        gnames = swirl.gnames,
