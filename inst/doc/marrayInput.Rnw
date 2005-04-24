@@ -1,7 +1,7 @@
 %\VignetteIndexEntry{marrayInput Introduction}
 %\VignetteKeywords{Preprocessing, Expression Analysis}
-%\VignetteDepends{marrayInput}
-%\VignettePackage{marrayInput}
+%\VignetteDepends{marray}
+%\VignettePackage{marray}
 \documentclass[11pt]{article}
 
 \usepackage{amsmath,pstricks,fullpage, graphicx}

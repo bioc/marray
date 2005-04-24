@@ -3,7 +3,7 @@
 % likely to be overwritten.
 %
 % \VignetteIndexEntry{marrayPlots Overview}
-% \VignetteDepends{tools, marrayPlots}
+% \VignetteDepends{tools, marray}
 % \VignetteKeywords{Expression Analysis, Preprocessing}
 % \VignettePackage{marray}
 \documentclass[11pt]{article}

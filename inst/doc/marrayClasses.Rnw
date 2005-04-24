@@ -3,9 +3,9 @@
 % likely to be overwritten.
 %
 % \VignetteIndexEntry{marrayClasses Overview}
-% \VignetteDepends{tools,marrayClasses}
+% \VignetteDepends{tools,marray}
 % \VignetteKeywords{Expression Analysis, Preprocessing}
-% \VignettePackage{marrayClasses}
+% \VignettePackage{marray}
 \documentclass[11pt]{article}
 
 \usepackage{amsmath,psfig,pstricks,fullpage}

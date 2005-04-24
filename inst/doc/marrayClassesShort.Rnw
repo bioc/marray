@@ -5,7 +5,7 @@
 % \VignetteIndexEntry{marrayClasses Tutorial (short)}
 % \VignetteDepends{tools}
 % \VignetteKeywords{Expression Analysis, Preprocessing}
-% \VignettePackage{marrayClasses}
+% \VignettePackage{marray}
 
 \documentclass[11pt]{article}
 
