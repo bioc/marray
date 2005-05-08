@@ -90,11 +90,15 @@ maCompPlate <- function (x, n = 384)
 
 ###########################################################################
 # Convert spot index to grid and spot matrix coordinates (4 coords)
+## Bug fix May 8, 05
 
 maInd2Coord <- function (x, L)
 {
     coord<-cbind(maGridRow(L), maGridCol(L), maSpotRow(L), maSpotCol(L))[x,]
-    colnames(coord) <- c("Grid.R", "Grid.C", "Spot.R", "Spot.C")
+    if(is.matrix(coord))
+      colnames(coord) <- c("Grid.R", "Grid.C", "Spot.R", "Spot.C")
+    else
+      names(coord) <- c("Grid.R", "Grid.C", "Spot.R", "Spot.C")
     coord
 }
 
