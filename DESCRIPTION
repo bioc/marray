@@ -1,12 +1,18 @@
 Package: marray
-Version: 1.6.3
+Version: 1.7.0
 Date: 2005-05-08
 Title: Exploratory analysis for two-color spotted microarray data
-Author: Yee Hwa (Jean) Yang <jean@biostat.ucsf.edu> with contributions from Agnes Paquet and Sandrine Dudoit.
+Author: Yee Hwa (Jean) Yang <jean@biostat.ucsf.edu> with contributions
+        from Agnes Paquet and Sandrine Dudoit.
 Depends: R (>= 1.9.0)
 Maintainer: Yee Hwa (Jean) Yang <jean@biostat.ucsf.edu>
-Description: Class definitions for two-color spotted  microarray data. Fuctions for data input, diagnostic plots, normalization and quality checking.
+Description: Class definitions for two-color spotted microarray data.
+        Fuctions for data input, diagnostic plots, normalization and
+        quality checking.
 License: LGPL
 URL: http://www.biostat.ucsf.edu/jean
-Collate: maClasses.R maGet.R maSet.R maPrint.R maSubset.R maBind.R maComp.R maDots.R maInput.R maNorm.R maOutput.R maWidget.R maPlots.R maAnnotate.R maRankGenes.R maSMA.R maSearch.R maWrap.R
+Collate: maClasses.R maGet.R maSet.R maPrint.R maSubset.R maBind.R
+        maComp.R maDots.R maInput.R maNorm.R maOutput.R maWidget.R
+        maPlots.R maAnnotate.R maRankGenes.R maSMA.R maSearch.R
+        maWrap.R
 
