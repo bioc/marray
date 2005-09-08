@@ -7,9 +7,7 @@
   This function creates objects of class \code{\link{marrayLayout}} to store layout parameters for  two-color cDNA microarrays.
 }
 \usage{
-read.marrayLayoutfname = NULL, ngr, ngc, nsr, nsc, pl.col = NULL,
-                 ctl.col = NULL, sub.col = NULL, notes = fname, skip,
-                 sep = "\t", quote = "\"", ...)
+read.marrayLayout(fname = NULL, ngr, ngc, nsr, nsc, pl.col = NULL, ctl.col = NULL, sub.col = NULL, notes = fname, skip, sep = "\t", quote = "\"", ...)
 }
 
 %- maybe also `usage' for other objects documented here.
