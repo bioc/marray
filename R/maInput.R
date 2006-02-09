@@ -373,7 +373,7 @@ read.GenePix <-  function(fnames = NULL,
         if(DEBUG) print("Reading Galfile ... ")
         defs <- list(galfile = fullnames[1], path=path, info.id = c("ID", "Name"),
                      labels = "ID", sep = sep, quote=quote, fill=TRUE, check.names=FALSE,
-                     as.is=TRUE, ncolumns = 4)
+                     as.is=TRUE, ncolumns = 4, skip=skip)
         gal.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.Galfile")))
         gal <- do.call("read.Galfile", gal.args)
         if(is.null(gnames)) gnames <- gal$gnames
@@ -546,11 +546,16 @@ read.Galfile <- function (galfile,
     f <- galfile
   y <- readLines(f, n=100)
 
-  if(class(info.id) == "character")
-    skip <- intersect(grep(info.id[1], y), grep(layout.id[1], y))[1] - 1
-  else
-    skip <- intersect(grep("ID", y), grep("Name", y))[1] - 1
+  ## Fix no check whether skip is null or not ##
+  ## Pointed out by Dustin Potter,  Feb 9, 2006 ##
 
+  if(is.null(skip)){
+    if(class(info.id) == "character")
+      skip <- intersect(grep(info.id[1], y), grep(layout.id[1], y))[1] - 1
+    else
+      skip <- intersect(grep("ID", y), grep("Name", y))[1] - 1
+  }
+  
   defs <- list(file=f, path = path, sep=sep, skip=skip,
                fill = TRUE, quote = "\"", check.names=FALSE,
                as.is=TRUE, comment.char="", header=TRUE)
