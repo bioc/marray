@@ -1,6 +1,6 @@
 Package: marray
-Version: 1.13.0
-Date: 2006-02-07
+Version: 1.13.1
+Date: 2007-04-05
 Title: Exploratory analysis for two-color spotted microarray data
 Author: Yee Hwa (Jean) Yang <jeany@maths.usyd.edu.au> with contributions
         from Agnes Paquet and Sandrine Dudoit.
