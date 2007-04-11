@@ -23,10 +23,18 @@ write.marray <- function(mraw, file="maRawResults.xls", val="maM", ...)
   return(NULL)
 }
   
-  
+
+## Apr, 09 based on suggestion by
+## Matthew Fero <mfero@fhcrc.org>
 write.xls <- function(res, file="test.xls", ...)
   {
-    write.table(res, file, row.names=FALSE, col.names=TRUE, sep="\t", ...)
+    ## col.names = NA and row.names = TRUE
+    opt = list(...)
+    defs <- list(x = res, file = file, row.names=FALSE, col.names=TRUE, sep="\t")  
+    write.args <- maDotsMatch(opt, maDotsMatch(defs, formals(args("write.table"))))    
+##    print(write.args)
+    do.call("write.table", write.args)
+    ##    write.table(res, file, row.names=FALSE, col.names=TRUE, sep="\t", ...) 
   }
 
 
