@@ -628,6 +628,10 @@ read.SMD <- function(fnames = NULL, path = NULL,
 
   if(DEBUG) print(fnames)
 
+  ## Jean Yang, April 18, 2007
+  ## Add opt = list(...)
+  ## Bug pointed out by Michael Gormley <mpg33@drexel.edu>
+  opt <- list(...)
   if(is.null(gnames) | is.null(layout))
       {
         if(DEBUG) cat("Generating layout from ", fullnames[1], "\n", sep="")
