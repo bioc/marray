@@ -16,4 +16,4 @@ Collate: maClasses.R maGet.R maSet.R maPrint.R maSubset.R maBind.R
         maComp.R maDots.R maInput.R maNorm.R maOutput.R maWidget.R
         maPlots.R maAnnotate.R maRankGenes.R maSMA.R maSearch.R
         maWrap.R
-SaveImage: yes
+LazyLoad: yes
