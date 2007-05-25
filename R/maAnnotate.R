@@ -32,15 +32,17 @@ mapGeneInfo <- function(widget=FALSE, Gnames, Name="pubmed", ID="genbank", ACC="
 
 widget.mapGeneInfo <- function(Gnames)
   {
-    print("widget")
     startfun <- function()
       {
         print("The URL choices are:")
         print(names(URLstring))
       }
-    
-    require(tcltk)
-    require(tkWidgets)
+    haveTkW <- require("tkWidgets", character.only=TRUE)
+    if (!haveTkW)
+      stop("This feature requires tkWidgets")
+
+##    require(tcltk)
+##    require(tkWidgets)
     switch(data.class(Gnames),
            marrayNorm = headings <- colnames(maInfo(maGnames(Gnames))),
            marrayRaw= headings <- colnames(maInfo(maGnames(Gnames))),

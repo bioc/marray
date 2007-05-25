@@ -12,6 +12,11 @@
 
 widget.TwoSamples <- function(output=TRUE)
   {
+
+    haveTkW <- require("tkWidgets", character.only=TRUE)
+    if (!haveTkW)
+      stop("This feature requires tkWidgets")
+
     wlist <- list()
     targetfile <- list(Name="Target File", Value=".txt",
                        toText=function(x) paste(x,collapse = ","),

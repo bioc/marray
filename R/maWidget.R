@@ -9,8 +9,12 @@ widget.marrayLayout<-function(path="",
                               quote="",
                               ...)
 {
-  require(tcltk)
-  require(tkWidgets)
+  haveTkW <- require("tkWidgets", character.only=TRUE)
+  if (!haveTkW)
+    stop("This feature requires tkWidgets")
+
+##  require(tcltk)
+##  require(tkWidgets)
   
   ## Functions:
   ## Calling read.marrayLayout
@@ -220,8 +224,12 @@ widget.marrayInfo <- function(path=".",
                               quote="",
                               ...)
 {
-  require(tcltk)
-  require(tkWidgets)
+  haveTkW <- require("tkWidgets", character.only=TRUE)
+  if (!haveTkW)
+    stop("This feature requires tkWidgets")
+
+  ##  require(tcltk)
+  ##  require(tkWidgets)
    
   ## Functions:
   ## Calling read.marrayInfo
@@ -346,8 +354,11 @@ widget.marrayRaw<-function(ext=c("spot", "xls", "gpr"),
                            ...)
 
 {
-  require(tcltk)
-  require(tkWidgets)
+  haveTkW <- require("tkWidgets", character.only=TRUE)
+  if (!haveTkW)
+    stop("This feature requires tkWidgets")
+  ##require(tcltk)
+  ##require(tkWidgets)
   
   ## Jianhua added this in to catch the "..."
   args <- list(...)
