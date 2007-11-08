@@ -9,7 +9,7 @@
 
 \documentclass[11pt]{article}
 
-\usepackage{amsmath,psfig,pstricks,fullpage}
+\usepackage{amsmath,pstricks,fullpage}
 \usepackage[authoryear,round]{natbib}
 \usepackage{hyperref}
 
