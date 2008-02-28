@@ -1,14 +1,13 @@
 \name{maColorBar}
 \alias{maColorBar}
-
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Calibration bar for color images}
 \description{
 This function produces a color image (color bar) which can be used for
 the legend to another color image obtained from the functions
 \code{\link{image}}, \code{\link{maImage}}, or
-\code{\link{maImage.func}}.} 
-} 
+\code{\link{maImage.func}}. 
+}
 \usage{
 maColorBar(x, horizontal=TRUE, col=heat.colors(50), scale=1:length(x), k=10, ...)
 }
@@ -29,20 +28,16 @@ maColorBar(x, horizontal=TRUE, col=heat.colors(50), scale=1:length(x), k=10, ...
   \item{scale}{A "numeric" vector specifying the "z" values in the color
     image. This is used when the argument \code{x} is a
     "character" vector representing color information.}
-\item{k}{Object of class "numeric", for the number of labels displayed on 
+  \item{k}{Object of class "numeric", for the number of labels displayed on 
     the bar.}
   \item{\dots}{Optional graphical parameters, see \code{\link{par}}.}
 }
-
-\references{S. Dudoit and Y. H. Yang. (2002). Bioconductor R packages for exploratory analysis and normalization of cDNA microarray data. In G. Parmigiani, E. S. Garrett, R. A. Irizarry and S. L. Zeger, editors, \emph{The Analysis of Gene Expression Data: Methods and Software}, Springer, New York.
+\references{
+S. Dudoit and Y. H. Yang. (2002). Bioconductor R packages for exploratory analysis and normalization of cDNA microarray data. In G. Parmigiani, E. S. Garrett, R. A. Irizarry and S. L. Zeger, editors, \emph{The Analysis of Gene Expression Data: Methods and Software}, Springer, New York.
 }
-
 \author{Sandrine Dudoit, \url{http://www.stat.berkeley.edu/~sandrine}, Yee Hwa (Jean) Yang.}
-
 \seealso{\code{\link{image}}, \code{\link{maImage}}, \code{\link{maImage.func}}, \code{\link{maPalette}}.}
-
 \examples{
-
 par(mfrow=c(3,1))
 Rcol <- maPalette(low="white", high="red", k=10)
 Gcol <- maPalette(low="white", high="green", k=50)
@@ -56,8 +51,6 @@ x<-seq(-1, 1, by=0.01)
 maColorBar(x, col=Gcol, horizontal=FALSE, k=11)
 maColorBar(x, col=Gcol, horizontal=FALSE, k=21)
 maColorBar(x, col=Gcol, horizontal=FALSE, k=51)
-
 }
-
 \keyword{aplot}% at least one, from doc/KEYWORDS
 \keyword{hplot}% __ONLY ONE__ keyword per line

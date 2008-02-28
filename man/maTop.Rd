@@ -14,22 +14,13 @@ maTop(x, h=1, l=1)
   \item{h}{A "numeric", upper cut-off.}
   \item{l}{A "numeric", lower cut-off.}
 }
-
-\value{
-A "logical" vector indicating which entries are above or below the cut-offs.}
-}
-
+\value{A "logical" vector indicating which entries are above or below the cut-offs.}
 \references{
 S. Dudoit and Y. H. Yang. (2002). Bioconductor R packages for exploratory analysis and normalization of cDNA microarray data. In G. Parmigiani, E. S. Garrett, R. A. Irizarry and S. L. Zeger, editors, \emph{The Analysis of Gene Expression Data: Methods and Software}, Springer, New York.
- }
-
-
+}
 \author{Sandrine Dudoit, \url{http://www.stat.berkeley.edu/~sandrine}.}
-
 \seealso{\code{\link{maPlot}}, \code{\link{maImage}}, \code{\link{quantile}}.}
-
 \examples{
 # See examples for maPlot.
-
 }
 \keyword{misc}% at least one, from doc/KEYWORDS

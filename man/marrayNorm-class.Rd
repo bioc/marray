@@ -16,7 +16,6 @@
 \alias{[,marrayNorm-method}
 \alias{cbind,marrayNorm-method}
 \alias{coerce,marrayRaw,marrayNorm-method}
-%\alias{coerce,marrayNorm,exprSet-method}
 %\alias{coerce,marrayNorm,marraySpots-method}
 \alias{maA<-,marrayNorm,matrix-method}
 \alias{maA,marrayNorm-method}
@@ -68,10 +67,8 @@
 
 \title{Class "marrayNorm", classes and methods for post-normalization cDNA microarray intensity data}
 
-
 \description{
 This class represents post-normalization intensity data for a batch of cDNA microarrays. A \emph{batch of arrays} consists of a collection of arrays with the same layout  (\code{"\link{marrayLayout}"}). The class contains slots for the average log-intensities A, the normalized log-ratios M, the location and scale normalization values, the layout of the arrays, and descriptions of the target samples hybridized to the arrays and probe sequences spotted onto the arrays.}
-
 
 \section{Objects from the Class}{
 Objects can be created by calls of the form 
@@ -88,7 +85,6 @@ Objects can be created by calls of the form
 \code{    maNormCall = ...., # Object of class call}\cr
 \code{  )}
 }
-
 
 \section{Slots}{
   \describe{
@@ -109,7 +105,7 @@ Objects can be created by calls of the form
   \describe{
     \item{[}{\code{signature(x = "marrayNorm")}:  subsetting operator for spots on the array and arrays in the batch, ensures that all slots are subset properly.}
     \item{coerce}{\code{signature(from = "marrayRaw", to = "marrayNorm")}: coerce an object of class \code{"\link{marrayRaw}"} into an object of class \code{\link{marrayNorm}}. }
-%    \item{coerce}{\code{signature(from = "marrayNorm", to = "exprSet")}: coerce an object of class \code{"\link{marrayNorm}"} into an object of class \code{\link{exprSet-class}}. }
+%    \item{coerce}{\code{signature(from = "marrayNorm", to = "ExpressionSet")}: coerce an object of class \code{"\link{marrayNorm}"} into an object of class \code{\link{ExpressionSet-class}}. }
 % \item{coerce}{\code{signature(from = "marrayNorm", to = "marraySpots")}: coerce an object of class \code{"\link{marrayNorm}"} into an object of class \code{"\link{marraySpots}"}. }
     \item{maA}{\code{signature(object = "marrayNorm")}: slot accessor method.}
     \item{maA<-}{\code{signature(object = "marrayNorm", value = "matrix")}: slot assignment method.} 

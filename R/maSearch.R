@@ -12,7 +12,7 @@ findID <-
            ID = "Name")
 {
   switch(data.class(Gnames),
-         exprSet = G <- phenoData(Gnames),
+         ExpressionSet = G <- phenoData(Gnames),
          marrayRaw = G <- maGeneTable(Gnames),
          marrayNorm = G <-maGeneTable(Gnames),
          marrayInfo = G <- maInfo(Gnames),
@@ -23,4 +23,3 @@ findID <-
   x <- grep(text, y)
   return(x)
 }
-

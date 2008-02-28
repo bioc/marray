@@ -175,11 +175,11 @@ Bayesian smoothing to the standard errors.
 
 \item To utilize other bioconductor packages for downstream analysis, it
   is also possible to convert objects of class {\tt marrayNorm} into
-  objects of class {\tt exprSet} (see definition in the {\tt Biobase}
+  objects of class {\tt ExpressionSet} (see definition in the {\tt Biobase}
   package), see package {\tt convert} package for more details.
 \begin{verbatim}
 > library(convert)
-> as(normdata, "exprSet")    
+> as(normdata, "ExpressionSet")
 \end{verbatim}
 
 \end{enumerate}

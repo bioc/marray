@@ -20,7 +20,6 @@
 \alias{[,marrayRaw-method}
 \alias{cbind,marrayRaw-method}
 %\alias{coerce,marrayRaw,marrayNorm-method}
-%\alias{coerce,marrayRaw,exprSet-method}
 \alias{maA,marrayRaw-method}
 \alias{maControls<-,marrayRaw-method}
 \alias{maControls,marrayRaw-method}
@@ -99,7 +98,6 @@
 %\alias{maM}
 
 \alias{maNsamples}
-
 
 \title{Class "marrayRaw", classes and methods for pre-normalization cDNA microarray intensity data}
 
@@ -201,7 +199,6 @@ Objects can be created by calls of the form
 
 \seealso{\code{\link{marrayLayout}}, \code{\link{marrayNorm}}, \code{\link{marrayInfo}}.}
 
-
 \examples{
 # Examples use swirl dataset, for description type ? swirl
 require(limma)
@@ -226,12 +223,5 @@ plot(density(maM(swirl[,3])))
 maNotes(swirl)
 maNotes(swirl)<-"This is a zebrafish microarray"
 maNotes(swirl)
-
-# Coerce methods -- Convert marrayRaw object into exprSet
-## Load package convert
-## library(convert)
-## e<-as(swirl, "exprSet")
-## e
-
 }
 \keyword{classes}

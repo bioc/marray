@@ -423,16 +423,6 @@ one class into another. A list of such methods can be obtained by {\tt
 swirl.norm<-as(swirl, "marrayNorm")    
 @
 
-It is also possible to convert objects of class {\tt marrayRaw} or {\tt
-  marrayNorm} into objects of class {\tt exprSet} (see definition in the
-{\tt Biobase} package), see package {\tt convert} package for more
-  details.
-
-\begin{verbatim}
-> library(convert)
-> as(normdata, "exprSet")    
-\end{verbatim}
-
 
 \subsection{Functions for computing layout parameters}
 

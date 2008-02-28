@@ -1,15 +1,14 @@
 \name{maPlot}
 \alias{maPlot}
-
-
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Scatter-plots for cDNA microarray spot statistics}
 \description{The function \code{maPlot} produces scatter-plots of
-  microarray spot statistics for the classes \code{"\link{marrayRaw}"} and \code{"\link{marrayNorm}"}. It also allows the user to highlight and annotate subsets of points on the plot, and display fitted curves from robust local regression or other smoothing procedures.
+  microarray spot statistics for the classes \code{"\link{marrayRaw}"} and \code{"\link{marrayNorm}"}.
+  It also allows the user to highlight and annotate subsets of points on the plot, and display fitted
+  curves from robust local regression or other smoothing procedures.
 }
-
 \usage{
-maPlot(m, x="maA", y="maM", z="maPrintTip", lines.func, text.func, legend.func, ...)
+maPlot(m, x="maA", y="maM", z="maPrintTip", lines.func, text.func, legend.func, \dots)
 }
 %- maybe also `usage' for other objects documented here.
 
@@ -23,21 +22,15 @@ maPlot(m, x="maA", y="maM", z="maPrintTip", lines.func, text.func, legend.func, 
   \item{legend.func}{Function for adding a legend to the plot, e.g. \code{\link{maLegendLines}}. If \code{legend.func} is NULL, there is no legend.}
   \item{\dots}{Optional graphical parameters, see \code{\link{par}}.}
 }
-
 \details{
-This function calls the general function \code{\link{maPlot.func}}, which is not specific to microarray data. If there are more than one array in the batch, the plot is done for the first array, by default. Default graphical parameters are chosen for convenience using the function \code{\link{maDefaultPar}} (e.g. color palette,  axis labels,  plot title) but the user has the option to overwrite these parameters at any point.}
+This function calls the general function \code{\link{maPlot.func}}, which is not specific to microarray data. If there are more than one array in the batch, the plot is done for the first array, by default. Default graphical parameters are chosen for convenience using the function \code{\link{maDefaultPar}} (e.g. color palette,  axis labels,  plot title) but the user has the option to overwrite these parameters at any point.
 }
-
 \references{
 S. Dudoit and Y. H. Yang. (2002). Bioconductor R packages for exploratory analysis and normalization of cDNA microarray data. In G. Parmigiani, E. S. Garrett, R. A. Irizarry and S. L. Zeger, editors, \emph{The Analysis of Gene Expression Data: Methods and Software}, Springer, New York.
 }
-
 \author{Sandrine Dudoit, \url{http://www.stat.berkeley.edu/~sandrine}.}
-
 \seealso{\code{\link{maPlot.func}}, \code{\link{maDefaultPar}}, \code{\link{maLoessLines}}, \code{\link{maLegendLines}}, \code{\link{maText}}, \code{\link{plot}}, \code{\link{lowess}}, \code{\link{loess}}, \code{\link{legend}}.}
-
 \examples{
-
 # To see the demo type demo(marrayPlots)
 
 # Examples use swirl dataset, for description type ? swirl
@@ -52,7 +45,6 @@ maPlot(swirl, z=NULL, legend.func=NULL)
 # Loess fit using all spots
 maPlot(swirl, z=NULL, legend.func=maLegendLines(legend="All spots",col="green"), lines.func=maLoessLines(loess.args=list(span=0.3),col="green"))
 
-
 # Pre-normalization MA-plot for the Swirl 81 array, with the lowess fits for 
 # individual grid columns and 1\% tails of M highlighted
 defs <- maDefaultPar(swirl[, 1], x = "maA", y = "maM", z = "maGridCol")
@@ -60,8 +52,5 @@ legend.func <- do.call("maLegendLines", defs$def.legend)
 lines.func <- do.call("maLowessLines", c(list(TRUE, f = 0.3), defs$def.lines))
 text.func<-maText(subset=maTop(maM(swirl)[,1],h=0.01,l=0.01), labels="o", col="violet")
 maPlot(swirl[, 1], x = "maA", y = "maM", z = "maGridCol", lines.func=lines.func, text.func = text.func, legend.func=legend.func, main = "Swirl array 81: pre-normalization MA-plot")
-
 }
-
 \keyword{hplot}% at least one, from doc/KEYWORDS
-
