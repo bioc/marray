@@ -8,7 +8,7 @@
 
 \documentclass[11pt]{article}
 
-\usepackage{amsmath,epsfig,fullpage,hyperref}%psfig,pstricks,
+\usepackage{amsmath,epsfig,fullpage,hyperref}
 \parindent 0in
 
 \newcommand{\Robject}[1]{{\texttt{#1}}}

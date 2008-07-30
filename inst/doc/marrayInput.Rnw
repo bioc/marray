@@ -4,7 +4,7 @@
 %\VignettePackage{marray}
 \documentclass[11pt]{article}
 
-\usepackage{amsmath,pstricks,fullpage, graphicx}
+\usepackage{amsmath,fullpage, graphicx}
 \usepackage[authoryear,round]{natbib}
 \usepackage{hyperref}
 
