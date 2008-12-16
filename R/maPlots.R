@@ -361,7 +361,7 @@ maPlot <- function(m, x="maA", y="maM", z="maPrintTip",lines.func,text.func,lege
   if(missing(text.func))
     text.func<-maText()
   if(missing(legend.func))
-    legend.func<-do.call("maLegendLines",defs$def.legend)
+    legend.func<-do.call(maLegendLines,defs$def.legend)
 
   xx<-as.numeric(eval(call(x,m)))
   yy<-as.numeric(eval(call(y,m)))
