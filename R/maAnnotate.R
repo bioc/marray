@@ -106,7 +106,7 @@ htmlPage <- function(genelist,
                table.center = table.center,disp = disp)
   if(!missing(title)) args <- c(args, list(title=title))
   if(!missing(table.head)) args <- c(args, list(table.head=table.head))
-  do.call("table2html", c(list(restable), args))
+  do.call(table2html, c(list(restable), args))
   return()
 }
          

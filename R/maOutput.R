@@ -33,7 +33,7 @@ write.xls <- function(res, file="test.xls", ...)
     defs <- list(x = res, file = file, row.names=FALSE, col.names=TRUE, sep="\t")  
     write.args <- maDotsMatch(opt, maDotsMatch(defs, formals(args("write.table"))))    
 ##    print(write.args)
-    do.call("write.table", write.args)
+    do.call(write.table, write.args)
     ##    write.table(res, file, row.names=FALSE, col.names=TRUE, sep="\t", ...) 
   }
 

@@ -288,7 +288,7 @@ read.Spot <-  function(fnames = NULL,
                      labels = "ID", sep = sep, quote=quote, fill=TRUE, check.names=FALSE,
                      as.is=TRUE, ncolumns = 4)
         gal.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.Galfile")))
-        gal <- do.call("read.Galfile", gal.args)
+        gal <- do.call(read.Galfile, gal.args)
         if(is.null(gnames)) gnames <- gal$gnames
         if(is.null(layout)) layout <- gal$layout
         if(DEBUG) print("done \n ")
@@ -301,7 +301,7 @@ read.Spot <-  function(fnames = NULL,
       {
         if(DEBUG) cat("Generate controls \n")
         GenControls.args <- maDotsMatch(maDotsMatch(opt, list(Gnames=gnames)), formals(args("maGenControls")))
-        layout@maControls <- as.factor(do.call("maGenControls", GenControls.args))
+        layout@maControls <- as.factor(do.call(maGenControls, GenControls.args))
         if(DEBUG) print(table(layout@maControls))
       }
     if(DEBUG) cat("done \n ")
@@ -314,7 +314,7 @@ read.Spot <-  function(fnames = NULL,
                  notes = notes, skip=skip, sep=sep, quote=quote, fill=TRUE)
     maRaw.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.marrayRaw")))
     maRaw.args <- c(maRaw.args, defs[names(defs[setdiff(names(defs), names(maRaw.args))])])
-    mraw <- do.call("read.marrayRaw", maRaw.args)
+    mraw <- do.call(read.marrayRaw, maRaw.args)
 
     if(setgal)
       {
@@ -375,7 +375,7 @@ read.GenePix <-  function(fnames = NULL,
                      labels = "ID", sep = sep, quote=quote, fill=TRUE, check.names=FALSE,
                      as.is=TRUE, ncolumns = 4, skip=skip)
         gal.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.Galfile")))
-        gal <- do.call("read.Galfile", gal.args)
+        gal <- do.call(read.Galfile, gal.args)
         if(is.null(gnames)) gnames <- gal$gnames
         if(is.null(layout)) layout <- gal$layout
         if(DEBUG) print("done \n ")
@@ -388,7 +388,7 @@ read.GenePix <-  function(fnames = NULL,
       {
         if(DEBUG) cat("Generate controls \n")
         GenControls.args <- maDotsMatch(maDotsMatch(opt, list(Gnames=gnames)), formals(args("maGenControls")))
-        layout@maControls <- as.factor(do.call("maGenControls", GenControls.args))
+        layout@maControls <- as.factor(do.call(maGenControls, GenControls.args))
         if(DEBUG) print(table(layout@maControls))
       }
     if(DEBUG) cat("done \n ")
@@ -402,7 +402,7 @@ read.GenePix <-  function(fnames = NULL,
                  notes = notes, skip=skip, sep=sep, quote=quote, fill=TRUE)
     maRaw.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.marrayRaw")))
     maRaw.args <- c(maRaw.args, defs[names(defs[setdiff(names(defs), names(maRaw.args))])])
-    mraw <- do.call("read.marrayRaw", maRaw.args)
+    mraw <- do.call(read.marrayRaw, maRaw.args)
 
     if(setgal)
       {
@@ -472,7 +472,7 @@ read.Agilent <-  function(fnames = NULL,
                      fill = TRUE, quote = "\"", check.names=FALSE,
                      as.is=TRUE, comment.char="", header=TRUE)
         read.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.table")))
-        dat <- do.call("read.table", read.args)
+        dat <- do.call(read.table, read.args)
 
         descript <- new("marrayInfo", maNotes = "Agilent")
         if(is.null(info.id))
@@ -517,7 +517,7 @@ read.Agilent <-  function(fnames = NULL,
                  notes = notes, skip=skip, sep=sep, quote=quote, fill=TRUE,
                  check.names=FALSE,  as.is=TRUE)
     maRaw.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.marrayRaw")))
-    mraw <- do.call("read.marrayRaw", maRaw.args)
+    mraw <- do.call(read.marrayRaw, maRaw.args)
 
     return(mraw)
   }
@@ -560,7 +560,7 @@ read.Galfile <- function (galfile,
                fill = TRUE, quote = "\"", check.names=FALSE,
                as.is=TRUE, comment.char="", header=TRUE)
   read.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.table")))
-  dat <- do.call("read.table", read.args)
+  dat <- do.call(read.table, read.args)
 
   ## Gnames
   descript <- new("marrayInfo", maNotes = notes)
@@ -643,7 +643,7 @@ read.SMD <- function(fnames = NULL, path = NULL,
                      as.is=TRUE, ncolumns = 4)
         gal.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.Galfile")))
         if (DEBUG) print("Reading Gal file")
-        gal <- do.call("read.Galfile", gal.args)
+        gal <- do.call(read.Galfile, gal.args)
         if(is.null(gnames)) gnames <- gal$gnames
         if(is.null(layout)) layout <- gal$layout
         if(DEBUG) print("done \n ")
@@ -688,7 +688,7 @@ read.SMD <- function(fnames = NULL, path = NULL,
                check.names=FALSE,  as.is=TRUE)
   if(DEBUG) cat("Calling read.marrayRaw ... \n")
   maRaw.args <- maDotsMatch(maDotsMatch(opt, defs), formals(args("read.marrayRaw")))
-  mraw <- do.call("read.marrayRaw", maRaw.args)
+  mraw <- do.call(read.marrayRaw, maRaw.args)
   return(mraw)
 }
 

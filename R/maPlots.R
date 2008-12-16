@@ -71,7 +71,7 @@ addPoints <- function(object, xvar="maA", yvar="maM", subset=TRUE, ...)
 addLines <- function(object, xvar="maA", yvar="maM", zvar="maPrintTip", subset=TRUE, ...)
   {
     defs <- maDefaultPar(m=object,x=xvar,y=yvar,z=zvar)
-    lines.func<-do.call("maLoessLines",
+    lines.func<-do.call(maLoessLines,
                         c(list(subset=subset, loess.args=list(span=0.4, degree=1, family="symmetric",
                                               control=loess.control(trace.hat="approximate",
                                                 iterations=5,surface="direct"))),defs$def.lines))
@@ -187,7 +187,7 @@ maBoxplot<- function(m, x="maPrintTip", y="maM", ...) {
         def<-maDotsDefaults(opt,def)
 
       args<-c(list(yy~xx),def)
-      do.call("boxplot",args)
+      do.call(boxplot,args)
    }
    if(maNsamples(m)>1)
    {
@@ -202,7 +202,7 @@ maBoxplot<- function(m, x="maPrintTip", y="maM", ...) {
         def<-maDotsDefaults(opt,def)
 
       args<-c(list(yy),def)
-      do.call("boxplot",args)
+      do.call(boxplot,args)
     }
 ##    if(y=="maM") abline(h=0,col="gray",lwd=2.5)
 }
@@ -318,7 +318,7 @@ maLoessLines<-function(subset=TRUE, weights=NULL,
       yy<-y[subset][which]
       ww<-weights[subset][which]
       args<-c(list(yy ~ xx, weights=ww),loess.args)
-      fit<-do.call("loess",args)
+      fit<-do.call(loess,args)
       xf<-seq(quantile(xx,0.005,na.rm=TRUE),quantile(xx,0.995,na.rm=TRUE),length=100)
       yf<-predict(fit,data.frame(xx=xf))
       lines(xf,yf,col=col[i],lty=lty[i],lwd=lwd,...)
@@ -353,7 +353,7 @@ maPlot <- function(m, x="maA", y="maM", z="maPrintTip",lines.func,text.func,lege
   defs<-maDefaultPar(m,x,y,z)
 
   if(missing(lines.func))
-    lines.func<-do.call("maLoessLines", c(list(subset=TRUE,
+    lines.func<-do.call(maLoessLines, c(list(subset=TRUE,
                                                loess.args=list(span=0.4, degree=1, family="symmetric",
                                                  control=loess.control(trace.hat="approximate",
                                                    iterations=5,surface="direct"))),
@@ -374,7 +374,7 @@ maPlot <- function(m, x="maA", y="maM", z="maPrintTip",lines.func,text.func,lege
   if(!is.null(opt))
     def.plot<-maDotsDefaults(opt,defs$def.plot)
 
-  do.call("maPlot.func", c(list(x=xx,y=yy,z=zz,lines.func=lines.func,text.func=text.func,legend.func=legend.func),def.plot))
+  do.call(maPlot.func, c(list(x=xx,y=yy,z=zz,lines.func=lines.func,text.func=text.func,legend.func=legend.func),def.plot))
   if(y=="maM") abline(h=0,col="gray",lwd=2.5)
 }
 
@@ -486,13 +486,13 @@ maImage <- function(m, x="maM", subset=TRUE, col, contours=FALSE, bar=TRUE, over
   x.bar <- seq(args$zlim[1], args$zlim[2], length=41)
 
   if(!bar)
-    do.call("maImage.func",args)
+    do.call(maImage.func,args)
 
   if(bar)
   {
     layout(matrix(c(1,2),1,2),width=c(8,2))
     par(mar=c(4,4,5,3))
-    do.call("maImage.func",args)
+    do.call(maImage.func,args)
     par(mar=c(3,0,3,3))
     maColorBar(x.bar,horizontal=FALSE,col=col,main="")
     layout(1)

@@ -53,7 +53,7 @@ widget.TwoSamples <- function(output=TRUE)
     args$inputdata <- eval(as.name(args$inputdata))
     names(args)[names(args) == "inputdata"] <- "normdata"
     names(args)[names(args) == "NumID"] <- "RedID"
-    outdata <- do.call("maTwoSamples", c(args, list(output=output)))
+    outdata <- do.call(maTwoSamples, c(args, list(output=output)))
     return(outdata)
   }
 
