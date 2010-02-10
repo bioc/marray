@@ -189,7 +189,7 @@ tmp<-image(swirl[,3], xvar="maM", bar=FALSE, main="Swirl array 93: image of pre-
 <<maImageMraw2,fig=TRUE,prefix=FALSE,echo=TRUE,include=FALSE>>= 
 tmp<-image(swirl[,3], xvar="maM", subset=maTop(maM(swirl[,3]), h=0.10,
 l=0.10), col=RGcol, contours=FALSE, bar=FALSE,main="Swirl array 93:
-image of pre--normalization M for \% 10 tails")  
+image of pre--normalization M for  10 %  tails")  
 @
 
 Note that the {\tt image} function (and other functions {\tt
