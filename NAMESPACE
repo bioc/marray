@@ -35,4 +35,3 @@ exportMethods("maLabels","maLabels<-","maInfo<-","maInfo","maNgc<-",
 
 exportClasses("marrayInfo","marrayLayout","marrayRaw","marrayNorm","ShowLargeObject")
 
-.onLoad <- function(lib,pkg) require(methods)
