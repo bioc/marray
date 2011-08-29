@@ -27,9 +27,6 @@ read.marrayInfo(fname, info.id=NULL, labels=NULL, notes=fname, sep="\t",skip=0, 
   by setting `quote="\""'.}
   \item{\dots}{further arguments to \code{\link{scan}}.}
 }
-\details{
-
-}
 \value{
   An object of class \code{\link{marrayInfo}}.
 }

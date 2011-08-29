@@ -32,12 +32,8 @@ attributes found in the first object to be combined.
 For \code{rbind}, the matrices of expression data are rbinded while the
 target information, in any, is unchanged. 
 }
-\value{
-}
 \author{Jean Yang}
 \seealso{
   \code{\link[base]{cbind}} in the base package.
-}
-\examples{
 }
 \keyword{manip}

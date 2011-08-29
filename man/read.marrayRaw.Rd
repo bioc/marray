@@ -70,9 +70,6 @@ widget.marrayRaw(ext = c("spot", "xls", "gpr"), skip = 0, sep = "\t",  quote = "
   \item{DEBUG}{a logical value, if TRUE, a series of echo statements will be printed.}
   \item{\dots}{further arguments to \code{\link{scan}}.}
 }
-\details{
-  
-}
 \value{
   An object of class \code{"\link{marrayRaw}"}.
 }

@@ -32,14 +32,12 @@ read.marrayLayout(fname = NULL, ngr, ngc, nsr, nsc, pl.col = NULL, ctl.col = NUL
   \item{\dots}{further arguments to \code{\link{scan}}.}
 }
 
-\details{}
 \value{
   An object of class \code{\link{marrayLayout}}.
 }
 
 \references{http://www.bioconductor.org/ }
 \author{Jean Yang \email{yeehwa@stat.berkeley.edu}}
-\note{}
 
 \examples{
 datadir <- system.file("swirldata", package="marray")

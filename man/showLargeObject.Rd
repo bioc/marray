@@ -23,8 +23,5 @@ quantities of data.
 
 \author{modifid from Gordon Smyth's function}
 
-\examples{
-}
-
 \keyword{classes}
 \keyword{data}

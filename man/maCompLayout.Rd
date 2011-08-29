@@ -16,9 +16,6 @@ maCompLayout(mat, ncolumns = 4)
   \item{ncolumns}{For n by 3 matrix, the number of meta-grid columns.
     By default, it is set to 4.}
 }
-\details{
-
-}
 \value{
   An object of class \code{"\link{marrayLayout}"}.
 }
