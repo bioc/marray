@@ -247,7 +247,7 @@ table2html <- function (restable, filename = "GeneList.html",
   close(outfile)
   
   if (disp == "browser") 
-    browseURL(paste("file://", filename, sep = "/"))
+    if (interactive()) browseURL(paste("file://", filename, sep = "/"))
   return()
 }
 
